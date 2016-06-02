@@ -31,12 +31,7 @@ public class MainActivity extends AppCompatActivity {
         DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         mDrawerFragment.setUp(mDrawerLayout, toolbar);
-
-        ViewPager eventViewPager = (ViewPager) findViewById(R.id.event_view_pager);
-        eventViewPager.setAdapter(new EventFragmentPagerAdapter(getSupportFragmentManager()));
-        TabLayout eventTabLayout = (TabLayout) findViewById(R.id.event_tab_layout);
-        eventTabLayout.setupWithViewPager(eventViewPager);
-
+        
     }
 
     @Override
