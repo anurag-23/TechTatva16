@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+
+    <ImageView
+        android:layout_height="175dp"
+        android:layout_width="match_parent"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/drawer_header"
+        android:scaleType="centerCrop"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@color/divider_color"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/drawer_recycler_view"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:scrollbars="vertical" />
+
+</LinearLayout>
