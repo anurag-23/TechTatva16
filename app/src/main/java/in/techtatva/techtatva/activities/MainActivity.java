@@ -1,5 +1,7 @@
 package in.techtatva.techtatva.activities;
 
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -7,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 
+import in.techtatva.techtatva.adapters.EventFragmentPagerAdapter;
 import in.techtatva.techtatva.fragments.DrawerFragment;
 import in.techtatva.techtatva.R;
 
@@ -28,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
         DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         mDrawerFragment.setUp(mDrawerLayout, toolbar);
+
+        ViewPager eventViewPager = (ViewPager) findViewById(R.id.event_view_pager);
+        eventViewPager.setAdapter(new EventFragmentPagerAdapter(getSupportFragmentManager()));
+        TabLayout eventTabLayout = (TabLayout) findViewById(R.id.event_tab_layout);
+        eventTabLayout.setupWithViewPager(eventViewPager);
+
     }
 
     @Override
