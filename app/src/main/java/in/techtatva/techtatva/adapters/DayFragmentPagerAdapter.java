@@ -1,5 +1,6 @@
 package in.techtatva.techtatva.adapters;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -8,12 +9,14 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.techtatva.techtatva.fragments.DayFragment;
+
 /**
  * Created by Naman on 6/2/2016.
  */
 public class DayFragmentPagerAdapter extends FragmentPagerAdapter {
 
-    private final List<Fragment> mFragmentList = new ArrayList<>();
+   private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
 
     public DayFragmentPagerAdapter(FragmentManager fm) {
