@@ -9,9 +9,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 
+import in.techtatva.techtatva.adapters.DayFragmentPagerAdapter;
 import in.techtatva.techtatva.adapters.EventFragmentPagerAdapter;
 import in.techtatva.techtatva.fragments.DrawerFragment;
 import in.techtatva.techtatva.R;
+import in.techtatva.techtatva.fragments.EventDetailsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,8 +33,22 @@ public class MainActivity extends AppCompatActivity {
         DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         mDrawerFragment.setUp(mDrawerLayout, toolbar);
-        
+
+        DayFragmentPagerAdapter dayFragmentPagerAdapter = new DayFragmentPagerAdapter(getSupportFragmentManager());
+        dayFragmentPagerAdapter.addFragment(new EventDetailsFragment(),"Day 01");
+        dayFragmentPagerAdapter.addFragment(new EventDetailsFragment(),"Day 02");
+        dayFragmentPagerAdapter.addFragment(new EventDetailsFragment(),"Day 03");
+        dayFragmentPagerAdapter.addFragment(new EventDetailsFragment(),"Day 04");
+        //ViewPager
+        ViewPager viewPager = (ViewPager) findViewById(R.id.day_viewpager);
+        viewPager.setAdapter(dayFragmentPagerAdapter);
+        //DaysTabLayout
+        TabLayout tabLayout = (TabLayout)findViewById(R.id.tab_layout);
+        tabLayout.setupWithViewPager(viewPager);
+
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -44,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
 
         return super.onOptionsItemSelected(item);
     }
