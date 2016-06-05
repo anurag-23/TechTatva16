@@ -1,20 +1,97 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="in.techtatva.techtatva.fragments.EventDetailsFragment">
-
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/events_recycler_view"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white"
+    >
+    <TextView
+        android:id="@+id/eventLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="vertical"/>
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@drawable/ic_location"
+        android:drawablePadding="16dp"
+        android:drawableStart="@drawable/ic_location"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="start|center_vertical"
+        android:textColor="@color/black"
+        android:text="Location"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:id="@+id/eventTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/eventLocation"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/ic_time"
+        android:drawablePadding="16dp"
+        android:drawableStart="@drawable/ic_time"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="start|center_vertical"
+        android:textColor="@color/black"
+        android:text="Timings"
+        android:textSize="15sp"/>
+    <TextView
+        android:id="@+id/eventDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/eventTime"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/ic_date"
+        android:drawablePadding="16dp"
+        android:drawableStart="@drawable/ic_date"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="start|center_vertical"
+        android:textColor="@color/black"
+        android:text="Date"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:id="@+id/maxSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/eventDate"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/ic_participants"
+        android:drawablePadding="16dp"
+        android:drawableStart="@drawable/ic_participants"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="@color/black"
+        android:text="No. of participants"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:id="@+id/eventContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/maxSize"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/ic_contact"
+        android:drawablePadding="16dp"
+        android:drawableStart="@drawable/ic_contact"
+        android:fontFamily="sans-serif-condensed"
+        android:gravity="start|center_vertical"
+        android:textColor="@color/black"
+        android:text="Contact"
+        android:textSize="15sp"/>
 
 
 
-    <!-- TODO: Update blank fragment layout
-    <TextView android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-    -->
-</FrameLayout>
+</RelativeLayout>

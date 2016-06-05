@@ -8,4 +8,5 @@
     <dimen name="drawable_padding">32dp</dimen>
     <dimen name="item_text_size">15sp</dimen>
     <dimen name="drawer_item_padding">15dp</dimen>
+    <dimen name="std_icon_size">40dp</dimen>
 </resources>
