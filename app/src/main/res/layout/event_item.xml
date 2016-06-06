@@ -62,14 +62,18 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@android:color/black"/>
 
            <android.support.design.widget.TabLayout
                 android:id="@+id/event_tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabGravity="fill"
                 style="@style/EventsTabLayout"
                 app:tabMode="fixed"
+               app:tabBackground="@drawable/tab_color_selector"
                 android:background="@color/white" />
 
             <in.techtatva.techtatva.adapters.EventFragmentCustomPager

@@ -65,11 +65,13 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
 
             eventName = (TextView) itemView.findViewById(R.id.eventName);
             favoriteButton = (ImageButton) itemView.findViewById(R.id.favorite_button);
+            favoriteButton.setTag("Deselected");
             linearLayout = (LinearLayout) itemView.findViewById(R.id.description);
             eventCard = (CardView)itemView.findViewById(R.id.event_card);
 
             eventFragmentPager = (EventFragmentCustomPager)itemView.findViewById(R.id.event_view_pager);
             eventTabLayout = (TabLayout)itemView.findViewById(R.id.event_tab_layout);
+
 
             itemView.setOnClickListener(this);
             favoriteButton.setOnClickListener(this);
@@ -90,10 +92,19 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
             }
 
             if(view.getId()==favoriteButton.getId()){
-                favoriteButton.setImageResource(R.drawable.ic_fav_selected);
+                if(favoriteButton.getTag().toString().equals("Deselected")){
+                    favoriteButton.setImageResource(R.drawable.ic_fav_selected);
+                    favoriteButton.setTag("Selected");
+                }
+                else if(favoriteButton.getTag().toString().equals("Selected")){
+                    favoriteButton.setImageResource(R.drawable.ic_fav_deselected);
+                    favoriteButton.setTag("Deselected");
+                }
+
             }
 
         }
+
 
     }
 
