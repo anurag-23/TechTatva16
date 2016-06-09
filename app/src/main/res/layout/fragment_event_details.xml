@@ -6,7 +6,7 @@
     android:background="@color/white"
     >
     <TextView
-        android:id="@+id/eventLocation"
+        android:id="@+id/event_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
@@ -23,10 +23,10 @@
         android:textSize="15sp"/>
 
     <TextView
-        android:id="@+id/eventTime"
+        android:id="@+id/event_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/eventLocation"
+        android:layout_below="@+id/event_location"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -40,10 +40,10 @@
         android:text="Timings"
         android:textSize="15sp"/>
     <TextView
-        android:id="@+id/eventDate"
+        android:id="@+id/event_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/eventTime"
+        android:layout_below="@+id/event_time"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -58,10 +58,10 @@
         android:textSize="15sp"/>
 
     <TextView
-        android:id="@+id/maxSize"
+        android:id="@+id/event_participants"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/eventDate"
+        android:layout_below="@id/event_date"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -75,10 +75,10 @@
         android:textSize="15sp"/>
 
     <TextView
-        android:id="@+id/eventContact"
+        android:id="@+id/event_contact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/maxSize"
+        android:layout_below="@+id/event_participants"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"

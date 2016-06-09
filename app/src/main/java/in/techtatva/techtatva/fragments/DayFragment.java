@@ -7,14 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.adapters.EventCardAdapter;
-import in.techtatva.techtatva.adapters.EventFragmentPagerAdapter;
 import in.techtatva.techtatva.models.Event;
 
 /**
@@ -43,7 +41,7 @@ public class DayFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_day, container, false);
 
         /*TextView textView = (TextView) view;
-        textView.setText("Fragment #" + mPage);*/
+        textView.setEventName("Fragment #" + mPage);*/
 
         RecyclerView eventsRecyclerView = (RecyclerView) view.findViewById(R.id.day_recycler_view);
         EventCardAdapter adapter = new EventCardAdapter(getEventsList(),getChildFragmentManager());
@@ -59,7 +57,7 @@ public class DayFragment extends Fragment {
         List<Event> list = new ArrayList<>();
         for (int i = 0; i < text.length; i++) {
             Event model = new Event();
-            model.setText(text[i]);
+            model.setEventName(text[i]);
 
             list.add(model);
         }

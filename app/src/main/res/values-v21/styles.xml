@@ -1,5 +1,12 @@
 <resources>
 
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="android:colorPrimary">@color/color_primary</item>
+        <item name="android:colorPrimaryDark">@color/color_primary_dark</item>
+
+    </style>
+
     <style name="AppBarTheme" parent = "ThemeOverlay.AppCompat.Dark">
 
         <item name="android:textColorSecondary">@color/white</item>
