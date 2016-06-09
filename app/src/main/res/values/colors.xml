@@ -7,9 +7,12 @@
     <color name="color_highlight">#B6B6B6</color>
     <color name="color_primary">#fe5722</color>
     <color name="primary_light">#FFCCBC</color>
-    <color name="color_primary_dark">#b63810</color>
+    <color name="color_primary_dark">#E64A19</color>
     <color name="color_primary_selected">#fc9d80</color>
     <color name="grey">#D3D3D3</color>
+    <color name="blue">#0099CC</color>
+    <color name="dark_grey">#666666</color>
+    <color name="grey_bg">#E5E5E5</color>
 
 
 </resources>

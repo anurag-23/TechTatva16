@@ -1,5 +1,6 @@
 package in.techtatva.techtatva.activities;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.app_name);
+        getSupportActionBar().setIcon(R.drawable.ic_toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         DrawerFragment mDrawerFragment = (DrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -62,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
             case R.id.instagram:{
+                Intent intent = new Intent (this, InstaFeedActivity.class);
+                startActivity(intent);
                 break;
             }
 
