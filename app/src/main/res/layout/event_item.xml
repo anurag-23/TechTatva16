@@ -22,7 +22,7 @@
         android:background="@drawable/on_select_bg">
 
         <ImageView
-            android:id="@+id/eventLogo"
+            android:id="@+id/event_logo"
             android:layout_width="@dimen/std_icon_size"
             android:layout_height="@dimen/std_icon_size"
             android:layout_marginTop="5dp"
@@ -31,11 +31,11 @@
             android:src="@drawable/acumen" />
 
         <TextView
-            android:id="@+id/eventName"
+            android:id="@+id/event_name"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_margin="5dp"
-            android:layout_toRightOf="@+id/eventLogo"
+            android:layout_toRightOf="@+id/event_logo"
             android:fontFamily="sans-serif-condensed"
             android:gravity="start|center_vertical"
             android:textAllCaps="true"
@@ -52,7 +52,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="5dp"
             android:src="@drawable/ic_fav_deselected"
-            android:background="@drawable/on_fav_select" />
+            android:background="@drawable/on_fav_select"
+            android:tag="Deselected"/>
 
     </RelativeLayout>
 
@@ -62,6 +63,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/divider_color" />
 
            <android.support.design.widget.TabLayout
                 android:id="@+id/event_tab_layout"
@@ -77,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="175dp"
                 android:background="@color/white" />
-            
+
         </LinearLayout>
 
     </LinearLayout>

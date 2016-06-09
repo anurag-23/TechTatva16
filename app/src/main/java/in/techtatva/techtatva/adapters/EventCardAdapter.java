@@ -2,14 +2,15 @@ package in.techtatva.techtatva.adapters;
 
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.TabLayout;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
     public void onBindViewHolder(EventCardAdapter.ViewHolder viewHolder, int position) {
 
         Event event = events.get(position);
-        viewHolder.eventName.setText(event.getText());
+        viewHolder.eventName.setText(event.getEventName());
         viewHolder.eventFragmentPager.setAdapter(new EventFragmentPagerAdapter(fm));
         viewHolder.eventTabLayout.setupWithViewPager(viewHolder.eventFragmentPager);
         viewHolder.eventFragmentPager.setId(position + 1);
@@ -53,20 +54,20 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
+        ImageView eventLogo;
         TextView eventName;
         ImageButton favoriteButton;
         LinearLayout linearLayout;
-        CardView eventCard;
         EventFragmentCustomPager eventFragmentPager;
         TabLayout eventTabLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            eventName = (TextView) itemView.findViewById(R.id.eventName);
+            eventLogo = (ImageView)itemView.findViewById(R.id.event_logo);
+            eventName = (TextView) itemView.findViewById(R.id.event_name);
             favoriteButton = (ImageButton) itemView.findViewById(R.id.favorite_button);
             linearLayout = (LinearLayout) itemView.findViewById(R.id.description);
-            eventCard = (CardView)itemView.findViewById(R.id.event_card);
 
             eventFragmentPager = (EventFragmentCustomPager)itemView.findViewById(R.id.event_view_pager);
             eventTabLayout = (TabLayout)itemView.findViewById(R.id.event_tab_layout);
@@ -90,7 +91,17 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
             }
 
             if(view.getId()==favoriteButton.getId()){
-                favoriteButton.setImageResource(R.drawable.ic_fav_selected);
+
+                if(favoriteButton.getTag().toString().equals("Deselected")) {
+                    favoriteButton.setImageResource(R.drawable.ic_fav_selected);
+                    favoriteButton.setTag("Selected");
+                    Toast.makeText(view.getContext(), eventName.getText().toString() + " added to favourites!", Toast.LENGTH_SHORT).show();
+                }
+                else if(favoriteButton.getTag().toString().equals("Selected")) {
+                    favoriteButton.setImageResource(R.drawable.ic_fav_deselected);
+                    favoriteButton.setTag("Deselected");
+                    Toast.makeText(view.getContext(), eventName.getText().toString() + " removed from favourites!", Toast.LENGTH_SHORT).show();
+                }
             }
 
         }
