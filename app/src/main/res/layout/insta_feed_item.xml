@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
+    app:cardElevation="3dp"
+    android:background="@color/white">
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:background="@color/white"
+        android:elevation="5dp">
+
+        <ImageView
+            android:id="@+id/insta_feed_dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/tt_logo" />
+
+        <TextView
+            android:id="@+id/insta_feed_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="username"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="12dp"
+            android:textSize="16dp"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/insta_feed_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/tt_insta_img"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/insta_feed_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="username Description"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-condensed"/>
+
+        <TextView
+            android:id="@+id/insta_feed_likes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 likes"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/ic_insta_likes"
+            android:drawablePadding="5dp"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/dark_grey"/>
+
+        <TextView
+            android:id="@+id/insta_feed_comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 comments"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/ic_insta_comments"
+            android:drawablePadding="5dp"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/dark_grey"/>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
+</android.support.v7.widget.CardView>

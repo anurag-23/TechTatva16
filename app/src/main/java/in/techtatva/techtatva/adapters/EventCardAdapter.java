@@ -2,15 +2,15 @@ package in.techtatva.techtatva.adapters;
 
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -38,8 +38,13 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(EventCardAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(EventCardAdapter.ViewHolder viewHolder, int position) {
 
+        Event event = events.get(position);
+        viewHolder.eventName.setText(event.getEventName());
+        viewHolder.eventFragmentPager.setAdapter(new EventFragmentPagerAdapter(fm));
+        viewHolder.eventTabLayout.setupWithViewPager(viewHolder.eventFragmentPager);
+        viewHolder.eventFragmentPager.setId(position + 1);
     }
 
     @Override
@@ -49,43 +54,58 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
+        ImageView eventLogo;
         TextView eventName;
         ImageButton favoriteButton;
-        RelativeLayout relativeLayout;
+        LinearLayout linearLayout;
+        EventFragmentCustomPager eventFragmentPager;
+        TabLayout eventTabLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            eventName = (TextView) itemView.findViewById(R.id.eventName);
+            eventLogo = (ImageView)itemView.findViewById(R.id.event_logo);
+            eventName = (TextView) itemView.findViewById(R.id.event_name);
             favoriteButton = (ImageButton) itemView.findViewById(R.id.favorite_button);
-            relativeLayout=(RelativeLayout) itemView.findViewById(R.id.description);
+            linearLayout = (LinearLayout) itemView.findViewById(R.id.description);
 
-            ViewPager eventViewPager = (ViewPager) itemView.findViewById(R.id.event_view_pager);
-            eventViewPager.setAdapter(new EventFragmentPagerAdapter(fm));
-
-            TabLayout tabLayout = (TabLayout) itemView.findViewById(R.id.event_tab_layout);
-            tabLayout.setupWithViewPager(eventViewPager);
+            eventFragmentPager = (EventFragmentCustomPager)itemView.findViewById(R.id.event_view_pager);
+            eventTabLayout = (TabLayout)itemView.findViewById(R.id.event_tab_layout);
 
             itemView.setOnClickListener(this);
-
-
+            favoriteButton.setOnClickListener(this);
 
         }
 
         @Override
         public void onClick(View view) {
             if(view.getId()==itemView.getId()){
-                if(relativeLayout.getVisibility()==View.VISIBLE){
-                    relativeLayout.setVisibility(View.GONE);
 
+                if(linearLayout.getVisibility()==View.VISIBLE){
+                    linearLayout.setVisibility(View.GONE);
                 }
-                else if(relativeLayout.getVisibility()==View.GONE){
-                    relativeLayout.setVisibility(View.VISIBLE);
+                else if(linearLayout.getVisibility()==View.GONE){
+                    linearLayout.setVisibility(View.VISIBLE);
                 }
-
 
             }
+
+            if(view.getId()==favoriteButton.getId()){
+
+                if(favoriteButton.getTag().toString().equals("Deselected")) {
+                    favoriteButton.setImageResource(R.drawable.ic_fav_selected);
+                    favoriteButton.setTag("Selected");
+                    Toast.makeText(view.getContext(), eventName.getText().toString() + " added to favourites!", Toast.LENGTH_SHORT).show();
+                }
+                else if(favoriteButton.getTag().toString().equals("Selected")) {
+                    favoriteButton.setImageResource(R.drawable.ic_fav_deselected);
+                    favoriteButton.setTag("Deselected");
+                    Toast.makeText(view.getContext(), eventName.getText().toString() + " removed from favourites!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
         }
+
     }
 
 
