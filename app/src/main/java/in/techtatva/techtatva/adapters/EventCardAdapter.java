@@ -64,8 +64,8 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
         public ViewHolder(View itemView) {
             super(itemView);
 
-            eventLogo = (ImageView)itemView.findViewById(R.id.event_logo);
-            eventName = (TextView) itemView.findViewById(R.id.event_name);
+            eventLogo = (ImageView)itemView.findViewById(R.id.event_logo_image_view);
+            eventName = (TextView) itemView.findViewById(R.id.event_name_text_view);
             favoriteButton = (ImageButton) itemView.findViewById(R.id.favorite_button);
             favoriteButton.setTag("Deselected");
             linearLayout = (LinearLayout) itemView.findViewById(R.id.description);

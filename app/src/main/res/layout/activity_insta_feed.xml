@@ -7,7 +7,9 @@
     tools:context=".activities.InstaFeedActivity"
     android:background="@color/grey_bg">
 
+
     <include layout="@layout/app_bar" />
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/insta_feed_recycler_view"
