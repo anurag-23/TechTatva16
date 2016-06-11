@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="38dp"
+        android:paddingRight="38dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/trophy"
+            android:layout_gravity="center_horizontal" />
+        <TextView
+            android:id="@+id/result_name_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="1dp"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="start|center_vertical"
+            android:text="Magnet Gun (Round 1)"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_gravity="center_horizontal"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/winner_result_container"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Winners"
+                android:textAllCaps="true"
+                android:textSize="25sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                />
+            <TextView
+                android:id="@+id/result_teamID_winner_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Team ID:2020"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:layout_gravity="center_horizontal"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/qualified_result_container"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Qualified Teams"
+                android:textAllCaps="true"
+                android:textSize="25sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/qualified_teams_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+
+                android:scrollbars="vertical"/>
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

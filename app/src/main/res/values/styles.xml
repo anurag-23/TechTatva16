@@ -33,6 +33,7 @@
         <item name="tabIndicatorColor">@color/color_primary</item>
         <item name="tabTextAppearance">@style/EventsTabTextAppearance</item>
         <item name="tabSelectedTextColor">@color/color_primary</item>
+
     </style>
 
     <style name="EventsTabTextAppearance" parent="TextAppearance.Design.Tab">

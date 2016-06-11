@@ -64,13 +64,15 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
         public ViewHolder(View itemView) {
             super(itemView);
 
-            eventLogo = (ImageView)itemView.findViewById(R.id.event_logo);
-            eventName = (TextView) itemView.findViewById(R.id.event_name);
+            eventLogo = (ImageView)itemView.findViewById(R.id.event_logo_image_view);
+            eventName = (TextView) itemView.findViewById(R.id.event_name_text_view);
             favoriteButton = (ImageButton) itemView.findViewById(R.id.favorite_button);
+            favoriteButton.setTag("Deselected");
             linearLayout = (LinearLayout) itemView.findViewById(R.id.description);
 
             eventFragmentPager = (EventFragmentCustomPager)itemView.findViewById(R.id.event_view_pager);
             eventTabLayout = (TabLayout)itemView.findViewById(R.id.event_tab_layout);
+
 
             itemView.setOnClickListener(this);
             favoriteButton.setOnClickListener(this);
@@ -102,9 +104,11 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
                     favoriteButton.setTag("Deselected");
                     Toast.makeText(view.getContext(), eventName.getText().toString() + " removed from favourites!", Toast.LENGTH_SHORT).show();
                 }
+
             }
 
         }
+
 
     }
 
