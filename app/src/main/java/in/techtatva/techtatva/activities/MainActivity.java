@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
             case R.id.instagram:{
-                Intent intent = new Intent (this, InstaFeedActivity.class);
+                Intent intent = new Intent (this,InstaFeedActivity.class);
                 startActivity(intent);
                 break;
             }

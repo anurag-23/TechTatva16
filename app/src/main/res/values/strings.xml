@@ -29,8 +29,19 @@
     <string name="event_07">Mobivision (Round 1)</string>
     <string name="event_08">Corporate Rush (Round 1)</string>
 
+    <string name="event_11">AIB (Round 2)</string>
+    <string name="event_12">ATR (Round 2)</string>
+    <string name="event_13">Industrialize (Round 2)</string>
+    <string name="event_14">Buzzinga (Round 2)</string>
+    <string name="event_15">Conkreation (Round 2)</string>
+    <string name="event_16">Decepticode (Round 2)</string>
+    <string name="event_17">Mobivision (Round 2)</string>
+    <string name="event_18">Corporate Rush (Round 2)</string>
+
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_insta_feed">InstaFeedActivity</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_result">Results</string>
 </resources>

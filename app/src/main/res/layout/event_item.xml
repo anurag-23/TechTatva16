@@ -22,7 +22,7 @@
         android:background="@drawable/on_select_bg">
 
         <ImageView
-            android:id="@+id/event_logo"
+            android:id="@+id/event_logo_image_view"
             android:layout_width="@dimen/std_icon_size"
             android:layout_height="@dimen/std_icon_size"
             android:layout_marginTop="5dp"
@@ -31,11 +31,11 @@
             android:src="@drawable/acumen" />
 
         <TextView
-            android:id="@+id/event_name"
+            android:id="@+id/event_name_text_view"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_margin="5dp"
-            android:layout_toRightOf="@+id/event_logo"
+            android:layout_toRightOf="@+id/event_logo_image_view"
             android:fontFamily="sans-serif-condensed"
             android:gravity="start|center_vertical"
             android:textAllCaps="true"
@@ -70,13 +70,13 @@
                 android:background="@color/divider_color" />
 
            <android.support.design.widget.TabLayout
-                android:id="@+id/event_tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabGravity="fill"
-                style="@style/EventsTabLayout"
-                app:tabMode="fixed"
-                android:background="@color/white" />
+               android:id="@+id/event_tab_layout"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               app:tabGravity="fill"
+               style="@style/EventsTabLayout"
+               app:tabMode="fixed"
+               android:background="@color/white" />
 
             <in.techtatva.techtatva.adapters.EventFragmentCustomPager
                 android:id="@+id/event_view_pager"

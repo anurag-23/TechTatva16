@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/event_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    app:cardElevation="2dp"
+    android:layout_marginLeft="4dp"
+    android:layout_marginRight="4dp"
+    android:layout_marginTop="4dp"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white">
+
+
+        <ImageView
+            android:id="@+id/result_logo_image_view"
+            android:layout_width="@dimen/std_icon_size"
+            android:layout_height="@dimen/std_icon_size"
+            android:layout_margin="5dp"
+            android:src="@drawable/acumen" />
+
+        <TextView
+            android:id="@+id/result_name_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="start|center_vertical"
+            android:text="Result Name"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="17sp" />
+
+
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>
