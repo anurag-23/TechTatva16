@@ -44,7 +44,7 @@ public class DayFragment extends Fragment {
         textView.setEventName("Fragment #" + mPage);*/
 
         RecyclerView eventsRecyclerView = (RecyclerView) view.findViewById(R.id.day_recycler_view);
-        EventCardAdapter adapter = new EventCardAdapter(getEventsList(),getChildFragmentManager());
+        EventCardAdapter adapter = new EventCardAdapter(eventsRecyclerView, getEventsList(),getChildFragmentManager());
         eventsRecyclerView.setAdapter(adapter);
         eventsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

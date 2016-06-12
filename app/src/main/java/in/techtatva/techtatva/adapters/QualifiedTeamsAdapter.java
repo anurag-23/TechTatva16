@@ -33,7 +33,7 @@ public class QualifiedTeamsAdapter extends RecyclerView.Adapter<QualifiedTeamsAd
     @Override
     public void onBindViewHolder(QualifiedTeamsAdapter.ViewHolder holder, int position) {
         int teamID = teamIDs.get(position);
-        holder.qualifiedTeamsTeamID.setText("Team ID:"+teamID);
+        holder.qualifiedTeamsTeamID.setText("Team ID: "+teamID);
     }
 
     @Override
