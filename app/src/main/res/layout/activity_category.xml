@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/grey_bg"
-    tools:context="in.techtatva.techtatva.activities.ResultActivity">
+    tools:context="in.techtatva.techtatva.activities.CategoryActivity">
 
 
     <include layout="@layout/app_bar" />

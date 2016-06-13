@@ -35,7 +35,7 @@
             android:layout_toEndOf="@id/category_logo_image_view"
             android:fontFamily="sans-serif-condensed"
             android:gravity="start|center_vertical"
-            tools:text="Result Name"
+            tools:text="Category Name"
             android:textAllCaps="true"
             android:textStyle="bold"
             android:textColor="@color/black"
