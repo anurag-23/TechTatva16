@@ -26,6 +26,10 @@
             android:label="@string/title_activity_result"
             android:parentActivityName=".activities.MainActivity">
         </activity>
+        <activity android:name=".activities.CategoryActivity"
+            android:label="@string/title_activity_category"
+            android:parentActivityName=".activities.MainActivity">
+        </activity>
 
 
     </application>
