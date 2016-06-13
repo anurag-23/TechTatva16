@@ -43,9 +43,11 @@ public class EventFragmentPagerAdapter extends FragmentPagerAdapter{
     @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
         super.setPrimaryItem(container, position, object);
+
         if (position != mCurrentPosition) {
             Fragment fragment = (Fragment) object;
             EventFragmentCustomPager pager = (EventFragmentCustomPager) container;
+
             if (fragment != null && fragment.getView() != null) {
                 mCurrentPosition = position;
                 pager.measureCurrentView(fragment.getView());

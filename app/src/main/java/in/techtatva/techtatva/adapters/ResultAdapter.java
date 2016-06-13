@@ -1,5 +1,6 @@
 package in.techtatva.techtatva.adapters;
 
+import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
@@ -66,7 +67,12 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         public void onClick(View view) {
             if(view.getId()==itemView.getId()){
                 DialogFragment fragment= ResultDetailsFragment.newInstance();
-                fragment.setStyle( DialogFragment.STYLE_NO_TITLE, 0);
+                fragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+
+                Bundle bundle = new Bundle();
+                bundle.putString("Event", resultName.getText().toString());
+
+                fragment.setArguments(bundle);
                 fragment.show(fm,"fragment_result_details");
             }
         }
