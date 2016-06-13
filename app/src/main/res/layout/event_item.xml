@@ -1,5 +1,6 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/event_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -36,16 +37,17 @@
             android:layout_height="40dp"
             android:layout_margin="5dp"
             android:layout_toRightOf="@+id/event_logo_image_view"
+            android:layout_toEndOf="@+id/event_logo_image_view"
             android:fontFamily="sans-serif-condensed"
             android:gravity="start|center_vertical"
             android:textAllCaps="true"
-            android:text="Event Name"
+            tools:text="Event Name"
             android:textColor="@color/black"
             android:textSize="17sp"
             android:textStyle="bold" />
 
         <ImageButton
-            android:id="@+id/favorite_button"
+            android:id="@+id/favorite_image_button"
             android:layout_width="@dimen/std_icon_size"
             android:layout_height="@dimen/std_icon_size"
             android:layout_alignParentEnd="true"
@@ -58,7 +60,7 @@
     </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/description"
+            android:id="@+id/description_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"

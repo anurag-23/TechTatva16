@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/white"
-    >
+    android:background="@color/white">
     <TextView
         android:id="@+id/event_location_text_view"
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
         android:fontFamily="sans-serif-condensed"
         android:gravity="start|center_vertical"
         android:textColor="@color/black"
-        android:text="Location"
+        tools:text="Location"
         android:textSize="15sp"/>
 
     <TextView
@@ -37,7 +37,7 @@
         android:fontFamily="sans-serif-condensed"
         android:gravity="start|center_vertical"
         android:textColor="@color/black"
-        android:text="Timings"
+        tools:text="Timings"
         android:textSize="15sp"/>
     <TextView
         android:id="@+id/event_date_text_view"
@@ -54,7 +54,7 @@
         android:fontFamily="sans-serif-condensed"
         android:gravity="start|center_vertical"
         android:textColor="@color/black"
-        android:text="Date"
+        tools:text="Date"
         android:textSize="15sp"/>
 
     <TextView
@@ -71,7 +71,7 @@
         android:drawableStart="@drawable/ic_participants"
         android:fontFamily="sans-serif-condensed"
         android:textColor="@color/black"
-        android:text="No. of participants"
+        tools:text="No. of participants"
         android:textSize="15sp"/>
 
     <TextView
@@ -89,7 +89,7 @@
         android:fontFamily="sans-serif-condensed"
         android:gravity="start|center_vertical"
         android:textColor="@color/black"
-        android:text="Contact"
+        tools:text="Contact"
         android:textSize="15sp"/>
 
 

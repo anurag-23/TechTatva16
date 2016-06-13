@@ -1,18 +1,15 @@
 package in.techtatva.techtatva.fragments;
 
 
-import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +34,9 @@ public class ResultDetailsFragment extends DialogFragment {
 
         View view =inflater.inflate(R.layout.fragment_result_details, container,false);
 
+        TextView eventName = (TextView)view.findViewById(R.id.result_name_text_view);
+        eventName.setText(getArguments().getString("Event"));
+
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.qualified_teams_recycler_view);
         QualifiedTeamsAdapter adapter = new QualifiedTeamsAdapter(getList());
         recyclerView.setAdapter(adapter);
@@ -56,7 +56,7 @@ public class ResultDetailsFragment extends DialogFragment {
 
     }
     public List<Integer> getList() {
-        int[] teamIDs = {201,202,203,204,205,206,207,208,209,210};
+        int[] teamIDs = {201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220, 221,222,223,224};
 
         List<Integer> list = new ArrayList<>();
         for (int i = 0; i < teamIDs.length; i++) {

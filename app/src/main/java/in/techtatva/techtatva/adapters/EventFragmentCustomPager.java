@@ -26,9 +26,12 @@ public class EventFragmentCustomPager extends ViewPager {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
             return;
         }
+
         int height = 0;
+
         mCurrentView.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
         int h = mCurrentView.getMeasuredHeight();
+
         if (h > height) height = h;
         heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
 

@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import in.techtatva.techtatva.R;
@@ -71,12 +70,12 @@ public class InstaFeedAdapter extends RecyclerView.Adapter<InstaFeedAdapter.Inst
         public InstaFeedViewHolder(View itemView) {
             super(itemView);
 
-            instaFeedDP = (ImageView)itemView.findViewById(R.id.insta_feed_dp);
-            instaFeedName = (TextView)itemView.findViewById(R.id.insta_feed_name);
-            instaFeedImage = (ImageView)itemView.findViewById(R.id.insta_feed_img);
-            instaFeedDescription = (TextView)itemView.findViewById(R.id.insta_feed_description);
-            instaFeedLikes = (TextView)itemView.findViewById(R.id.insta_feed_likes);
-            instaFeedComments = (TextView)itemView.findViewById(R.id.insta_feed_comments);
+            instaFeedDP = (ImageView)itemView.findViewById(R.id.insta_feed_dp_image_view);
+            instaFeedName = (TextView)itemView.findViewById(R.id.insta_feed_name_text_view);
+            instaFeedImage = (ImageView)itemView.findViewById(R.id.insta_feed_img_image_view);
+            instaFeedDescription = (TextView)itemView.findViewById(R.id.insta_feed_description_text_view);
+            instaFeedLikes = (TextView)itemView.findViewById(R.id.insta_feed_likes_text_view);
+            instaFeedComments = (TextView)itemView.findViewById(R.id.insta_feed_comments_text_view);
         }
     }
 }
