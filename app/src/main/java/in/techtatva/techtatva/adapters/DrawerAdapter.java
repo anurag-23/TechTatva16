@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.techtatva.techtatva.R;
+import in.techtatva.techtatva.activities.CategoryActivity;
 import in.techtatva.techtatva.activities.ResultActivity;
 import in.techtatva.techtatva.models.DrawerModel;
 
@@ -76,6 +77,10 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerView
                 context.startActivity(intent);
             }
 
+            if (drawerItemName.getText().equals("Category View")){
+                Intent intent = new Intent(context, CategoryActivity.class);
+                context.startActivity(intent);
+            }
         }
     }
 

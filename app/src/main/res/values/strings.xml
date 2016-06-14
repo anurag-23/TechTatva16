@@ -45,4 +45,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_result">Results</string>
     <string name="qualified_teams">Qualified Teams</string>
+
+    <string name="title_activity_category">Categories</string>
 </resources>
