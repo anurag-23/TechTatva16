@@ -38,6 +38,18 @@
     <string name="event_17">Mobivision (Round 2)</string>
     <string name="event_18">Corporate Rush (Round 2)</string>
 
+    <string name="category_01">Acumen</string>
+    <string name="category_02">Airborne</string>
+    <string name="category_03">Alacrity</string>
+    <string name="category_04">Bizzmaestro</string>
+    <string name="category_05">Cheminova</string>
+    <string name="category_06">Constructure</string>
+    <string name="category_07">Cryptoss</string>
+    <string name="category_08">Electrific</string>
+    <string name="category_09">Energia</string>
+    <string name="category_10">Epsilon</string>
+    <string name="category_11">Featured</string>
+
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_insta_feed">InstaFeed</string>

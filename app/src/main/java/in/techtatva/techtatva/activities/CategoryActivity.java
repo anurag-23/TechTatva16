@@ -35,7 +35,7 @@ public class CategoryActivity extends AppCompatActivity {
 
 
     public List<CategoryModel> getCategoriesList() {
-        int[] text = {R.string.event_01,R.string.event_11, R.string.event_02,R.string.event_12, R.string.event_03,R.string.event_13, R.string.event_04,R.string.event_14, R.string.event_05, R.string.event_06, R.string.event_07, R.string.event_08};
+        int[] text = {R.string.category_01,R.string.category_02, R.string.category_03,R.string.category_04, R.string.category_05,R.string.category_06,R.string.category_07, R.string.category_08,R.string.category_09, R.string.category_10, R.string.category_11};
 
         List<CategoryModel> list = new ArrayList<>();
         for (int i = 0; i < text.length; i++) {

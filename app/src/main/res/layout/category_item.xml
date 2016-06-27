@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@drawable/on_select_bg">
+        android:background="@color/white">
 
 
         <ImageView
@@ -48,10 +48,9 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_margin="5dp"
-            android:background="@color/white"
+            android:background="@drawable/on_fav_select"
             android:src="@drawable/category_info"
-            android:longClickable="true"
-            android:layout_marginTop="5dp"
+            android:tint="@color/color_primary"
             android:tag="Deselected"/>
 
     </RelativeLayout>
