@@ -13,7 +13,7 @@ import java.util.List;
 
 import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.adapters.EventCardAdapter;
-import in.techtatva.techtatva.models.Event;
+import in.techtatva.techtatva.models.EventModel;
 
 /**
  * Created by AYUSH on 04-06-2016.
@@ -51,12 +51,12 @@ public class DayFragment extends Fragment {
         return view;
     }
 
-    public List<Event> getEventsList() {
+    public List<EventModel> getEventsList() {
         int[] text = {R.string.event_01, R.string.event_02, R.string.event_03, R.string.event_04, R.string.event_05, R.string.event_06, R.string.event_07, R.string.event_08};
 
-        List<Event> list = new ArrayList<>();
+        List<EventModel> list = new ArrayList<>();
         for (int i = 0; i < text.length; i++) {
-            Event model = new Event();
+            EventModel model = new EventModel();
             model.setEventName(text[i]);
 
             list.add(model);

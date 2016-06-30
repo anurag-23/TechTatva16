@@ -18,13 +18,13 @@ import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.adapters.QualifiedTeamsAdapter;
 
 
-public class ResultDetailsFragment extends DialogFragment {
+public class ResultDetailsDialogFragment extends DialogFragment {
 
-    public ResultDetailsFragment() {
+    public ResultDetailsDialogFragment() {
     }
 
-    public static ResultDetailsFragment newInstance() {
-        ResultDetailsFragment fragment = new ResultDetailsFragment();
+    public static ResultDetailsDialogFragment newInstance() {
+        ResultDetailsDialogFragment fragment = new ResultDetailsDialogFragment();
         return fragment;
     }
 
@@ -32,7 +32,7 @@ public class ResultDetailsFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view =inflater.inflate(R.layout.fragment_result_details, container,false);
+        View view =inflater.inflate(R.layout.fragment_result_details_dialog, container,false);
 
         TextView eventName = (TextView)view.findViewById(R.id.result_name_text_view);
         eventName.setText(getArguments().getString("Event"));

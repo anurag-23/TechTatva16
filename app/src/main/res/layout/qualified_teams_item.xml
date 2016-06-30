@@ -8,8 +8,9 @@
         android:id="@+id/teamID_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
+        android:textSize="15sp"
         tools:text="Team ID: 0000"
+        android:fontFamily="sans-serif-condensed"
         android:layout_gravity="center_horizontal"
         />
 
