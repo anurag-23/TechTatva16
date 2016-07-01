@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import in.techtatva.techtatva.R;
-import in.techtatva.techtatva.fragments.ResultDetailsFragment;
+import in.techtatva.techtatva.fragments.ResultDetailsDialogFragment;
 import in.techtatva.techtatva.models.ResultModel;
 
 /**
@@ -66,14 +66,14 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         @Override
         public void onClick(View view) {
             if(view.getId()==itemView.getId()){
-                DialogFragment fragment= ResultDetailsFragment.newInstance();
+                DialogFragment fragment= ResultDetailsDialogFragment.newInstance();
                 fragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
 
                 Bundle bundle = new Bundle();
                 bundle.putString("Event", resultName.getText().toString());
 
                 fragment.setArguments(bundle);
-                fragment.show(fm,"fragment_result_details");
+                fragment.show(fm,"fragment_result_details_dialog");
             }
         }
     }
