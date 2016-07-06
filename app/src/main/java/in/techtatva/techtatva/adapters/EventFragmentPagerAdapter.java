@@ -1,5 +1,6 @@
 package in.techtatva.techtatva.adapters;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -15,18 +16,37 @@ public class EventFragmentPagerAdapter extends FragmentPagerAdapter{
 
     private int mCurrentPosition = -1;
     private String[] eventTabs={ "Event Details","Info"} ;
+    String location,time,date,participants,contact,info;
 
-    public EventFragmentPagerAdapter(FragmentManager fm) {
+    public EventFragmentPagerAdapter(FragmentManager fm,String location,String time,String date,String participants,String contact,String info) {
         super(fm);
+        this.location=location;
+        this.time=time;
+        this.date=date;
+        this.participants=participants;
+        this.contact=contact;
+        this.info=info;
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new EventDetailsFragment();
+                Fragment fragment=new EventDetailsFragment();
+                Bundle bundle=new Bundle();
+                bundle.putString("location",location);
+                bundle.putString("time",time);
+                bundle.putString("date",date);
+                bundle.putString("participants",participants);
+                bundle.putString("contact",contact);
+                fragment.setArguments(bundle);
+                return fragment;
             case 1:
-                return new InfoFragment();
+                fragment=new InfoFragment();
+                bundle=new Bundle();
+                bundle.putString("info",info);
+                fragment.setArguments(bundle);
+                return fragment;
         }
         return null;
     }

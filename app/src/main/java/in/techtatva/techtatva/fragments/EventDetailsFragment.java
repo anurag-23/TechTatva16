@@ -27,11 +27,11 @@ public class EventDetailsFragment extends Fragment {
         TextView eventParticipants = (TextView)view.findViewById(R.id.event_participants_text_view);
         TextView eventContact = (TextView)view.findViewById(R.id.event_contact_text_view);
 
-        eventLocation.setText("Location");
-        eventTime.setText("Time");
-        eventDate.setText("Date");
-        eventParticipants.setText("Max. participants");
-        eventContact.setText("Contact");
+        eventLocation.setText(getArguments().getString("location"));
+        eventTime.setText(getArguments().getString("time"));
+        eventDate.setText(getArguments().getString("date"));
+        eventParticipants.setText(getArguments().getString("participants"));
+        eventContact.setText(getArguments().getString("contact"));
 
         return view;
     }

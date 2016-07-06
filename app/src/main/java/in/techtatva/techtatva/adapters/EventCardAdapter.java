@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.techtatva.techtatva.R;
-import in.techtatva.techtatva.models.EventModel;
+import in.techtatva.techtatva.models.events.EventModel;
 
 /**
  * Created by Naman on 6/2/2016.
@@ -50,21 +50,8 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
 
         EventModel event = events.get(position);
         viewHolder.linearLayout.setVisibility(View.GONE);
-        viewHolder.eventName.setText(event.getEventName());
+        viewHolder.eventName.setText(event.getEvent_name());
 
-        if (adaptersList.size() < position+1){
-            EventFragmentPagerAdapter adapter = new EventFragmentPagerAdapter(fm);
-            adaptersList.add(adapter);
-
-            viewHolder.eventFragmentPager.setAdapter(adapter);
-            viewHolder.eventTabLayout.setupWithViewPager(viewHolder.eventFragmentPager);
-            viewHolder.eventFragmentPager.setId(position+1);
-        }
-
-        else {
-            viewHolder.eventFragmentPager.setAdapter(adaptersList.get(position));
-            viewHolder.eventTabLayout.setupWithViewPager(viewHolder.eventFragmentPager);
-        }
 
     }
 
@@ -111,6 +98,14 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
                 }
                 else if(linearLayout.getVisibility()==View.GONE){
                     linearLayout.setVisibility(View.VISIBLE);
+
+                    int position =this.getLayoutPosition();
+                    EventModel event= events.get(position);
+                    EventFragmentPagerAdapter adapter = new EventFragmentPagerAdapter(fm,event.getVenue(),event.getStart_time(),event.getDate(),event.getEvent_max_team_number(),event.getContact_number(),event.getDescription());
+                    adaptersList.add(adapter);
+                    eventFragmentPager.setAdapter(adapter);
+                    eventTabLayout.setupWithViewPager(eventFragmentPager);
+                    eventFragmentPager.setId(getLayoutPosition()+1);
 
                     eventsRecyclerView.post(new Runnable() {
                         @Override
