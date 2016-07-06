@@ -16,15 +16,16 @@ public class EventFragmentPagerAdapter extends FragmentPagerAdapter{
 
     private int mCurrentPosition = -1;
     private String[] eventTabs={ "Event Details","Info"} ;
-    String location,time,date,participants,contact,info;
+    String location,time,date,participants,contact_number,contact_name,info;
 
-    public EventFragmentPagerAdapter(FragmentManager fm,String location,String time,String date,String participants,String contact,String info) {
+    public EventFragmentPagerAdapter(FragmentManager fm,String location,String time,String date,String participants,String contact_number,String contact_name,String info) {
         super(fm);
         this.location=location;
         this.time=time;
         this.date=date;
         this.participants=participants;
-        this.contact=contact;
+        this.contact_number=contact_number;
+        this.contact_name=contact_name;
         this.info=info;
     }
 
@@ -38,7 +39,8 @@ public class EventFragmentPagerAdapter extends FragmentPagerAdapter{
                 bundle.putString("time",time);
                 bundle.putString("date",date);
                 bundle.putString("participants",participants);
-                bundle.putString("contact",contact);
+                bundle.putString("contact_number",contact_number);
+                bundle.putString("contact_name",contact_name);
                 fragment.setArguments(bundle);
                 return fragment;
             case 1:

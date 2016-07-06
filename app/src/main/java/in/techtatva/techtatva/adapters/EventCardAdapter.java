@@ -101,7 +101,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
 
                     int position =this.getLayoutPosition();
                     EventModel event= events.get(position);
-                    EventFragmentPagerAdapter adapter = new EventFragmentPagerAdapter(fm,event.getVenue(),event.getStart_time(),event.getDate(),event.getEvent_max_team_number(),event.getContact_number(),event.getDescription());
+                    EventFragmentPagerAdapter adapter = new EventFragmentPagerAdapter(fm,event.getVenue(),event.getStart_time(),event.getDate(),event.getEvent_max_team_number(),event.getContact_number(),event.getContact_name(),event.getDescription());
                     adaptersList.add(adapter);
                     eventFragmentPager.setAdapter(adapter);
                     eventTabLayout.setupWithViewPager(eventFragmentPager);

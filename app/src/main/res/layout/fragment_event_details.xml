@@ -90,6 +90,7 @@
         android:gravity="start|center_vertical"
         android:textColor="@color/black"
         tools:text="Contact"
+        android:singleLine="true"
         android:textSize="15sp"/>
 
 
