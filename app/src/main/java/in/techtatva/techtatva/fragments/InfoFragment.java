@@ -19,7 +19,7 @@ public class InfoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_info, container, false);
 
         TextView info = (TextView)view.findViewById(R.id.event_info_text_view);
-        info.setText("Info");
+        info.setText(getArguments().getString("info"));
 
         return view;
     }
