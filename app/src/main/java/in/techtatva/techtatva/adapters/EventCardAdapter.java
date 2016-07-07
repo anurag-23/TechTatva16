@@ -1,12 +1,10 @@
 package in.techtatva.techtatva.adapters;
 
-import android.content.Context;
 import android.graphics.Rect;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +15,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import in.techtatva.techtatva.R;
-import in.techtatva.techtatva.models.Event;
+import in.techtatva.techtatva.models.EventModel;
 
 /**
  * Created by Naman on 6/2/2016.
@@ -29,11 +26,11 @@ import in.techtatva.techtatva.models.Event;
 public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.ViewHolder>{
 
     private FragmentManager fm;
-    private List<Event> events;
+    private List<EventModel> events;
     private RecyclerView eventsRecyclerView;
     private List<EventFragmentPagerAdapter> adaptersList;
 
-    public EventCardAdapter(RecyclerView recyclerView, List<Event> events,FragmentManager fm){
+    public EventCardAdapter(RecyclerView recyclerView, List<EventModel> events,FragmentManager fm){
         eventsRecyclerView = recyclerView;
         this.events = events;
         this.fm = fm;
@@ -51,7 +48,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
     @Override
     public void onBindViewHolder(EventCardAdapter.ViewHolder viewHolder, int position) {
 
-        Event event = events.get(position);
+        EventModel event = events.get(position);
         viewHolder.linearLayout.setVisibility(View.GONE);
         viewHolder.eventName.setText(event.getEventName());
 
@@ -123,7 +120,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
                             eventsRecyclerView.getDrawingRect(scrollBounds);
 
                             float top = itemView.getTop();
-                            float bottom = top + itemView.getHeight() + eventFragmentPager.getHeight();
+                            float bottom = top + itemView.getHeight() ;
 
                             if (scrollBounds.bottom < bottom)
                                 eventsRecyclerView.smoothScrollBy(0, (int) bottom - scrollBounds.bottom);
