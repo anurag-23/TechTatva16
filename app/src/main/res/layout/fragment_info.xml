@@ -3,14 +3,41 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical"
+    android:padding="@dimen/activity_vertical_margin"
     tools:context="in.techtatva.techtatva.fragments.EventDetailsFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/category_tag"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed"
+            android:layout_marginRight="5dp"
+            />
+
+        <TextView
+            android:id="@+id/event_category_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="CategoryName"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif-condensed" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/event_info_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_vertical_margin"
         tools:text="Info"
         android:textColor="@color/black"
         android:textSize="15sp"

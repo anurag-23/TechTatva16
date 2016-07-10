@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,12 +28,16 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
 
     private FragmentManager fm;
     private List<EventModel> events;
+    private List<EventModel> allEvents;
     private RecyclerView eventsRecyclerView;
     private List<EventFragmentPagerAdapter> adaptersList;
+    private int id=0;
 
     public EventCardAdapter(RecyclerView recyclerView, List<EventModel> events,FragmentManager fm){
         eventsRecyclerView = recyclerView;
         this.events = events;
+        allEvents = new ArrayList<>();
+        allEvents.addAll(this.events);
         this.fm = fm;
 
         adaptersList = new ArrayList<>();
@@ -50,14 +55,40 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
 
         EventModel event = events.get(position);
         viewHolder.linearLayout.setVisibility(View.GONE);
-        viewHolder.eventName.setText(event.getEvent_name());
+        viewHolder.eventName.setText(event.getEventName());
 
+        if (adaptersList.size() < position+1) {
+            EventFragmentPagerAdapter adapter = new EventFragmentPagerAdapter(fm, event.getVenue(), event.getStartTime(), event.getEndTime(), event.getDate(), event.getEventMaxTeamNumber(), event.getContactNumber(), event.getContactName(), event.getCatName(), event.getDescription());
+            adaptersList.add(adapter);
+            viewHolder.eventFragmentPager.setAdapter(adapter);
+            viewHolder.eventTabLayout.setupWithViewPager(viewHolder.eventFragmentPager);
+            viewHolder.eventFragmentPager.setId(++id);
+        }
+        else {
+            viewHolder.eventFragmentPager.setAdapter(adaptersList.get(position));
+            viewHolder.eventTabLayout.setupWithViewPager(viewHolder.eventFragmentPager);
+            viewHolder.eventFragmentPager.setId(++id);
+        }
 
     }
 
     @Override
     public int getItemCount() {
         return events.size();
+    }
+
+    public void filterData(String query){
+        events.clear();
+
+        if(query.length()==0)
+            events.addAll(allEvents);
+
+        else
+            for (EventModel event : allEvents)
+                    if (event.getEventName().toLowerCase().contains(query.toLowerCase()))
+                        events.add(event);
+
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -98,14 +129,6 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
                 }
                 else if(linearLayout.getVisibility()==View.GONE){
                     linearLayout.setVisibility(View.VISIBLE);
-
-                    int position =this.getLayoutPosition();
-                    EventModel event= events.get(position);
-                    EventFragmentPagerAdapter adapter = new EventFragmentPagerAdapter(fm,event.getVenue(),event.getStart_time(),event.getDate(),event.getEvent_max_team_number(),event.getContact_number(),event.getContact_name(),event.getDescription());
-                    adaptersList.add(adapter);
-                    eventFragmentPager.setAdapter(adapter);
-                    eventTabLayout.setupWithViewPager(eventFragmentPager);
-                    eventFragmentPager.setId(getLayoutPosition()+1);
 
                     eventsRecyclerView.post(new Runnable() {
                         @Override

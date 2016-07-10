@@ -62,4 +62,6 @@
     <string name="error">An error occured while connecting to the server.\n\nPlease check your connection or try again later.</string>
     <string name="oops">Oops!</string>
     <string name="swipe_reload">Swipe Down to Reload</string>
+    <string name="fetching_data">Fetching Data...\nPlease Wait</string>
+    <string name="category_tag">Category:</string>
 </resources>

@@ -1,9 +1,13 @@
 package in.techtatva.techtatva.fragments;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,13 +33,27 @@ public class EventDetailsFragment extends Fragment {
         TextView eventParticipants = (TextView)view.findViewById(R.id.event_participants_text_view);
         TextView eventContact = (TextView)view.findViewById(R.id.event_contact_text_view);
 
-        eventLocation.setText("Venue : "+getArguments().getString("location"));
-        eventTime.setText("Time : "+getArguments().getString("time"));
-        eventDate.setText("Date : "+getArguments().getString("date"));
-        eventParticipants.setText("Team of  "+getArguments().getString("participants"));
-        String contact=getArguments().getString("contact_number")+" ( "+getArguments().getString("contact_name")+" )";
-        eventContact.setText(contact);
+        String[] details = new String[5];
+        details[0] = "Venue: "+getArguments().getString("location");
+        details[1] = "Time: "+getArguments().getString("startTime")+" to "+getArguments().getString("endTime");
+        details[2] = "Date: "+getArguments().getString("date");
+        details[3] = "Team of: "+getArguments().getString("participants");
+        details[4] = "Contact: "+ getArguments().getString("contactNumber")+" ("+getArguments().getString("contactName")+")";
 
+        final SpannableStringBuilder[] detailsStringBuilder = new SpannableStringBuilder[5];
+
+        for (int i = 0; i<5; i++){
+            detailsStringBuilder[i] = new SpannableStringBuilder(details[i]);
+            detailsStringBuilder[i].setSpan(new android.text.style.StyleSpan(Typeface.BOLD), 0, details[i].indexOf(":"), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+
+        detailsStringBuilder[4].setSpan(new UnderlineSpan(), details[4].indexOf(" ")+1, details[4].indexOf(" ")+11, 0);
+
+        eventLocation.setText(detailsStringBuilder[0]);
+        eventTime.setText(detailsStringBuilder[1]);
+        eventDate.setText(detailsStringBuilder[2]);
+        eventParticipants.setText(detailsStringBuilder[3]);
+        eventContact.setText(detailsStringBuilder[4]);
 
         eventContact.setOnClickListener(new View.OnClickListener() {
             @Override
