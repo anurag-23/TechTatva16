@@ -17,7 +17,6 @@ import java.util.List;
 import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.fragments.CategoryInfoDialogFragment;
 import in.techtatva.techtatva.models.categories.CategoryModel;
-import io.realm.RealmResults;
 
 /**
  * Created by AYUSH on 14-06-2016.

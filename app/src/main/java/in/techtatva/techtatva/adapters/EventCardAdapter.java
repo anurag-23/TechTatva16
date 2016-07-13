@@ -1,6 +1,5 @@
 package in.techtatva.techtatva.adapters;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.support.design.widget.Snackbar;
@@ -8,7 +7,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +21,9 @@ import java.util.List;
 import java.util.Map;
 
 import in.techtatva.techtatva.R;
-import in.techtatva.techtatva.applications.TechTatva16;
 import in.techtatva.techtatva.models.FavouritesModel;
 import in.techtatva.techtatva.models.events.EventModel;
 import io.realm.Realm;
-import io.realm.RealmChangeListener;
-import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 
