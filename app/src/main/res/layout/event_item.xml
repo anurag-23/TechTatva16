@@ -53,7 +53,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginTop="5dp"
-            android:src="@drawable/ic_fav_deselected"
+            android:src="@drawable/ic_fav"
+            android:tint="@color/grey"
             android:background="@drawable/on_fav_select"
             android:tag="Deselected"/>
 

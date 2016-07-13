@@ -66,6 +66,9 @@ public class EventModel extends RealmObject {
     @Expose
     private String contactNumber;
 
+    public EventModel() {
+    }
+
     public String getId() {
         return id;
     }

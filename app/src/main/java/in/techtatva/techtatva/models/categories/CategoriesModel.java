@@ -17,6 +17,9 @@ public class CategoriesModel {
     @Expose
     private List<CategoryModel> categoriesList = new ArrayList<>();
 
+    public CategoriesModel() {
+    }
+
     public List<CategoryModel> getCategoriesList() {
         return categoriesList;
     }

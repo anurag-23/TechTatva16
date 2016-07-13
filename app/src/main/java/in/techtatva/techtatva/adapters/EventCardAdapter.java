@@ -1,6 +1,9 @@
 package in.techtatva.techtatva.adapters;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Rect;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.CardView;
@@ -13,13 +16,21 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import in.techtatva.techtatva.R;
+import in.techtatva.techtatva.applications.TechTatva16;
+import in.techtatva.techtatva.models.FavouritesModel;
 import in.techtatva.techtatva.models.events.EventModel;
+import io.realm.Realm;
+import io.realm.RealmChangeListener;
+import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
+
 
 /**
  * Created by Naman on 6/2/2016.
@@ -31,16 +42,23 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
     private List<EventModel> allEvents;
     private RecyclerView eventsRecyclerView;
     private List<EventFragmentPagerAdapter> adaptersList;
+    private Map<String, Boolean> isExpanded;
+    private Realm eventsDatabase;
     private int id=0;
 
-    public EventCardAdapter(RecyclerView recyclerView, List<EventModel> events,FragmentManager fm){
+    public EventCardAdapter(RecyclerView recyclerView, List<EventModel> events,FragmentManager fm, Realm eventsDatabase){
         eventsRecyclerView = recyclerView;
         this.events = events;
         allEvents = new ArrayList<>();
         allEvents.addAll(this.events);
         this.fm = fm;
+        this.eventsDatabase = eventsDatabase;
 
         adaptersList = new ArrayList<>();
+        isExpanded = new HashMap<>();
+
+        for (int i=0; i<events.size(); i++)
+            isExpanded.put(events.get(i).getEventName(), false);
     }
 
     @Override
@@ -54,7 +72,23 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
     public void onBindViewHolder(EventCardAdapter.ViewHolder viewHolder, int position) {
 
         EventModel event = events.get(position);
-        viewHolder.linearLayout.setVisibility(View.GONE);
+
+        RealmResults<FavouritesModel> favouritesResults = eventsDatabase.where(FavouritesModel.class).equalTo("eventName", event.getEventName()).findAll();
+
+        if(!favouritesResults.isEmpty()) {
+            viewHolder.favoriteButton.setColorFilter(Color.parseColor("#f1c40f"));
+            viewHolder.favoriteButton.setTag("Selected");
+        }
+        else{
+            viewHolder.favoriteButton.setColorFilter(Color.parseColor("#CCCCCC"));
+            viewHolder.favoriteButton.setTag("Deselected");
+        }
+
+        if(isExpanded.get(event.getEventName()))
+            viewHolder.linearLayout.setVisibility(View.VISIBLE);
+        else if(!isExpanded.get(event.getEventName()))
+            viewHolder.linearLayout.setVisibility(View.GONE);
+
         viewHolder.eventName.setText(event.getEventName());
 
         if (adaptersList.size() < position+1) {
@@ -91,6 +125,34 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
         notifyDataSetChanged();
     }
 
+    public void addOrRemoveFavourites(EventModel event, String operation){
+
+        if(operation.equals("add")) {
+            FavouritesModel favourite = new FavouritesModel();
+
+            favourite.setEventName(event.getEventName());
+            favourite.setVenue(event.getVenue());
+            favourite.setDate(event.getDate());
+            favourite.setStartTime(event.getStartTime());
+            favourite.setEndTime(event.getEndTime());
+            favourite.setParticipants(event.getEventMaxTeamNumber());
+            favourite.setContactName(event.getContactName());
+            favourite.setContactNumber(event.getContactNumber());
+            favourite.setCatName(event.getCatName());
+            favourite.setDescription(event.getDescription());
+
+            eventsDatabase.beginTransaction();
+            eventsDatabase.copyToRealm(favourite);
+            eventsDatabase.commitTransaction();
+        }
+        else if (operation.equals("remove")){
+            eventsDatabase.beginTransaction();
+            eventsDatabase.where(FavouritesModel.class).equalTo("eventName", event.getEventName()).findAll().deleteAllFromRealm();
+            eventsDatabase.commitTransaction();
+        }
+
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         ImageView eventLogo;
@@ -108,12 +170,10 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
             eventLogo = (ImageView)itemView.findViewById(R.id.event_logo_image_view);
             eventName = (TextView) itemView.findViewById(R.id.event_name_text_view);
             favoriteButton = (ImageButton) itemView.findViewById(R.id.favorite_image_button);
-            favoriteButton.setTag("Deselected");
             linearLayout = (LinearLayout) itemView.findViewById(R.id.description_linear_layout);
 
             eventFragmentPager = (EventFragmentCustomPager)itemView.findViewById(R.id.event_view_pager);
             eventTabLayout = (TabLayout)itemView.findViewById(R.id.event_tab_layout);
-
 
             itemView.setOnClickListener(this);
             favoriteButton.setOnClickListener(this);
@@ -126,9 +186,13 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
 
                 if(linearLayout.getVisibility()==View.VISIBLE){
                     linearLayout.setVisibility(View.GONE);
+                    isExpanded.remove(eventName.getText().toString());
+                    isExpanded.put(eventName.getText().toString(), false);
                 }
                 else if(linearLayout.getVisibility()==View.GONE){
                     linearLayout.setVisibility(View.VISIBLE);
+                    isExpanded.remove(eventName.getText().toString());
+                    isExpanded.put(eventName.getText().toString(), true);
 
                     eventsRecyclerView.post(new Runnable() {
                         @Override
@@ -153,14 +217,16 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
             if(view.getId()==favoriteButton.getId()){
 
                 if(favoriteButton.getTag().toString().equals("Deselected")) {
-                    favoriteButton.setImageResource(R.drawable.ic_fav_selected);
+                    favoriteButton.setColorFilter(Color.parseColor("#f1c40f"));
                     favoriteButton.setTag("Selected");
-                    Toast.makeText(view.getContext(), eventName.getText().toString() + " added to favourites!", Toast.LENGTH_SHORT).show();
+                    addOrRemoveFavourites(events.get(getLayoutPosition()), "add");
+                    Snackbar.make(view, eventName.getText().toString() + " added to favourites!", Snackbar.LENGTH_SHORT).show();
                 }
                 else if(favoriteButton.getTag().toString().equals("Selected")) {
-                    favoriteButton.setImageResource(R.drawable.ic_fav_deselected);
+                    favoriteButton.setColorFilter(Color.parseColor("#cccccc"));
                     favoriteButton.setTag("Deselected");
-                    Toast.makeText(view.getContext(), eventName.getText().toString() + " removed from favourites!", Toast.LENGTH_SHORT).show();
+                    addOrRemoveFavourites(events.get(getLayoutPosition()), "remove");
+                    Snackbar.make(view, eventName.getText().toString() + " removed from favourites!", Snackbar.LENGTH_SHORT).show();
                 }
 
             }

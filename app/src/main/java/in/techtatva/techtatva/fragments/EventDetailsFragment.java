@@ -1,10 +1,12 @@
 package in.techtatva.techtatva.fragments;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.UnderlineSpan;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import chipset.potato.Potato;
 import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.adapters.EventFragmentPagerAdapter;
 
@@ -58,10 +61,19 @@ public class EventDetailsFragment extends Fragment {
         eventContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+getArguments().getString("contact_number")));
-                getActivity().startActivity(intent);
+                new AlertDialog.Builder(getActivity())
+                        .setMessage("Call " + getArguments().getString("contactName") + "?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Potato.potate(getActivity()).Intents().callIntent("+91" + getArguments().getString("contactNumber"));
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null)
+                        .create().show();
             }
         });
+
 
         return view;
     }

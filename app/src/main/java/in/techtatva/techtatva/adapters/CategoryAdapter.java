@@ -11,6 +11,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.fragments.CategoryInfoDialogFragment;
 import in.techtatva.techtatva.models.categories.CategoryModel;
@@ -22,14 +25,14 @@ import io.realm.RealmResults;
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
     private FragmentManager fm;
-    private RealmResults<CategoryModel> categories;
+    private List<CategoryModel> categories = new ArrayList<>();
 
-    public CategoryAdapter(FragmentManager fm, RealmResults<CategoryModel> categories){
+    public CategoryAdapter(FragmentManager fm, List<CategoryModel> categories){
         this.fm = fm;
         setCategories(categories);
     }
 
-    private void setCategories(RealmResults<CategoryModel> categories){
+    private void setCategories(List<CategoryModel> categories){
         this.categories = categories;
         notifyDataSetChanged();
     }

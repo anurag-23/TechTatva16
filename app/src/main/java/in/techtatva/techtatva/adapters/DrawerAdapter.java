@@ -77,7 +77,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerView
                 context.startActivity(intent);
             }
 
-            if (drawerItemName.getText().equals("Category View")){
+            if (drawerItemName.getText().equals("Categories")){
                 Intent intent = new Intent(context, CategoryActivity.class);
                 context.startActivity(intent);
             }

@@ -34,6 +34,7 @@ import in.techtatva.techtatva.models.events.EventModel;
 import in.techtatva.techtatva.models.events.EventsListModel;
 import in.techtatva.techtatva.network.EventsAPIClient;
 import io.realm.Realm;
+import io.realm.RealmResults;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,11 +46,18 @@ public class DayFragment extends Fragment{
     private float x1, x2, y1, y2;
     private EventCardAdapter adapter;
     private RecyclerView eventsRecyclerView;
+    private Realm eventsDatabase;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        eventsDatabase = Realm.getDefaultInstance();
+    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.fragment_day,container,false);
+        final View rootView = inflater.inflate(R.layout.fragment_day, container, false);
         setHasOptionsMenu(true);
 
         eventsRecyclerView = (RecyclerView)rootView.findViewById(R.id.day_recycler_view);
@@ -60,7 +68,7 @@ public class DayFragment extends Fragment{
         }
         else
         {
-            final View noConnectionLayout = (View)rootView.findViewById(R.id.day_no_connection_layout);
+            final View noConnectionLayout = rootView.findViewById(R.id.day_no_connection_layout);
             eventsRecyclerView.setVisibility(View.GONE);
             noConnectionLayout.setVisibility(View.VISIBLE);
 
@@ -114,13 +122,22 @@ public class DayFragment extends Fragment{
             @Override
             public void onResponse(Call<EventsListModel> call, Response<EventsListModel> response) {
                 loading.dismiss();
-                List<EventModel> events = new ArrayList<EventModel>();
+                List<EventModel> events = new ArrayList<>();
                 for (int i = 0; i < response.body().getEvents().size(); i++) {
                     if (response.body().getEvents().get(i).getDay().charAt(0) == getArguments().getString("title").charAt(4)) {
                         events.add(response.body().getEvents().get(i));
                     }
                 }
-                adapter = new EventCardAdapter(eventsRecyclerView, events, getChildFragmentManager());
+
+                eventsDatabase.beginTransaction();
+                eventsDatabase.where(EventModel.class).equalTo("day", String.valueOf(getArguments().getString("title").charAt(4))).findAll().deleteAllFromRealm();
+                eventsDatabase.copyToRealm(events);
+                eventsDatabase.commitTransaction();
+
+                RealmResults<EventModel> eventsResults = eventsDatabase.where(EventModel.class).equalTo("day", String.valueOf(getArguments().getString("title").charAt(4))).findAll();
+                List<EventModel> eventsList = eventsDatabase.copyFromRealm(eventsResults);
+
+                adapter = new EventCardAdapter(eventsRecyclerView, eventsList, getChildFragmentManager(), eventsDatabase);
                 eventsRecyclerView.setAdapter(adapter);
                 eventsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             }
@@ -187,4 +204,9 @@ public class DayFragment extends Fragment{
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        eventsDatabase.close();
+    }
 }

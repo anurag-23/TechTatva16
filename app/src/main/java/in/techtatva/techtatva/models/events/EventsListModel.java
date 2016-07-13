@@ -17,6 +17,9 @@ public class EventsListModel {
     @Expose
     private List<EventModel> events;
 
+    public EventsListModel() {
+    }
+
     public List<EventModel> getEvents() {
         return events;
     }

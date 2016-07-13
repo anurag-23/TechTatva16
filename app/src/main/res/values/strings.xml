@@ -11,8 +11,8 @@
     <string name="action_example">Example action</string>
 
     <string name="action_settings">Settings</string>
-    <string name="drawer_categories">Category View</string>
-    <string name="drawer_days">Day View</string>
+    <string name="drawer_categories">Categories</string>
+    <string name="drawer_days">Daily Events</string>
     <string name="drawer_online">Online Events</string>
     <string name="drawer_results">Results</string>
     <string name="drawer_register">Register</string>

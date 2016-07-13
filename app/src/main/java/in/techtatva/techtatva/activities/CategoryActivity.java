@@ -2,7 +2,6 @@ package in.techtatva.techtatva.activities;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +10,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.ProgressBar;
+
+import java.util.List;
 
 import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.adapters.CategoryAdapter;
@@ -31,12 +32,16 @@ public class CategoryActivity extends AppCompatActivity {
     private Context context;
     private ProgressBar spinner;
     private Realm categoriesDatabase;
-    private RealmResults<CategoryModel> categoriesResults = null;
+    private RealmResults<CategoryModel> categoriesResults;
+    private List<CategoryModel> categoriesList;
+    private View noConnectionLayout;
+    private RecyclerView categoriesRecyclerView;
     private float x1, x2, y1, y2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        categoriesDatabase = Realm.getDefaultInstance();
         loadCategories();
     }
 
@@ -51,8 +56,8 @@ public class CategoryActivity extends AppCompatActivity {
 
         context = this;
         spinner = (ProgressBar)findViewById(R.id.category_progress_bar);
-
-        categoriesDatabase = Realm.getDefaultInstance();
+        categoriesRecyclerView = (RecyclerView) findViewById(R.id.category_recycler_view);
+        noConnectionLayout = findViewById(R.id.category_no_connection_layout);
 
         Call<CategoriesModel> call = CategoriesAPIClient.getInterface().getCategories();
 
@@ -61,6 +66,7 @@ public class CategoryActivity extends AppCompatActivity {
             public void onResponse(Call<CategoriesModel> call, Response<CategoriesModel> response) {
 
                 spinner.setVisibility(View.GONE);
+                categoriesRecyclerView.setVisibility(View.VISIBLE);
 
                 categoriesDatabase.beginTransaction();
                 categoriesDatabase.delete(CategoryModel.class);
@@ -68,11 +74,11 @@ public class CategoryActivity extends AppCompatActivity {
                 categoriesDatabase.commitTransaction();
 
                 categoriesResults = categoriesDatabase.where(CategoryModel.class).findAll();
+                categoriesList = categoriesDatabase.copyFromRealm(categoriesResults);
 
-                RecyclerView recyclerView = (RecyclerView) findViewById(R.id.category_recycler_view);
-                CategoryAdapter adapter = new CategoryAdapter(getSupportFragmentManager(), categoriesResults);
-                recyclerView.setAdapter(adapter);
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                CategoryAdapter adapter = new CategoryAdapter(getSupportFragmentManager(), categoriesList);
+                categoriesRecyclerView.setAdapter(adapter);
+                categoriesRecyclerView.setLayoutManager(new LinearLayoutManager(context));
 
             }
 
@@ -80,15 +86,17 @@ public class CategoryActivity extends AppCompatActivity {
             public void onFailure(Call<CategoriesModel> call, Throwable t) {
                 categoriesResults = categoriesDatabase.where(CategoryModel.class).findAll();
 
-                if (categoriesResults.isEmpty())
-                    setContentView(R.layout.no_connection_layout);
+                if (categoriesResults.isEmpty()) {
+                    spinner.setVisibility(View.GONE);
+                    noConnectionLayout.setVisibility(View.VISIBLE);
+                }
 
                 else{
                     spinner.setVisibility(View.GONE);
-                    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.category_recycler_view);
+                    categoriesRecyclerView.setVisibility(View.VISIBLE);
                     CategoryAdapter adapter = new CategoryAdapter(getSupportFragmentManager(), categoriesResults);
-                    recyclerView.setAdapter(adapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                    categoriesRecyclerView.setAdapter(adapter);
+                    categoriesRecyclerView.setLayoutManager(new LinearLayoutManager(context));
                 }
 
             }
