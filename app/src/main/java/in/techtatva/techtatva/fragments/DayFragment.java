@@ -1,5 +1,6 @@
 package in.techtatva.techtatva.fragments;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
@@ -9,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,11 +19,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.view.Window;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import chipset.potato.Potato;
@@ -47,6 +45,8 @@ public class DayFragment extends Fragment{
     private EventCardAdapter adapter;
     private RecyclerView eventsRecyclerView;
     private Realm eventsDatabase;
+    private List<EventModel> eventsList;
+    private View progressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,10 +61,17 @@ public class DayFragment extends Fragment{
         setHasOptionsMenu(true);
 
         eventsRecyclerView = (RecyclerView)rootView.findViewById(R.id.day_recycler_view);
+        progressDialog = rootView.findViewById(R.id.day_progress_dialog);
 
-        if(Potato.potate(getActivity()).Utils().isInternetConnected())
+        RealmResults<EventModel> eventsResults = eventsDatabase.where(EventModel.class).equalTo("day", String.valueOf(getArguments().getString("title").charAt(4))).findAll();
+
+        if (!eventsResults.isEmpty()){
+            displayData();
+            loadEvents("update");
+        }
+        else if(Potato.potate(getActivity()).Utils().isInternetConnected())
         {
-            prepareData();
+            loadEvents("load");
         }
         else
         {
@@ -98,7 +105,7 @@ public class DayFragment extends Fragment{
                                 if (Potato.potate(getActivity()).Utils().isInternetConnected()) {
                                     noConnectionLayout.setVisibility(View.GONE);
                                     eventsRecyclerView.setVisibility(View.VISIBLE);
-                                    prepareData();
+                                    loadEvents("load");
                                 }
                             break;
                         }
@@ -112,16 +119,34 @@ public class DayFragment extends Fragment{
         return rootView;
     }
 
-    private void prepareData(){
+    private void displayData(){
 
-        final ProgressDialog loading = ProgressDialog.show(getContext(), "Fetching Data", "Please wait...", false, false);
+        RealmResults<EventModel> eventsResults = eventsDatabase.where(EventModel.class).equalTo("day", String.valueOf(getArguments().getString("title").charAt(4))).findAll();
+        eventsList = eventsDatabase.copyFromRealm(eventsResults);
+
+        adapter = new EventCardAdapter(eventsRecyclerView, eventsList, getChildFragmentManager(), eventsDatabase);
+        eventsRecyclerView.setAdapter(adapter);
+        eventsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+    }
+
+    public void loadEvents(final String operation){
+
+        if (operation.equals("load")){
+            eventsRecyclerView.setVisibility(View.GONE);
+            progressDialog.setVisibility(View.VISIBLE);
+        };
 
         Call<EventsListModel> call = EventsAPIClient.getInterface().getEvents();
         call.enqueue(new Callback<EventsListModel>() {
 
             @Override
             public void onResponse(Call<EventsListModel> call, Response<EventsListModel> response) {
-                loading.dismiss();
+                if (operation.equals("load")) {
+                    progressDialog.setVisibility(View.GONE);
+                    eventsRecyclerView.setVisibility(View.VISIBLE);
+                }
+
                 List<EventModel> events = new ArrayList<>();
                 for (int i = 0; i < response.body().getEvents().size(); i++) {
                     if (response.body().getEvents().get(i).getDay().charAt(0) == getArguments().getString("title").charAt(4)) {
@@ -134,20 +159,26 @@ public class DayFragment extends Fragment{
                 eventsDatabase.copyToRealm(events);
                 eventsDatabase.commitTransaction();
 
-                RealmResults<EventModel> eventsResults = eventsDatabase.where(EventModel.class).equalTo("day", String.valueOf(getArguments().getString("title").charAt(4))).findAll();
-                List<EventModel> eventsList = eventsDatabase.copyFromRealm(eventsResults);
+                if(operation.equals("load"))
+                    displayData();
 
-                adapter = new EventCardAdapter(eventsRecyclerView, eventsList, getChildFragmentManager(), eventsDatabase);
-                eventsRecyclerView.setAdapter(adapter);
-                eventsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                else if(operation.equals("update")){
+                    RealmResults<EventModel> eventsResults = eventsDatabase.where(EventModel.class).equalTo("day", String.valueOf(getArguments().getString("title").charAt(4))).findAll();
+                    List<EventModel> updatedEvents = eventsDatabase.copyFromRealm(eventsResults);
+                    eventsList.clear();
+                    eventsList.addAll(updatedEvents);
+                    adapter.notifyDataSetChanged();
+                }
             }
 
             @Override
             public void onFailure(Call<EventsListModel> call, Throwable t) {
-                loading.dismiss();
+                if (operation.equals("load")) {
+                    progressDialog.setVisibility(View.GONE);
+                    eventsRecyclerView.setVisibility(View.VISIBLE);
+                }
             }
         });
-
     }
 
     @Override
@@ -199,7 +230,6 @@ public class DayFragment extends Fragment{
                 break;
             }
         }
-
 
         return super.onOptionsItemSelected(item);
     }

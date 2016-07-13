@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 
 import java.util.List;
 
+import chipset.potato.Potato;
 import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.adapters.CategoryAdapter;
 import in.techtatva.techtatva.models.categories.CategoriesModel;
@@ -30,23 +31,16 @@ import retrofit2.Response;
 public class CategoryActivity extends AppCompatActivity {
 
     private Context context;
-    private ProgressBar spinner;
+    private View progressDialog;
     private Realm categoriesDatabase;
-    private RealmResults<CategoryModel> categoriesResults;
     private List<CategoryModel> categoriesList;
-    private View noConnectionLayout;
     private RecyclerView categoriesRecyclerView;
+    private CategoryAdapter adapter;
     private float x1, x2, y1, y2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        categoriesDatabase = Realm.getDefaultInstance();
-        loadCategories();
-    }
-
-    public void loadCategories(){
-
         setContentView(R.layout.activity_category);
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.app_bar);
@@ -55,9 +49,43 @@ public class CategoryActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         context = this;
-        spinner = (ProgressBar)findViewById(R.id.category_progress_bar);
+        progressDialog = findViewById(R.id.category_progress_dialog);
         categoriesRecyclerView = (RecyclerView) findViewById(R.id.category_recycler_view);
-        noConnectionLayout = findViewById(R.id.category_no_connection_layout);
+
+        categoriesDatabase = Realm.getDefaultInstance();
+
+        RealmResults<CategoryModel> categoriesResults = categoriesDatabase.where(CategoryModel.class).findAll();
+
+        if (!categoriesResults.isEmpty()){
+            displayData();
+            loadCategories("update");
+        }
+        else if (Potato.potate(this).Utils().isInternetConnected()){
+            loadCategories("load");
+        }
+        else{
+            View noConnectionLayout = findViewById(R.id.category_no_connection_layout);
+            noConnectionLayout.setVisibility(View.VISIBLE);
+            categoriesRecyclerView.setVisibility(View.GONE);
+        }
+    }
+
+    public void displayData(){
+
+        RealmResults<CategoryModel> categoriesResults = categoriesDatabase.where(CategoryModel.class).findAll();
+        categoriesList = categoriesDatabase.copyFromRealm(categoriesResults);
+
+        adapter = new CategoryAdapter(getSupportFragmentManager(), categoriesList);
+        categoriesRecyclerView.setAdapter(adapter);
+        categoriesRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+    }
+
+    public void loadCategories(final String operation){
+
+        if (operation.equals("load")) {
+            progressDialog.setVisibility(View.VISIBLE);
+            categoriesRecyclerView.setVisibility(View.GONE);
+        }
 
         Call<CategoriesModel> call = CategoriesAPIClient.getInterface().getCategories();
 
@@ -65,39 +93,35 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<CategoriesModel> call, Response<CategoriesModel> response) {
 
-                spinner.setVisibility(View.GONE);
-                categoriesRecyclerView.setVisibility(View.VISIBLE);
+                if (operation.equals("load")){
+                    progressDialog.setVisibility(View.GONE);
+                    categoriesRecyclerView.setVisibility(View.VISIBLE);
+                }
 
                 categoriesDatabase.beginTransaction();
                 categoriesDatabase.delete(CategoryModel.class);
                 categoriesDatabase.copyToRealm(response.body().getCategoriesList());
                 categoriesDatabase.commitTransaction();
 
-                categoriesResults = categoriesDatabase.where(CategoryModel.class).findAll();
-                categoriesList = categoriesDatabase.copyFromRealm(categoriesResults);
+                if (operation.equals("load"))
+                    displayData();
 
-                CategoryAdapter adapter = new CategoryAdapter(getSupportFragmentManager(), categoriesList);
-                categoriesRecyclerView.setAdapter(adapter);
-                categoriesRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-
+                else if (operation.equals("update")){
+                    RealmResults<CategoryModel> categoriesResults = categoriesDatabase.where(CategoryModel.class).findAll();
+                    List<CategoryModel> updatedCategories = categoriesDatabase.copyFromRealm(categoriesResults);
+                    categoriesList.clear();
+                    categoriesList.addAll(updatedCategories);
+                    adapter.notifyDataSetChanged();
+                }
             }
 
             @Override
             public void onFailure(Call<CategoriesModel> call, Throwable t) {
-                categoriesResults = categoriesDatabase.where(CategoryModel.class).findAll();
 
-                if (categoriesResults.isEmpty()) {
-                    spinner.setVisibility(View.GONE);
-                    noConnectionLayout.setVisibility(View.VISIBLE);
-                }
-
-                else{
-                    spinner.setVisibility(View.GONE);
-                    categoriesRecyclerView.setVisibility(View.VISIBLE);
-                    CategoryAdapter adapter = new CategoryAdapter(getSupportFragmentManager(), categoriesResults);
-                    categoriesRecyclerView.setAdapter(adapter);
-                    categoriesRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-                }
+                 if(operation.equals("load")){
+                     progressDialog.setVisibility(View.GONE);
+                     categoriesRecyclerView.setVisibility(View.VISIBLE);
+                 }
 
             }
         });
@@ -133,7 +157,7 @@ public class CategoryActivity extends AppCompatActivity {
                 float deltaX = x2-x1;
 
                 if (Math.abs(deltaY) > mSlop && deltaY>0 && Math.abs(deltaX) < MAX_HORIZONTAL_SWIPE)
-                    loadCategories();
+                    loadCategories("load");
 
                 break;
             }
