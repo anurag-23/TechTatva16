@@ -16,16 +16,18 @@ public class EventFragmentPagerAdapter extends FragmentPagerAdapter{
 
     private int mCurrentPosition = -1;
     private String[] eventTabs={ "Event Details","Info"} ;
-    String location,time,date,participants,contact_number,contact_name,info;
+    String location,startTime,endTime,date,participants, contactNumber, contactName,catName,info;
 
-    public EventFragmentPagerAdapter(FragmentManager fm,String location,String time,String date,String participants,String contact_number,String contact_name,String info) {
+    public EventFragmentPagerAdapter(FragmentManager fm,String location,String startTime,String endTime,String date,String participants,String contactNumber,String contactName,String catName,String info) {
         super(fm);
-        this.location=location;
-        this.time=time;
-        this.date=date;
-        this.participants=participants;
-        this.contact_number=contact_number;
-        this.contact_name=contact_name;
+        this.location = location;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.date = date;
+        this.participants = participants;
+        this.contactNumber = contactNumber;
+        this.contactName = contactName;
+        this.catName = catName;
         this.info=info;
     }
 
@@ -36,16 +38,18 @@ public class EventFragmentPagerAdapter extends FragmentPagerAdapter{
                 Fragment fragment=new EventDetailsFragment();
                 Bundle bundle=new Bundle();
                 bundle.putString("location",location);
-                bundle.putString("time",time);
+                bundle.putString("startTime",startTime);
+                bundle.putString("endTime", endTime);
                 bundle.putString("date",date);
                 bundle.putString("participants",participants);
-                bundle.putString("contact_number",contact_number);
-                bundle.putString("contact_name",contact_name);
+                bundle.putString("contactNumber", contactNumber);
+                bundle.putString("contactName", contactName);
                 fragment.setArguments(bundle);
                 return fragment;
             case 1:
                 fragment=new InfoFragment();
                 bundle=new Bundle();
+                bundle.putString("catName", catName);
                 bundle.putString("info",info);
                 fragment.setArguments(bundle);
                 return fragment;

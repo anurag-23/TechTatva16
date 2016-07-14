@@ -1,21 +1,16 @@
 package in.techtatva.techtatva.activities;
 
-import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 
 import in.techtatva.techtatva.adapters.DayFragmentPagerAdapter;
-import in.techtatva.techtatva.adapters.EventFragmentPagerAdapter;
 import in.techtatva.techtatva.fragments.DayFragment;
 import in.techtatva.techtatva.fragments.DrawerFragment;
 import in.techtatva.techtatva.R;
-import in.techtatva.techtatva.fragments.EventDetailsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,33 +44,6 @@ public class MainActivity extends AppCompatActivity {
         TabLayout daysTabLayout = (TabLayout)findViewById(R.id.tab_layout);
         daysTabLayout.setupWithViewPager(daysViewPager);
 
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()){
-            case R.id.instagram:{
-                Intent intent = new Intent (this,InstaFeedActivity.class);
-                startActivity(intent);
-                break;
-            }
-
-            case R.id.search:{
-                break;
-            }
-        }
-
-
-        return super.onOptionsItemSelected(item);
     }
 
 }

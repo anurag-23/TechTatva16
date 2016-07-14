@@ -1,6 +1,5 @@
 package in.techtatva.techtatva.fragments;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -18,7 +17,6 @@ import java.util.List;
 import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.adapters.DrawerAdapter;
 import in.techtatva.techtatva.models.DrawerModel;
-
 
 public class DrawerFragment extends Fragment {
 

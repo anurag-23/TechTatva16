@@ -3,10 +3,8 @@ package in.techtatva.techtatva.models.events;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import in.techtatva.techtatva.models.categories.CategoryModel;
 
 
 /**
@@ -16,6 +14,9 @@ public class EventsListModel {
     @SerializedName("data")
     @Expose
     private List<EventModel> events;
+
+    public EventsListModel() {
+    }
 
     public List<EventModel> getEvents() {
         return events;

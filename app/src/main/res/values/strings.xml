@@ -11,8 +11,8 @@
     <string name="action_example">Example action</string>
 
     <string name="action_settings">Settings</string>
-    <string name="drawer_categories">Category View</string>
-    <string name="drawer_days">Day View</string>
+    <string name="drawer_categories">Categories</string>
+    <string name="drawer_days">Daily Events</string>
     <string name="drawer_online">Online Events</string>
     <string name="drawer_results">Results</string>
     <string name="drawer_register">Register</string>
@@ -62,4 +62,6 @@
     <string name="error">An error occured while connecting to the server.\n\nPlease check your connection or try again later.</string>
     <string name="oops">Oops!</string>
     <string name="swipe_reload">Swipe Down to Reload</string>
+    <string name="fetching_data">Fetching Data...\nPlease Wait</string>
+    <string name="category_tag">Category:</string>
 </resources>
