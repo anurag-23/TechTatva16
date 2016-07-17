@@ -13,6 +13,6 @@
     <color name="blue">#0099CC</color>
     <color name="dark_grey">#666666</color>
     <color name="grey_bg">#E0E0E0</color>
-
+    <color name="accent">#212121</color>
 
 </resources>
