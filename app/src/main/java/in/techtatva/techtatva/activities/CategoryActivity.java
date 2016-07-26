@@ -34,6 +34,7 @@ public class CategoryActivity extends AppCompatActivity {
     private Realm categoriesDatabase;
     private List<CategoryModel> categoriesList;
     private RecyclerView categoriesRecyclerView;
+    private Toolbar toolbar;
     private CategoryAdapter adapter;
     private float x1, x2, y1, y2;
 
@@ -42,9 +43,9 @@ public class CategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.app_bar);
+        toolbar = (Toolbar)findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Categories");
+        getSupportActionBar().setTitle(getResources().getString(R.string.title_activity_category));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         context = this;
@@ -66,12 +67,13 @@ public class CategoryActivity extends AppCompatActivity {
             View noConnectionLayout = findViewById(R.id.category_no_connection_layout);
             noConnectionLayout.setVisibility(View.VISIBLE);
             categoriesRecyclerView.setVisibility(View.GONE);
+            toolbar.setVisibility(View.GONE);
         }
     }
 
     public void displayData(){
 
-        RealmResults<CategoryModel> categoriesResults = categoriesDatabase.where(CategoryModel.class).findAll();
+        RealmResults<CategoryModel> categoriesResults = categoriesDatabase.where(CategoryModel.class).findAllSorted("categoryName");
         categoriesList = categoriesDatabase.copyFromRealm(categoriesResults);
 
         adapter = new CategoryAdapter(getSupportFragmentManager(), categoriesList);
@@ -84,6 +86,7 @@ public class CategoryActivity extends AppCompatActivity {
         if (operation.equals("load")) {
             progressDialog.setVisibility(View.VISIBLE);
             categoriesRecyclerView.setVisibility(View.GONE);
+            toolbar.setVisibility(View.GONE);
         }
 
         Call<CategoriesModel> call = CategoriesAPIClient.getInterface().getCategories();
@@ -95,6 +98,7 @@ public class CategoryActivity extends AppCompatActivity {
                 if (operation.equals("load")){
                     progressDialog.setVisibility(View.GONE);
                     categoriesRecyclerView.setVisibility(View.VISIBLE);
+                    toolbar.setVisibility(View.VISIBLE);
                 }
 
                 categoriesDatabase.beginTransaction();
@@ -106,7 +110,7 @@ public class CategoryActivity extends AppCompatActivity {
                     displayData();
 
                 else if (operation.equals("update")){
-                    RealmResults<CategoryModel> categoriesResults = categoriesDatabase.where(CategoryModel.class).findAll();
+                    RealmResults<CategoryModel> categoriesResults = categoriesDatabase.where(CategoryModel.class).findAllSorted("categoryName");
                     List<CategoryModel> updatedCategories = categoriesDatabase.copyFromRealm(categoriesResults);
                     categoriesList.clear();
                     categoriesList.addAll(updatedCategories);
@@ -120,6 +124,7 @@ public class CategoryActivity extends AppCompatActivity {
                  if(operation.equals("load")){
                      progressDialog.setVisibility(View.GONE);
                      categoriesRecyclerView.setVisibility(View.VISIBLE);
+                     toolbar.setVisibility(View.VISIBLE);
                  }
 
             }
@@ -156,7 +161,8 @@ public class CategoryActivity extends AppCompatActivity {
                 float deltaX = x2-x1;
 
                 if (Math.abs(deltaY) > mSlop && deltaY>0 && Math.abs(deltaX) < MAX_HORIZONTAL_SWIPE)
-                    loadCategories("load");
+                    if (Potato.potate(this).Utils().isInternetConnected())
+                        loadCategories("load");
 
                 break;
             }

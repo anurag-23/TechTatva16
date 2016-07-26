@@ -36,7 +36,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
     private List<EventModel> events;
     private List<EventModel> allEvents;
     private RecyclerView eventsRecyclerView;
-    private List<EventFragmentPagerAdapter> adaptersList;
+    private Map<String, EventFragmentPagerAdapter> adaptersMap;
     private Map<String, Boolean> isExpanded;
     private Realm eventsDatabase;
     private int id=0;
@@ -49,11 +49,13 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
         this.fm = fm;
         this.eventsDatabase = eventsDatabase;
 
-        adaptersList = new ArrayList<>();
+        adaptersMap = new HashMap<>();
         isExpanded = new HashMap<>();
 
-        for (int i=0; i<events.size(); i++)
+        for (int i=0; i<events.size(); i++) {
+            adaptersMap.put(events.get(i).getEventName(), null);
             isExpanded.put(events.get(i).getEventName(), false);
+        }
     }
 
     @Override
@@ -68,7 +70,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
 
         EventModel event = events.get(position);
 
-        RealmResults<FavouritesModel> favouritesResults = eventsDatabase.where(FavouritesModel.class).equalTo("eventName", event.getEventName()).findAll();
+        RealmResults<FavouritesModel> favouritesResults = eventsDatabase.where(FavouritesModel.class).equalTo("eventName", event.getEventName()).equalTo("date", event.getDate()).findAll();
 
         if(!favouritesResults.isEmpty()) {
             viewHolder.favoriteButton.setColorFilter(Color.parseColor("#f1c40f"));
@@ -86,15 +88,16 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
 
         viewHolder.eventName.setText(event.getEventName());
 
-        if (adaptersList.size() < position+1) {
+        if (adaptersMap.get(event.getEventName())==null) {
             EventFragmentPagerAdapter adapter = new EventFragmentPagerAdapter(fm, event.getVenue(), event.getStartTime(), event.getEndTime(), event.getDate(), event.getEventMaxTeamNumber(), event.getContactNumber(), event.getContactName(), event.getCatName(), event.getDescription());
-            adaptersList.add(adapter);
+            adaptersMap.remove(event.getEventName());
+            adaptersMap.put(event.getEventName(), adapter);
             viewHolder.eventFragmentPager.setAdapter(adapter);
             viewHolder.eventTabLayout.setupWithViewPager(viewHolder.eventFragmentPager);
             viewHolder.eventFragmentPager.setId(++id);
         }
         else {
-            viewHolder.eventFragmentPager.setAdapter(adaptersList.get(position));
+            viewHolder.eventFragmentPager.setAdapter(adaptersMap.get(event.getEventName()));
             viewHolder.eventTabLayout.setupWithViewPager(viewHolder.eventFragmentPager);
             viewHolder.eventFragmentPager.setId(++id);
         }
@@ -114,8 +117,8 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
 
         else
             for (EventModel event : allEvents)
-                    if (event.getEventName().toLowerCase().contains(query.toLowerCase()))
-                        events.add(event);
+                if (event.getEventName().toLowerCase().contains(query.toLowerCase()))
+                    events.add(event);
 
         notifyDataSetChanged();
     }
@@ -128,6 +131,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
             favourite.setEventName(event.getEventName());
             favourite.setVenue(event.getVenue());
             favourite.setDate(event.getDate());
+            favourite.setDay(event.getDay());
             favourite.setStartTime(event.getStartTime());
             favourite.setEndTime(event.getEndTime());
             favourite.setParticipants(event.getEventMaxTeamNumber());
@@ -142,7 +146,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
         }
         else if (operation.equals("remove")){
             eventsDatabase.beginTransaction();
-            eventsDatabase.where(FavouritesModel.class).equalTo("eventName", event.getEventName()).findAll().deleteAllFromRealm();
+            eventsDatabase.where(FavouritesModel.class).equalTo("eventName", event.getEventName()).equalTo("day", event.getDay()).findAll().deleteAllFromRealm();
             eventsDatabase.commitTransaction();
         }
 
@@ -165,7 +169,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
             eventLogo = (ImageView)itemView.findViewById(R.id.event_logo_image_view);
             eventName = (TextView) itemView.findViewById(R.id.event_name_text_view);
             favoriteButton = (ImageButton) itemView.findViewById(R.id.favorite_image_button);
-            linearLayout = (LinearLayout) itemView.findViewById(R.id.description_linear_layout);
+            linearLayout = (LinearLayout) itemView.findViewById(R.id.event_description_linear_layout);
 
             eventFragmentPager = (EventFragmentCustomPager)itemView.findViewById(R.id.event_view_pager);
             eventTabLayout = (TabLayout)itemView.findViewById(R.id.event_tab_layout);
@@ -204,7 +208,6 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
                         }
                     });
 
-
                 }
 
             }
@@ -215,13 +218,13 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
                     favoriteButton.setColorFilter(Color.parseColor("#f1c40f"));
                     favoriteButton.setTag("Selected");
                     addOrRemoveFavourites(events.get(getLayoutPosition()), "add");
-                    Snackbar.make(view, eventName.getText().toString() + " added to favourites!", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(view, eventName.getText().toString().toUpperCase() + " added to favourites!", Snackbar.LENGTH_SHORT).show();
                 }
                 else if(favoriteButton.getTag().toString().equals("Selected")) {
                     favoriteButton.setColorFilter(Color.parseColor("#cccccc"));
                     favoriteButton.setTag("Deselected");
                     addOrRemoveFavourites(events.get(getLayoutPosition()), "remove");
-                    Snackbar.make(view, eventName.getText().toString() + " removed from favourites!", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(view, eventName.getText().toString().toUpperCase() + " removed from favourites!", Snackbar.LENGTH_SHORT).show();
                 }
 
             }

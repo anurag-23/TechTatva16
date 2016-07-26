@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TechTatva</string>
+    <string name="app_name">TechTatva 16</string>
 
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
@@ -18,7 +18,7 @@
     <string name="drawer_register">Register</string>
     <string name="drawer_favourites">Favourites</string>
     <string name="drawer_developers">Developers</string>
-    <string name="drawer_about">About Us</string>
+    <string name="drawer_about">About TechTatva</string>
 
     <string name="event_01">AIB (Round 1)</string>
     <string name="event_02">ATR (Round 1)</string>
@@ -64,6 +64,13 @@
     <string name="swipe_reload">Swipe Down to Reload</string>
     <string name="fetching_data">Fetching Data...\nPlease Wait</string>
     <string name="category_tag">Category:</string>
-    <string name="title_activity_about_us">AboutUsActivity</string>
-    <string name="about_us">TechTatva is the annual, student run. National Level Technical Fest of Manipal Institute of Technology, Manipal. It is one of the largest technical fests of the South Zone of the country, witnessing participation from various prestigious institutes from across the nation. TechTatva comprises of a plethora of events, ranging across the various branches of engineering.\n\nFrugal Innovation - Do More with Less, the theme for this year seeks to extend the mindset of Jugaad, derived from the common Indian experience of innovating frugal, homespun, and simple solutions to the myriad problems that beset everyday life. This October 7th to 10th, TechTatva\'16 aims to bear witness to a revamped Jugaadu methodology.</string>
+    <string name="title_activity_about_us">About TechTatva</string>
+    <string name="about_us">TechTatva is the annual, student run, National Level Technical Fest of Manipal Institute of Technology, Manipal. It is one of the largest technical fests of the South Zone of the country, witnessing participation from various prestigious institutes from across the nation. TechTatva comprises of a plethora of events, ranging across the various branches of engineering.\n\nFrugal Innovation - Do More with Less, the theme for this year seeks to extend the mindset of Jugaad, derived from the common Indian experience of innovating frugal, homespun, and simple solutions to the myriad problems that beset everyday life. This October 7th to 10th, TechTatva\'16 aims to bear witness to a revamped Jugaadu methodology.</string>
+    <string name="title_activity_favourites">Favourites</string>
+    <string name="no_favourites">No favourites found.</string>
+    <string name="search">Search</string>
+    <string name="trending">Trending</string>
+    <string name="insta_feed">InstaFeed</string>
+    <string name="delete_all">Delete All</string>
+    <string name="insta_tt16_hashtag">#techtatva16</string>
 </resources>

@@ -45,7 +45,7 @@ public class EventDetailsFragment extends Fragment {
             detailsStringBuilder[i].setSpan(new android.text.style.StyleSpan(Typeface.BOLD), 0, details[i].indexOf(":"), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
 
-        detailsStringBuilder[4].setSpan(new UnderlineSpan(), details[4].indexOf(" ")+1, details[4].indexOf(" ")+11, 0);
+        detailsStringBuilder[4].setSpan(new UnderlineSpan(), details[4].indexOf(" ")+1, details[4].indexOf("(")-2, 0);
 
         eventLocation.setText(detailsStringBuilder[0]);
         eventTime.setText(detailsStringBuilder[1]);

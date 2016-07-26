@@ -29,6 +29,7 @@ import in.techtatva.techtatva.models.events.EventsListModel;
 import in.techtatva.techtatva.network.EventsAPIClient;
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -117,7 +118,7 @@ public class DayFragment extends Fragment{
 
     private void displayData(){
 
-        RealmResults<EventModel> eventsResults = eventsDatabase.where(EventModel.class).equalTo("day", String.valueOf(getArguments().getString("title").charAt(4))).findAll();
+        RealmResults<EventModel> eventsResults = eventsDatabase.where(EventModel.class).equalTo("day", String.valueOf(getArguments().getString("title").charAt(4))).findAllSorted("startTime", Sort.ASCENDING, "eventName", Sort.ASCENDING);
         eventsList = eventsDatabase.copyFromRealm(eventsResults);
 
         adapter = new EventCardAdapter(eventsRecyclerView, eventsList, getChildFragmentManager(), eventsDatabase);
@@ -155,15 +156,11 @@ public class DayFragment extends Fragment{
                 eventsDatabase.copyToRealm(events);
                 eventsDatabase.commitTransaction();
 
-                if(operation.equals("load"))
+                if (operation.equals("load"))
                     displayData();
 
-                else if(operation.equals("update")){
-                    RealmResults<EventModel> eventsResults = eventsDatabase.where(EventModel.class).equalTo("day", String.valueOf(getArguments().getString("title").charAt(4))).findAll();
-                    List<EventModel> updatedEvents = eventsDatabase.copyFromRealm(eventsResults);
-                    eventsList.clear();
-                    eventsList.addAll(updatedEvents);
-                    adapter.notifyDataSetChanged();
+                else if (operation.equals("update")) {
+                    updateData();
                 }
             }
 
@@ -175,6 +172,14 @@ public class DayFragment extends Fragment{
                 }
             }
         });
+    }
+
+    void updateData(){
+        RealmResults<EventModel> eventsResults = eventsDatabase.where(EventModel.class).equalTo("day", String.valueOf(getArguments().getString("title").charAt(4))).findAllSorted( "startTime", Sort.ASCENDING, "eventName", Sort.ASCENDING);
+        List<EventModel> updatedEvents = eventsDatabase.copyFromRealm(eventsResults);
+        eventsList.clear();
+        eventsList.addAll(updatedEvents);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -209,7 +214,6 @@ public class DayFragment extends Fragment{
             }
         });
         search.setSubmitButtonEnabled(false);
-
     }
 
     @Override
@@ -228,6 +232,16 @@ public class DayFragment extends Fragment{
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        RealmResults<EventModel> eventsResults = eventsDatabase.where(EventModel.class).equalTo("day", String.valueOf(getArguments().getString("title").charAt(4))).findAll();
+
+        if(!eventsResults.isEmpty())
+           updateData();
     }
 
     @Override

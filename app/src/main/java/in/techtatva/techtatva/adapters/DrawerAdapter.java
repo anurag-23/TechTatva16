@@ -1,5 +1,6 @@
 package in.techtatva.techtatva.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.techtatva.techtatva.activities.FavouritesActivity;
 import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.activities.AboutUsActivity;
 import in.techtatva.techtatva.activities.CategoryActivity;
@@ -23,11 +25,11 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerView
 
     private LayoutInflater inflater;
     private List<DrawerModel> list = new ArrayList<>();
-    private Context context;
+    private Activity activity;
 
-    public DrawerAdapter(Context context, List<DrawerModel> list) {
-        this.context = context;
-        inflater = LayoutInflater.from(context);
+    public DrawerAdapter(Activity activity, List<DrawerModel> list) {
+        this.activity = activity;
+        inflater = LayoutInflater.from(activity);
         this.list = list;
     }
 
@@ -74,18 +76,24 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerView
         public void onClick(View v) {
 
             if (drawerItemName.getText().equals("Results")){
-                Intent intent = new Intent(context, ResultActivity.class);
-                context.startActivity(intent);
+                Intent intent = new Intent(activity, ResultActivity.class);
+                activity.startActivity(intent);
             }
 
             if (drawerItemName.getText().equals("Categories")){
-                Intent intent = new Intent(context, CategoryActivity.class);
-                context.startActivity(intent);
+                Intent intent = new Intent(activity, CategoryActivity.class);
+                activity.startActivity(intent);
             }
 
-            if (drawerItemName.getText().equals("About Us")){
-                Intent intent = new Intent(context, AboutUsActivity.class);
-                context.startActivity(intent);
+            if (drawerItemName.getText().equals("About TechTatva")){
+                Intent intent = new Intent(activity, AboutUsActivity.class);
+                activity.startActivity(intent);
+            }
+
+            if (drawerItemName.getText().equals("Favourites")){
+                Intent intent = new Intent(activity, FavouritesActivity.class);
+                activity.startActivity(intent);
+                //activity.finish();
             }
         }
     }

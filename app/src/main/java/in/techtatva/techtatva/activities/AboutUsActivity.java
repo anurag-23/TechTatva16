@@ -9,8 +9,6 @@ import in.techtatva.techtatva.R;
 
 public class AboutUsActivity extends AppCompatActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,7 +16,7 @@ public class AboutUsActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("About Us");
+        getSupportActionBar().setTitle(R.string.title_activity_about_us);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         findViewById(R.id.twitter_image).setOnClickListener(new View.OnClickListener() {
