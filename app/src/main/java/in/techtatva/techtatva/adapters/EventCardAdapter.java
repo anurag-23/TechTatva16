@@ -172,7 +172,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
             linearLayout = (LinearLayout) itemView.findViewById(R.id.event_description_linear_layout);
 
             eventFragmentPager = (EventFragmentCustomPager)itemView.findViewById(R.id.event_view_pager);
-            eventTabLayout = (TabLayout)itemView.findViewById(R.id.event_tab_layout);
+            eventTabLayout = (TabLayout)itemView.findViewById(R.id.events_tab_layout);
 
             itemView.setOnClickListener(this);
             favoriteButton.setOnClickListener(this);

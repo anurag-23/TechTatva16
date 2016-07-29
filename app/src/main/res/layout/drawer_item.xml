@@ -13,7 +13,7 @@
         android:id="@+id/drawer_item_image_view"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:src="@drawable/drawer_categories"
+        android:src="@drawable/drawer_favourites"
         android:tint="@color/black"
         android:alpha="0.54"
         android:layout_marginRight="@dimen/drawable_padding"

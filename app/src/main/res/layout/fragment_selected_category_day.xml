@@ -1,22 +1,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/grey_bg"
-    tools:context="in.techtatva.techtatva.activities.FavouritesActivity">
-
-    <include layout="@layout/app_bar"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/favourites_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        android:visibility="visible"/>
+    android:orientation="vertical"
+    tools:context="in.techtatva.techtatva.fragments.DayFragment">
 
     <LinearLayout
-        android:id="@+id/no_favourites_layout"
+        android:id="@+id/no_events_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/grey_bg"
@@ -27,10 +17,16 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:textSize="17sp"
-            android:text="@string/no_favourites"
+            android:text="@string/no_events"
             android:fontFamily="sans-serif-condensed"
             android:textColor="@color/dark_grey"/>
 
     </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/category_day_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"/>
 
 </LinearLayout>

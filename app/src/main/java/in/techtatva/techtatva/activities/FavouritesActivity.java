@@ -66,7 +66,7 @@ public class FavouritesActivity extends AppCompatActivity {
     void displayData(){
 
         favouritesList = favouritesDatabase.copyFromRealm(favouritesResults);
-        adapter = new FavouritesAdapter(favouritesList, this, favouritesDatabase);
+        adapter = new FavouritesAdapter(favouritesList, this, favouritesDatabase, favouritesRecyclerView, noFavouritesLayout);
         favouritesRecyclerView.setAdapter(adapter);
         favouritesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -95,7 +95,7 @@ public class FavouritesActivity extends AppCompatActivity {
                 if (!favouritesDatabase.where(FavouritesModel.class).findAll().isEmpty()) {
 
                     new AlertDialog.Builder(this)
-                            .setMessage("Remove all favourites?")
+                            .setMessage("Clear all favourites?")
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {

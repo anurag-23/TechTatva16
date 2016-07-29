@@ -41,7 +41,7 @@
             android:textColor="@color/black"
             android:textSize="17sp" />
 
-        <ImageButton
+        <!--<ImageButton
             android:layout_width="@dimen/std_icon_size"
             android:layout_height="@dimen/std_icon_size"
             android:id="@+id/category_info_imagebutton"
@@ -51,7 +51,7 @@
             android:background="@drawable/on_fav_select"
             android:src="@drawable/ic_info"
             android:tint="@color/color_primary"
-            android:tag="Deselected"/>
+            android:tag="Deselected"/>-->
 
     </RelativeLayout>
 

@@ -36,12 +36,16 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
     private List<FavouritesModel> favouritesList;
     private Realm favouritesDatabase;
     private Map<FavouritesModel, Boolean> isExpanded;
+    private RecyclerView favouritesRecyclerView;
+    private LinearLayout noFavouritesLayout;
 
-    public FavouritesAdapter (List<FavouritesModel> favouritesList, Context context, Realm favouritesDatabase){
+    public FavouritesAdapter (List<FavouritesModel> favouritesList, Context context, Realm favouritesDatabase, RecyclerView favouritesRecyclerView, LinearLayout noFavouritesLayout){
 
         this.favouritesList = favouritesList;
         this.context = context;
         this.favouritesDatabase = favouritesDatabase;
+        this.favouritesRecyclerView = favouritesRecyclerView;
+        this.noFavouritesLayout = noFavouritesLayout;
 
         isExpanded = new HashMap<>();
 
@@ -105,6 +109,11 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
         newList = favouritesDatabase.copyFromRealm(favouritesDatabase.where(FavouritesModel.class).findAllSorted(sortCriteria, sortOrders));
         favouritesList.addAll(newList);
         notifyDataSetChanged();
+
+        if (favouritesList.isEmpty()){
+            favouritesRecyclerView.setVisibility(View.GONE);
+            noFavouritesLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     public class FavouritesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

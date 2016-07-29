@@ -1,11 +1,15 @@
 package in.techtatva.techtatva.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -15,6 +19,7 @@ import java.util.List;
 import chipset.potato.Potato;
 import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.adapters.CategoryAdapter;
+import in.techtatva.techtatva.fragments.DrawerFragment;
 import in.techtatva.techtatva.models.categories.CategoriesModel;
 import in.techtatva.techtatva.models.categories.CategoryModel;
 import in.techtatva.techtatva.network.CategoriesAPIClient;
@@ -27,7 +32,7 @@ import retrofit2.Response;
 /**
  * Created by AYUSH on 13-06-2016.
  */
-public class CategoryActivity extends AppCompatActivity {
+public class CategoriesActivity extends AppCompatActivity {
 
     private Context context;
     private View progressDialog;
@@ -41,16 +46,16 @@ public class CategoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category);
+        setContentView(R.layout.activity_categories);
 
         toolbar = (Toolbar)findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(getResources().getString(R.string.title_activity_category));
+        getSupportActionBar().setTitle(R.string.title_activity_category);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         context = this;
-        progressDialog = findViewById(R.id.category_progress_dialog);
-        categoriesRecyclerView = (RecyclerView) findViewById(R.id.category_recycler_view);
+        progressDialog = findViewById(R.id.categories_progress_dialog);
+        categoriesRecyclerView = (RecyclerView) findViewById(R.id.categories_recycler_view);
 
         categoriesDatabase = Realm.getDefaultInstance();
 
@@ -64,7 +69,7 @@ public class CategoryActivity extends AppCompatActivity {
             loadCategories("load");
         }
         else{
-            View noConnectionLayout = findViewById(R.id.category_no_connection_layout);
+            View noConnectionLayout = findViewById(R.id.categories_no_connection_layout);
             noConnectionLayout.setVisibility(View.VISIBLE);
             categoriesRecyclerView.setVisibility(View.GONE);
             toolbar.setVisibility(View.GONE);
@@ -76,7 +81,7 @@ public class CategoryActivity extends AppCompatActivity {
         RealmResults<CategoryModel> categoriesResults = categoriesDatabase.where(CategoryModel.class).findAllSorted("categoryName");
         categoriesList = categoriesDatabase.copyFromRealm(categoriesResults);
 
-        adapter = new CategoryAdapter(getSupportFragmentManager(), categoriesList);
+        adapter = new CategoryAdapter(getSupportFragmentManager(), categoriesList, this);
         categoriesRecyclerView.setAdapter(adapter);
         categoriesRecyclerView.setLayoutManager(new LinearLayoutManager(context));
     }
@@ -171,17 +176,4 @@ public class CategoryActivity extends AppCompatActivity {
         return super.onTouchEvent(event);
     }
 
-    /* public List<CategoryModel> getCategoriesList() {
-        int[] text = {R.string.category_01,R.string.category_02, R.string.category_03,R.string.category_04, R.string.category_05,R.string.category_06,R.string.category_07, R.string.category_08,R.string.category_09, R.string.category_10, R.string.category_11};
-
-        List<CategoryModel> list = new ArrayList<>();
-        for (int i = 0; i < text.length; i++) {
-            CategoryModel category = new CategoryModel();
-            category.setCategoryName(text[i]);
-
-            list.add(category);
-        }
-
-        return list;
-    }*/
 }

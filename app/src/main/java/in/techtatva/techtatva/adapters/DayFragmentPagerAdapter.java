@@ -31,9 +31,10 @@ public class DayFragmentPagerAdapter extends FragmentPagerAdapter {
         return mFragmentList.size();
     }
 
-    public void addFragment(Fragment fragment, String title) {
+    public void addFragment(Fragment fragment, String title, String category) {
         Bundle bundle= new Bundle();
         bundle.putString("title",title);
+        bundle.putString("category", category);
         fragment.setArguments(bundle);
         mFragmentList.add(fragment);
         mFragmentTitleList.add(title);

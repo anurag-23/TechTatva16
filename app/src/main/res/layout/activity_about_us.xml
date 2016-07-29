@@ -27,7 +27,7 @@
             android:id="@+id/tt16_image"
             android:layout_width="match_parent"
             android:adjustViewBounds="true"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:layout_height="wrap_content"
             android:src="@drawable/tt16_banner"
             android:elevation="8dp"

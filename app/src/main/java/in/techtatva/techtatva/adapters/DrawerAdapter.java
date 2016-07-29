@@ -16,7 +16,8 @@ import java.util.List;
 import in.techtatva.techtatva.activities.FavouritesActivity;
 import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.activities.AboutUsActivity;
-import in.techtatva.techtatva.activities.CategoryActivity;
+import in.techtatva.techtatva.activities.CategoriesActivity;
+import in.techtatva.techtatva.activities.InstaFeedActivity;
 import in.techtatva.techtatva.activities.ResultActivity;
 import in.techtatva.techtatva.models.DrawerModel;
 
@@ -25,11 +26,11 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerView
 
     private LayoutInflater inflater;
     private List<DrawerModel> list = new ArrayList<>();
-    private Activity activity;
+    private Context context;
 
-    public DrawerAdapter(Activity activity, List<DrawerModel> list) {
-        this.activity = activity;
-        inflater = LayoutInflater.from(activity);
+    public DrawerAdapter(Context context, List<DrawerModel> list) {
+        this.context = context;
+        inflater = LayoutInflater.from(context);
         this.list = list;
     }
 
@@ -54,7 +55,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerView
 
     @Override
     public int getItemCount() {
-        return 8;
+        return list.size();
     }
 
     public class DrawerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -76,24 +77,23 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerView
         public void onClick(View v) {
 
             if (drawerItemName.getText().equals("Results")){
-                Intent intent = new Intent(activity, ResultActivity.class);
-                activity.startActivity(intent);
+                Intent intent = new Intent(context, ResultActivity.class);
+                context.startActivity(intent);
             }
 
-            if (drawerItemName.getText().equals("Categories")){
-                Intent intent = new Intent(activity, CategoryActivity.class);
-                activity.startActivity(intent);
+            if (drawerItemName.getText().equals("InstaFeed")){
+                Intent intent = new Intent(context, InstaFeedActivity.class);
+                context.startActivity(intent);
             }
 
-            if (drawerItemName.getText().equals("About TechTatva")){
-                Intent intent = new Intent(activity, AboutUsActivity.class);
-                activity.startActivity(intent);
+            if (drawerItemName.getText().equals("About Us")){
+                Intent intent = new Intent(context, AboutUsActivity.class);
+                context.startActivity(intent);
             }
 
             if (drawerItemName.getText().equals("Favourites")){
-                Intent intent = new Intent(activity, FavouritesActivity.class);
-                activity.startActivity(intent);
-                //activity.finish();
+                Intent intent = new Intent(context, FavouritesActivity.class);
+                context.startActivity(intent);
             }
         }
     }
