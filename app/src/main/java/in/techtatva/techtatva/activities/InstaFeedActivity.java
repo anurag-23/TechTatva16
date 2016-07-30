@@ -23,7 +23,7 @@ public class InstaFeedActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("#techtatva16");
+        getSupportActionBar().setTitle(R.string.insta_tt16_hashtag);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 

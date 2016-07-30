@@ -23,7 +23,7 @@ public class ResultActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Results");
+        getSupportActionBar().setTitle(R.string.title_activity_result);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.result_recycler_view);

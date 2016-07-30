@@ -10,6 +10,7 @@ public class FavouritesModel extends RealmObject {
     private String eventName;
     private String venue;
     private String date;
+    private String day;
     private String startTime;
     private String endTime;
     private String participants;
@@ -43,6 +44,14 @@ public class FavouritesModel extends RealmObject {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
     }
 
     public String getStartTime() {

@@ -42,8 +42,8 @@ public class DrawerFragment extends Fragment {
 
     public List<DrawerModel> getDrawerList() {
 
-        int[] icons = {R.drawable.drawer_categories, R.drawable.drawer_days, R.drawable.drawer_online, R.drawable.drawer_results, R.drawable.drawer_register, R.drawable.drawer_favourites, R.drawable.drawer_developers, R.drawable.drawer_about};
-        int[] text = {R.string.drawer_categories, R.string.drawer_days, R.string.drawer_online, R.string.drawer_results, R.string.drawer_register, R.string.drawer_favourites, R.string.drawer_developers, R.string.drawer_about};
+        int[] icons = {R.drawable.drawer_favourites, R.drawable.drawer_online, R.drawable.drawer_results, R.drawable.drawer_register,  R.drawable.drawer_instagram, R.drawable.drawer_developers, R.drawable.drawer_about};
+        int[] text = {R.string.drawer_favourites, R.string.drawer_online, R.string.drawer_results, R.string.drawer_register,  R.string.drawer_insta, R.string.drawer_developers, R.string.drawer_about};
 
         List<DrawerModel> list = new ArrayList<>();
 

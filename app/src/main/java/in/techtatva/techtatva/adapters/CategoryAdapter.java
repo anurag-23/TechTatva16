@@ -1,5 +1,7 @@
 package in.techtatva.techtatva.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.techtatva.techtatva.R;
+import in.techtatva.techtatva.activities.SelectedCategoryActivity;
 import in.techtatva.techtatva.fragments.CategoryInfoDialogFragment;
 import in.techtatva.techtatva.models.categories.CategoryModel;
 
@@ -25,10 +28,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     private FragmentManager fm;
     private List<CategoryModel> categories = new ArrayList<>();
+    private Context context;
 
-    public CategoryAdapter(FragmentManager fm, List<CategoryModel> categories){
+    public CategoryAdapter(FragmentManager fm, List<CategoryModel> categories, Context context){
         this.fm = fm;
         setCategories(categories);
+        this.context = context;
     }
 
     private void setCategories(List<CategoryModel> categories){
@@ -59,7 +64,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         ImageView categoryLogo;
         TextView categoryName;
-        ImageButton categoryInfo;
+        //ImageButton categoryInfo;
         String categoryDescription;
 
         public ViewHolder(View itemView) {
@@ -67,25 +72,23 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
             categoryLogo=(ImageView)itemView.findViewById(R.id.category_logo_image_view);
             categoryName=(TextView)itemView.findViewById(R.id.category_name_text_view);
-            categoryInfo=(ImageButton)itemView.findViewById(R.id.category_info_imagebutton);
-            categoryInfo.setOnClickListener(this);
+            itemView.setOnClickListener(this);
+            /*categoryInfo=(ImageButton)itemView.findViewById(R.id.category_info_imagebutton);
+            categoryInfo.setOnClickListener(this);*/
         }
 
 
         @Override
         public void onClick(View view) {
 
-            if (view.getId() == categoryInfo.getId()){
-                DialogFragment fragment = CategoryInfoDialogFragment.newInstance();
-                fragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
-
-                Bundle bundle = new Bundle();
-                bundle.putString("Category Name", categoryName.getText().toString());
-                bundle.putString("Description", categoryDescription);
-
-                fragment.setArguments(bundle);
-                fragment.show(fm, "fragment_category_info_dialog");
+            if (view.getId() == itemView.getId()){
+                Intent intent = new Intent(context, SelectedCategoryActivity.class);
+                intent.putExtra("Category Name", categoryName.getText().toString());
+                intent.putExtra("Category ID", categories.get(getLayoutPosition()).getCategoryID());
+                intent.putExtra("Description", categoryDescription);
+                context.startActivity(intent);
             }
+
 
         }
     }

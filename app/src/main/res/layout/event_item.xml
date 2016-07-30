@@ -61,7 +61,7 @@
     </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/description_linear_layout"
+            android:id="@+id/event_description_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -73,7 +73,7 @@
                 android:background="@color/divider_color" />
 
            <android.support.design.widget.TabLayout
-               android:id="@+id/event_tab_layout"
+               android:id="@+id/events_tab_layout"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                app:tabGravity="fill"

@@ -16,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ import in.techtatva.techtatva.models.events.EventsListModel;
 import in.techtatva.techtatva.network.EventsAPIClient;
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,7 +43,7 @@ public class DayFragment extends Fragment{
     private EventCardAdapter adapter;
     private RecyclerView eventsRecyclerView;
     private Realm eventsDatabase;
-    private List<EventModel> eventsList;
+    private List<EventModel> eventsList = new ArrayList<>();
     private View progressDialog;
 
     @Override
@@ -117,7 +119,8 @@ public class DayFragment extends Fragment{
 
     private void displayData(){
 
-        RealmResults<EventModel> eventsResults = eventsDatabase.where(EventModel.class).equalTo("day", String.valueOf(getArguments().getString("title").charAt(4))).findAll();
+        RealmResults<EventModel> eventsResults = eventsDatabase.where(EventModel.class).equalTo("day", String.valueOf(getArguments().getString("title").charAt(4))).findAllSorted("startTime", Sort.ASCENDING, "eventName", Sort.ASCENDING);
+
         eventsList = eventsDatabase.copyFromRealm(eventsResults);
 
         adapter = new EventCardAdapter(eventsRecyclerView, eventsList, getChildFragmentManager(), eventsDatabase);
@@ -155,15 +158,8 @@ public class DayFragment extends Fragment{
                 eventsDatabase.copyToRealm(events);
                 eventsDatabase.commitTransaction();
 
-                if(operation.equals("load"))
+                if (operation.equals("load")){
                     displayData();
-
-                else if(operation.equals("update")){
-                    RealmResults<EventModel> eventsResults = eventsDatabase.where(EventModel.class).equalTo("day", String.valueOf(getArguments().getString("title").charAt(4))).findAll();
-                    List<EventModel> updatedEvents = eventsDatabase.copyFromRealm(eventsResults);
-                    eventsList.clear();
-                    eventsList.addAll(updatedEvents);
-                    adapter.notifyDataSetChanged();
                 }
             }
 
@@ -177,9 +173,19 @@ public class DayFragment extends Fragment{
         });
     }
 
+    void updateData(){
+        RealmResults<EventModel> eventsResults = eventsDatabase.where(EventModel.class).equalTo("day", String.valueOf(getArguments().getString("title").charAt(4))).findAllSorted("startTime", Sort.ASCENDING, "eventName", Sort.ASCENDING);
+
+        List<EventModel> updatedEvents = eventsDatabase.copyFromRealm(eventsResults);
+
+        eventsList.clear();
+        eventsList.addAll(updatedEvents);
+        adapter.notifyDataSetChanged();
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_main, menu);
+        inflater.inflate(R.menu.menu_day, menu);
 
         MenuItem searchItem = menu.findItem(R.id.search);
         android.support.v7.widget.SearchView search = (android.support.v7.widget.SearchView) MenuItemCompat.getActionView(searchItem);
@@ -209,25 +215,16 @@ public class DayFragment extends Fragment{
             }
         });
         search.setSubmitButtonEnabled(false);
-
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public void onResume() {
+        super.onResume();
 
-        switch (item.getItemId()){
-            case R.id.instagram:{
-                Intent intent = new Intent (getActivity(),InstaFeedActivity.class);
-                startActivity(intent);
-                break;
-            }
+        RealmResults<EventModel> eventsResults = eventsDatabase.where(EventModel.class).equalTo("day", String.valueOf(getArguments().getString("title").charAt(4))).findAllSorted("startTime", Sort.ASCENDING, "eventName", Sort.ASCENDING);
 
-            case R.id.trending:{
-                break;
-            }
-        }
-
-        return super.onOptionsItemSelected(item);
+        if(!eventsResults.isEmpty())
+           updateData();
     }
 
     @Override
