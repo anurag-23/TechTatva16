@@ -11,5 +11,17 @@
         android:layout_height="match_parent"
         android:scrollbars="vertical"/>
 
+    <include layout="@layout/no_connection_layout"
+        android:id="@+id/day_no_connection_layout"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:visibility="gone"/>
+
+    <include layout="@layout/custom_progress_dialog"
+        android:id="@+id/day_progress_dialog"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:visibility="gone"/>
+
 
 </LinearLayout>

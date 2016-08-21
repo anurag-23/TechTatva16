@@ -1,6 +1,5 @@
 package in.techtatva.techtatva.adapters;
 
-import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import in.techtatva.techtatva.R;
-import in.techtatva.techtatva.models.ResultModel;
 
 /**
  * Created by Naman on 6/10/2016.

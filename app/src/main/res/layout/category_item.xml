@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"
-    app:cardElevation="2dp"
+    app:cardElevation="1.5dp"
     android:layout_marginLeft="4dp"
     android:layout_marginRight="4dp"
     android:layout_marginTop="4dp"
@@ -41,7 +41,7 @@
             android:textColor="@color/black"
             android:textSize="17sp" />
 
-        <ImageButton
+        <!--<ImageButton
             android:layout_width="@dimen/std_icon_size"
             android:layout_height="@dimen/std_icon_size"
             android:id="@+id/category_info_imagebutton"
@@ -49,9 +49,9 @@
             android:layout_alignParentRight="true"
             android:layout_margin="5dp"
             android:background="@drawable/on_fav_select"
-            android:src="@drawable/category_info"
+            android:src="@drawable/ic_info"
             android:tint="@color/color_primary"
-            android:tag="Deselected"/>
+            android:tag="Deselected"/>-->
 
     </RelativeLayout>
 

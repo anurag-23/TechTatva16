@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/favourite_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    app:cardElevation="1.5dp"
+    android:layout_marginLeft="4dp"
+    android:layout_marginRight="4dp"
+    android:layout_marginTop="4dp"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/on_select_bg">
+
+            <ImageView
+                android:id="@+id/favourite_logo_image_view"
+                android:layout_width="@dimen/std_icon_size"
+                android:layout_height="@dimen/std_icon_size"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/acumen" />
+
+            <TextView
+                android:id="@+id/favourite_name_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_toRightOf="@+id/favourite_logo_image_view"
+                android:layout_toEndOf="@+id/favourite_logo_image_view"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="start|center_vertical"
+                android:textAllCaps="true"
+                tools:text="Event Name"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/favourite_delete_image_button"
+                android:layout_width="@dimen/std_icon_size"
+                android:layout_height="@dimen/std_icon_size"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_delete"
+                android:tint="@color/dark_grey"
+                android:background="@drawable/on_fav_select" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/favourite_description_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/divider_color" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/favourite_location_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/ic_location"
+                    android:drawablePadding="16dp"
+                    android:drawableStart="@drawable/ic_location"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="start|center_vertical"
+                    android:textColor="@color/black"
+                    tools:text="Location"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/favourite_time_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/favourite_location_text_view"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:drawableLeft="@drawable/ic_time"
+                    android:drawablePadding="16dp"
+                    android:drawableStart="@drawable/ic_time"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="start|center_vertical"
+                    android:textColor="@color/black"
+                    tools:text="Timings"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/favourite_date_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/favourite_time_text_view"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:drawableLeft="@drawable/ic_date"
+                    android:drawablePadding="16dp"
+                    android:drawableStart="@drawable/ic_date"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="start|center_vertical"
+                    android:textColor="@color/black"
+                    tools:text="Date"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/favourite_participants_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/favourite_date_text_view"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:drawableLeft="@drawable/ic_participants"
+                    android:drawablePadding="16dp"
+                    android:drawableStart="@drawable/ic_participants"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="start|center_vertical"
+                    android:textColor="@color/black"
+                    tools:text="No. of participants"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:id="@+id/favourite_contact_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/favourite_participants_text_view"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:drawableLeft="@drawable/ic_contact"
+                    android:drawablePadding="16dp"
+                    android:drawableStart="@drawable/ic_contact"
+                    android:fontFamily="sans-serif-condensed"
+                    android:gravity="start|center_vertical"
+                    android:textColor="@color/black"
+                    tools:text="Contact"
+                    android:singleLine="true"
+                    android:textSize="15sp"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

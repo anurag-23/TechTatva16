@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:background="@color/white">
     <TextView
         android:id="@+id/event_location_text_view"
@@ -70,6 +69,7 @@
         android:drawablePadding="16dp"
         android:drawableStart="@drawable/ic_participants"
         android:fontFamily="sans-serif-condensed"
+        android:gravity="start|center_vertical"
         android:textColor="@color/black"
         tools:text="No. of participants"
         android:textSize="15sp"/>
@@ -90,6 +90,7 @@
         android:gravity="start|center_vertical"
         android:textColor="@color/black"
         tools:text="Contact"
+        android:singleLine="true"
         android:textSize="15sp"/>
 
 

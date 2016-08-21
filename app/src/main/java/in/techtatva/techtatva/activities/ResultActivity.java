@@ -5,13 +5,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.FragmentManager;
 import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.adapters.ResultAdapter;
 import in.techtatva.techtatva.models.ResultModel;
@@ -25,7 +23,7 @@ public class ResultActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Results");
+        getSupportActionBar().setTitle(R.string.title_activity_result);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.result_recycler_view);

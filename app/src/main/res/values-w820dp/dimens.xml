@@ -2,6 +2,5 @@
 
     <dimen name="activity_horizontal_margin">64dp</dimen>
 
-    <dimen name="drawable_padding">96dp</dimen>
     <dimen name="item_text_size">14sp</dimen>
 </resources>

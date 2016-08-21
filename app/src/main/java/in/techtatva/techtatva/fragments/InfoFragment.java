@@ -2,7 +2,6 @@ package in.techtatva.techtatva.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +17,11 @@ public class InfoFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_info, container, false);
 
+        TextView catName = (TextView)view.findViewById(R.id.event_category_text_view);
         TextView info = (TextView)view.findViewById(R.id.event_info_text_view);
-        info.setText("Info");
+
+        catName.setText(getArguments().getString("catName"));
+        info.setText(getArguments().getString("info"));
 
         return view;
     }

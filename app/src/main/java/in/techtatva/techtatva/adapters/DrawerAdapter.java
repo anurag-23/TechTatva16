@@ -1,5 +1,6 @@
 package in.techtatva.techtatva.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -12,8 +13,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.techtatva.techtatva.activities.FavouritesActivity;
 import in.techtatva.techtatva.R;
-import in.techtatva.techtatva.activities.CategoryActivity;
+import in.techtatva.techtatva.activities.AboutUsActivity;
+import in.techtatva.techtatva.activities.CategoriesActivity;
+import in.techtatva.techtatva.activities.InstaFeedActivity;
 import in.techtatva.techtatva.activities.ResultActivity;
 import in.techtatva.techtatva.models.DrawerModel;
 
@@ -51,7 +55,7 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerView
 
     @Override
     public int getItemCount() {
-        return 8;
+        return list.size();
     }
 
     public class DrawerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -77,8 +81,18 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerView
                 context.startActivity(intent);
             }
 
-            if (drawerItemName.getText().equals("Category View")){
-                Intent intent = new Intent(context, CategoryActivity.class);
+            if (drawerItemName.getText().equals("InstaFeed")){
+                Intent intent = new Intent(context, InstaFeedActivity.class);
+                context.startActivity(intent);
+            }
+
+            if (drawerItemName.getText().equals("About Us")){
+                Intent intent = new Intent(context, AboutUsActivity.class);
+                context.startActivity(intent);
+            }
+
+            if (drawerItemName.getText().equals("Favourites")){
+                Intent intent = new Intent(context, FavouritesActivity.class);
                 context.startActivity(intent);
             }
         }
