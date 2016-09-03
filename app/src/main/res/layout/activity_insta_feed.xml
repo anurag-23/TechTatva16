@@ -15,7 +15,20 @@
         android:id="@+id/insta_feed_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"/>
+        android:scrollbars="vertical"
+        android:visibility="gone"/>
+
+    <include layout="@layout/no_connection_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/no_connection_layout"
+        android:visibility="gone"/>
+
+    <include layout="@layout/custom_progress_dialog"
+        android:id="@+id/progress_dialog"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:visibility="gone"/>
 
 
 </LinearLayout>
