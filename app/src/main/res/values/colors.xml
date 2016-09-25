@@ -14,5 +14,8 @@
     <color name="dark_grey">#666666</color>
     <color name="grey_bg">#E0E0E0</color>
     <color name="accent">#212121</color>
+    <color name="brown">#CD7F32</color>
+    <color name="silver">#BFBFBF</color>
+    <color name="gold">#E87E04</color>
 
 </resources>
