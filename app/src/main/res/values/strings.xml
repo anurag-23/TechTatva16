@@ -81,4 +81,5 @@
     <string name="no_events">No Events.</string>
     <string name="category_view">Category View</string>
     <string name="day_view">Day View</string>
+    <string name="title_activity_trending">Trending</string>
 </resources>

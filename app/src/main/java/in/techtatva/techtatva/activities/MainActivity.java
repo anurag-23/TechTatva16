@@ -66,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             case R.id.trending:{
+                Intent intent = new Intent (this, TrendingActivity.class);
+                startActivity(intent);
                 break;
             }
         }
