@@ -16,42 +16,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/white">
-
+        android:background="@color/white"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
         <ImageView
             android:id="@+id/category_logo_image_view"
             android:layout_width="@dimen/std_icon_size"
             android:layout_height="@dimen/std_icon_size"
-            android:layout_margin="5dp"
+            android:layout_centerVertical="true"
             android:src="@drawable/acumen" />
 
         <TextView
             android:id="@+id/category_name_text_view"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_margin="5dp"
+            android:layout_height="wrap_content"
             android:layout_toRightOf="@id/category_logo_image_view"
             android:layout_toEndOf="@id/category_logo_image_view"
             android:fontFamily="sans-serif-condensed"
-            android:gravity="start|center_vertical"
             tools:text="Category Name"
             android:textAllCaps="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginStart="@dimen/activity_vertical_margin"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="17sp" />
-
-        <!--<ImageButton
-            android:layout_width="@dimen/std_icon_size"
-            android:layout_height="@dimen/std_icon_size"
-            android:id="@+id/category_info_imagebutton"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="5dp"
-            android:background="@drawable/on_fav_select"
-            android:src="@drawable/ic_info"
-            android:tint="@color/color_primary"
-            android:tag="Deselected"/>-->
 
     </RelativeLayout>
 

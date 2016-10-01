@@ -7,6 +7,8 @@ import io.realm.RealmObject;
  */
 public class FavouritesModel extends RealmObject {
 
+    private String id;
+    private String catID;
     private String eventName;
     private String venue;
     private String date;
@@ -20,6 +22,22 @@ public class FavouritesModel extends RealmObject {
     private String description;
 
     public FavouritesModel() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getCatID() {
+        return catID;
+    }
+
+    public void setCatID(String catID) {
+        this.catID = catID;
     }
 
     public String getEventName() {

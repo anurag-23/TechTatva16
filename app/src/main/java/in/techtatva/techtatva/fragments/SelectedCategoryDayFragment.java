@@ -1,9 +1,6 @@
 package in.techtatva.techtatva.fragments;
 
-import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -47,7 +44,7 @@ public class SelectedCategoryDayFragment extends android.support.v4.app.Fragment
 
             List<EventModel>  categoryDayList = categoryDatabase.copyFromRealm(categoryDayResults);
 
-            EventCardAdapter adapter = new EventCardAdapter(categoryDayRecyclerView, categoryDayList, getChildFragmentManager(), categoryDatabase);
+            EventCardAdapter adapter = new EventCardAdapter(getActivity(), categoryDayRecyclerView, categoryDayList, getChildFragmentManager(), categoryDatabase);
             categoryDayRecyclerView.setAdapter(adapter);
             categoryDayRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

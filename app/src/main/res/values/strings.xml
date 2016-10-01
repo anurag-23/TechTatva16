@@ -82,4 +82,9 @@
     <string name="category_view">Category View</string>
     <string name="day_view">Day View</string>
     <string name="title_activity_trending">Trending</string>
+    <string name="notification_receiver">Boot Notification Receiver</string>
+    <string name="boot_receiver">Boot Receiver</string>
+    <string name="number_1">#1</string>
+    <string name="number_2">#2</string>
+    <string name="number_3">#3</string>
 </resources>

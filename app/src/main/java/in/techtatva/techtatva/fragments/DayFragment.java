@@ -2,7 +2,6 @@ package in.techtatva.techtatva.fragments;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
@@ -16,14 +15,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import chipset.potato.Potato;
 import in.techtatva.techtatva.R;
-import in.techtatva.techtatva.activities.InstaFeedActivity;
 import in.techtatva.techtatva.adapters.EventCardAdapter;
 import in.techtatva.techtatva.models.events.EventModel;
 import in.techtatva.techtatva.models.events.EventsListModel;
@@ -45,6 +42,9 @@ public class DayFragment extends Fragment{
     private Realm eventsDatabase;
     private List<EventModel> eventsList = new ArrayList<>();
     private View progressDialog;
+    private View noConnectionLayout;
+    private final String LOAD_EVENTS = "load";
+    private final String UPDATE_EVENTS = "update";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,57 +61,57 @@ public class DayFragment extends Fragment{
         eventsRecyclerView = (RecyclerView)rootView.findViewById(R.id.day_recycler_view);
         progressDialog = rootView.findViewById(R.id.day_progress_dialog);
 
+        noConnectionLayout = rootView.findViewById(R.id.day_no_connection_layout);
+        noConnectionLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                ViewConfiguration vc = ViewConfiguration.get(getActivity());
+                int mSlop = vc.getScaledTouchSlop();
+                final int MAX_HORIZONTAL_SWIPE = 150;
+
+                switch (event.getAction()) {
+
+                    case MotionEvent.ACTION_DOWN: {
+                        y1 = event.getY();
+                        x1 = event.getX();
+                        break;
+                    }
+
+                    case MotionEvent.ACTION_UP: {
+                        y2 = event.getY();
+                        x2 = event.getX();
+
+                        float deltaY = y2 - y1;
+                        float deltaX = x2 - x1;
+
+                        if (Math.abs(deltaY) > mSlop && deltaY > 0 && Math.abs(deltaX) < MAX_HORIZONTAL_SWIPE)
+                            if (Potato.potate(getActivity()).Utils().isInternetConnected()) {
+                                noConnectionLayout.setVisibility(View.GONE);
+                                eventsRecyclerView.setVisibility(View.VISIBLE);
+                                loadEvents(LOAD_EVENTS);
+                            }
+                        break;
+                    }
+                }
+
+                return true;
+            }
+        });
+
         RealmResults<EventModel> eventsResults = eventsDatabase.where(EventModel.class).equalTo("day", String.valueOf(getArguments().getString("title").charAt(4))).findAll();
 
         if (!eventsResults.isEmpty()){
             displayData();
-            loadEvents("update");
+            loadEvents(UPDATE_EVENTS);
         }
         else if(Potato.potate(getActivity()).Utils().isInternetConnected())
         {
-            loadEvents("load");
+            loadEvents(LOAD_EVENTS);
         }
         else
         {
-            final View noConnectionLayout = rootView.findViewById(R.id.day_no_connection_layout);
             eventsRecyclerView.setVisibility(View.GONE);
             noConnectionLayout.setVisibility(View.VISIBLE);
-
-            rootView.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    ViewConfiguration vc = ViewConfiguration.get(getActivity());
-                    int mSlop = vc.getScaledTouchSlop();
-                    final int MAX_HORIZONTAL_SWIPE = 150;
-
-                    switch (event.getAction()) {
-
-                        case MotionEvent.ACTION_DOWN: {
-                            y1 = event.getY();
-                            x1 = event.getX();
-                            break;
-                        }
-
-                        case MotionEvent.ACTION_UP: {
-                            y2 = event.getY();
-                            x2 = event.getX();
-
-                            float deltaY = y2 - y1;
-                            float deltaX = x2 - x1;
-
-                            if (Math.abs(deltaY) > mSlop && deltaY > 0 && Math.abs(deltaX) < MAX_HORIZONTAL_SWIPE)
-                                if (Potato.potate(getActivity()).Utils().isInternetConnected()) {
-                                    noConnectionLayout.setVisibility(View.GONE);
-                                    eventsRecyclerView.setVisibility(View.VISIBLE);
-                                    loadEvents("load");
-                                }
-                            break;
-                        }
-                    }
-
-                    return true;
-                }
-            });
         }
 
         return rootView;
@@ -123,15 +123,14 @@ public class DayFragment extends Fragment{
 
         eventsList = eventsDatabase.copyFromRealm(eventsResults);
 
-        adapter = new EventCardAdapter(eventsRecyclerView, eventsList, getChildFragmentManager(), eventsDatabase);
+        adapter = new EventCardAdapter(getActivity(), eventsRecyclerView, eventsList, getChildFragmentManager(), eventsDatabase);
         eventsRecyclerView.setAdapter(adapter);
         eventsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
     }
 
     public void loadEvents(final String operation){
 
-        if (operation.equals("load")){
+        if (operation.equals(LOAD_EVENTS)){
             eventsRecyclerView.setVisibility(View.GONE);
             progressDialog.setVisibility(View.VISIBLE);
         };
@@ -141,7 +140,7 @@ public class DayFragment extends Fragment{
 
             @Override
             public void onResponse(Call<EventsListModel> call, Response<EventsListModel> response) {
-                if (operation.equals("load")) {
+                if (operation.equals(LOAD_EVENTS)) {
                     progressDialog.setVisibility(View.GONE);
                     eventsRecyclerView.setVisibility(View.VISIBLE);
                 }
@@ -158,16 +157,14 @@ public class DayFragment extends Fragment{
                 eventsDatabase.copyToRealm(events);
                 eventsDatabase.commitTransaction();
 
-                if (operation.equals("load")){
-                    displayData();
-                }
+                displayData();
             }
 
             @Override
             public void onFailure(Call<EventsListModel> call, Throwable t) {
-                if (operation.equals("load")) {
+                if (operation.equals(LOAD_EVENTS)) {
                     progressDialog.setVisibility(View.GONE);
-                    eventsRecyclerView.setVisibility(View.VISIBLE);
+                    noConnectionLayout.setVisibility(View.VISIBLE);
                 }
             }
         });

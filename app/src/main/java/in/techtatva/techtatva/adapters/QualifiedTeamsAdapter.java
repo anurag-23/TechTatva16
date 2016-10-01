@@ -9,16 +9,17 @@ import android.widget.TextView;
 import java.util.List;
 
 import in.techtatva.techtatva.R;
+import in.techtatva.techtatva.models.results.ResultModel;
 
 /**
  * Created by Naman on 6/10/2016.
  */
 public class QualifiedTeamsAdapter extends RecyclerView.Adapter<QualifiedTeamsAdapter.ViewHolder> {
 
-    private List<Integer> teamIDs;
+    private List<ResultModel> eventResult;
 
-    public QualifiedTeamsAdapter(List<Integer> teamIDs) {
-        this.teamIDs = teamIDs;
+    public QualifiedTeamsAdapter(List<ResultModel> eventResult) {
+        this.eventResult = eventResult;
     }
 
     @Override
@@ -30,13 +31,13 @@ public class QualifiedTeamsAdapter extends RecyclerView.Adapter<QualifiedTeamsAd
 
     @Override
     public void onBindViewHolder(QualifiedTeamsAdapter.ViewHolder holder, int position) {
-        int teamID = teamIDs.get(position);
-        holder.qualifiedTeamsTeamID.setText("Team ID: "+teamID);
+        ResultModel team = eventResult.get(position);
+        holder.qualifiedTeamsTeamID.setText("Team ID: "+team.getTeamID());
     }
 
     @Override
     public int getItemCount() {
-        return teamIDs.size();
+        return eventResult.size();
     }
     public class ViewHolder extends RecyclerView.ViewHolder{
 

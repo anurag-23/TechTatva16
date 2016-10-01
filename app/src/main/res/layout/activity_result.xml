@@ -15,5 +15,13 @@
             android:layout_height="match_parent"
             android:scrollbars="vertical"
             />
+
+        <include layout="@layout/custom_progress_dialog"
+            android:id="@+id/result_progress_dialog"
+            android:visibility="gone"/>
+
+        <include layout="@layout/no_connection_layout"
+            android:id="@+id/result_no_connection_layout"
+            android:visibility="gone"/>
     </LinearLayout>
 

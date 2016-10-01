@@ -11,21 +11,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Map;
 
 import in.techtatva.techtatva.R;
+import in.techtatva.techtatva.activities.ResultActivity;
 import in.techtatva.techtatva.fragments.ResultDetailsDialogFragment;
-import in.techtatva.techtatva.models.ResultModel;
+import in.techtatva.techtatva.models.results.ResultModel;
 
 /**
  * Created by Naman on 6/9/2016.
  */
 public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder>{
 
-    private List<ResultModel> results;
+    private List<ResultActivity.EventRound> eventRounds;
     private FragmentManager fm;
 
-    public ResultAdapter( FragmentManager fm, List<ResultModel> results){
-        this.results=results;
+    public ResultAdapter( FragmentManager fm, List<ResultActivity.EventRound> eventRounds){
+        this.eventRounds = eventRounds;
         this.fm=fm;
     }
 
@@ -36,17 +38,15 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         return new ViewHolder(view);
     }
 
-
-
     @Override
     public void onBindViewHolder(ResultAdapter.ViewHolder holder, int position) {
-        ResultModel result = results.get(position);
-        holder.resultName.setText(result.getResultName());
+        ResultActivity.EventRound eventRound = eventRounds.get(position);
+        holder.resultName.setText(eventRound.eventName);
     }
 
     @Override
     public int getItemCount() {
-        return results.size();
+        return eventRounds.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -66,7 +66,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         @Override
         public void onClick(View view) {
             if(view.getId()==itemView.getId()){
-                DialogFragment fragment= ResultDetailsDialogFragment.newInstance();
+                DialogFragment fragment= ResultDetailsDialogFragment.newInstance(eventRounds.get(getLayoutPosition()).result);
                 fragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
 
                 Bundle bundle = new Bundle();
@@ -77,4 +77,5 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
             }
         }
     }
+
 }
