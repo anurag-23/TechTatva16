@@ -1,15 +1,11 @@
 package in.techtatva.techtatva.activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -19,9 +15,9 @@ import java.util.List;
 import chipset.potato.Potato;
 import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.adapters.CategoryAdapter;
-import in.techtatva.techtatva.fragments.DrawerFragment;
-import in.techtatva.techtatva.models.categories.CategoriesModel;
+import in.techtatva.techtatva.models.categories.CategoriesListModel;
 import in.techtatva.techtatva.models.categories.CategoryModel;
+import in.techtatva.techtatva.network.APIClient;
 import in.techtatva.techtatva.network.CategoriesAPIClient;
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -41,6 +37,9 @@ public class CategoriesActivity extends AppCompatActivity {
     private RecyclerView categoriesRecyclerView;
     private Toolbar toolbar;
     private CategoryAdapter adapter;
+    private View noConnectionLayout;
+    private final String LOAD_CATEGORIES = "load";
+    private final String UPDATE_CATEGORIES = "update";
     private float x1, x2, y1, y2;
 
     @Override
@@ -56,6 +55,7 @@ public class CategoriesActivity extends AppCompatActivity {
         context = this;
         progressDialog = findViewById(R.id.categories_progress_dialog);
         categoriesRecyclerView = (RecyclerView) findViewById(R.id.categories_recycler_view);
+        noConnectionLayout = findViewById(R.id.categories_no_connection_layout);
 
         categoriesDatabase = Realm.getDefaultInstance();
 
@@ -63,13 +63,12 @@ public class CategoriesActivity extends AppCompatActivity {
 
         if (!categoriesResults.isEmpty()){
             displayData();
-            loadCategories("update");
+            loadCategories(UPDATE_CATEGORIES);
         }
         else if (Potato.potate(this).Utils().isInternetConnected()){
-            loadCategories("load");
+            loadCategories(LOAD_CATEGORIES);
         }
         else{
-            View noConnectionLayout = findViewById(R.id.categories_no_connection_layout);
             noConnectionLayout.setVisibility(View.VISIBLE);
             categoriesRecyclerView.setVisibility(View.GONE);
             toolbar.setVisibility(View.GONE);
@@ -88,22 +87,21 @@ public class CategoriesActivity extends AppCompatActivity {
 
     public void loadCategories(final String operation){
 
-        if (operation.equals("load")) {
+        if (operation.equals(LOAD_CATEGORIES)) {
             progressDialog.setVisibility(View.VISIBLE);
             categoriesRecyclerView.setVisibility(View.GONE);
-            toolbar.setVisibility(View.GONE);
+            toolbar.setVisibility(View.VISIBLE);
         }
 
-        Call<CategoriesModel> call = CategoriesAPIClient.getInterface().getCategories();
+        Call<CategoriesListModel> call = APIClient.getInterface().getCategories();
 
-        call.enqueue(new Callback<CategoriesModel>() {
+        call.enqueue(new Callback<CategoriesListModel>() {
             @Override
-            public void onResponse(Call<CategoriesModel> call, Response<CategoriesModel> response) {
+            public void onResponse(Call<CategoriesListModel> call, Response<CategoriesListModel> response) {
 
-                if (operation.equals("load")){
+                if (operation.equals(LOAD_CATEGORIES)) {
                     progressDialog.setVisibility(View.GONE);
                     categoriesRecyclerView.setVisibility(View.VISIBLE);
-                    toolbar.setVisibility(View.VISIBLE);
                 }
 
                 categoriesDatabase.beginTransaction();
@@ -111,10 +109,10 @@ public class CategoriesActivity extends AppCompatActivity {
                 categoriesDatabase.copyToRealm(response.body().getCategoriesList());
                 categoriesDatabase.commitTransaction();
 
-                if (operation.equals("load"))
+                if (operation.equals(LOAD_CATEGORIES))
                     displayData();
 
-                else if (operation.equals("update")){
+                else if (operation.equals(UPDATE_CATEGORIES)) {
                     RealmResults<CategoryModel> categoriesResults = categoriesDatabase.where(CategoryModel.class).findAllSorted("categoryName");
                     List<CategoryModel> updatedCategories = categoriesDatabase.copyFromRealm(categoriesResults);
                     categoriesList.clear();
@@ -124,13 +122,13 @@ public class CategoriesActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<CategoriesModel> call, Throwable t) {
+            public void onFailure(Call<CategoriesListModel> call, Throwable t) {
 
-                 if(operation.equals("load")){
-                     progressDialog.setVisibility(View.GONE);
-                     categoriesRecyclerView.setVisibility(View.VISIBLE);
-                     toolbar.setVisibility(View.VISIBLE);
-                 }
+                if (operation.equals(LOAD_CATEGORIES)) {
+                    progressDialog.setVisibility(View.GONE);
+                    toolbar.setVisibility(View.GONE);
+                    noConnectionLayout.setVisibility(View.VISIBLE);
+                }
 
             }
         });
@@ -166,8 +164,10 @@ public class CategoriesActivity extends AppCompatActivity {
                 float deltaX = x2-x1;
 
                 if (Math.abs(deltaY) > mSlop && deltaY>0 && Math.abs(deltaX) < MAX_HORIZONTAL_SWIPE)
-                    if (Potato.potate(this).Utils().isInternetConnected())
-                        loadCategories("load");
+                    if (Potato.potate(this).Utils().isInternetConnected()){
+                        noConnectionLayout.setVisibility(View.GONE);
+                        loadCategories(LOAD_CATEGORIES);
+                    }
 
                 break;
             }

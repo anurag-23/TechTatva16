@@ -16,7 +16,7 @@
 
         <shape>
 
-            <solid android:color="@color/white" />
+            <solid android:color="@color/background_holo_light" />
 
         </shape>
 

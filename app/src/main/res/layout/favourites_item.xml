@@ -19,42 +19,44 @@
         android:orientation="vertical">
 
         <RelativeLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/on_select_bg">
+            android:background="@drawable/on_select_bg"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp">
 
             <ImageView
                 android:id="@+id/favourite_logo_image_view"
                 android:layout_width="@dimen/std_icon_size"
                 android:layout_height="@dimen/std_icon_size"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_centerVertical="true"
                 android:src="@drawable/acumen" />
 
             <TextView
                 android:id="@+id/favourite_name_text_view"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_margin="5dp"
+                android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/favourite_logo_image_view"
                 android:layout_toEndOf="@+id/favourite_logo_image_view"
                 android:fontFamily="sans-serif-condensed"
-                android:gravity="start|center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginStart="@dimen/activity_vertical_margin"
                 android:textAllCaps="true"
                 tools:text="Event Name"
                 android:textColor="@color/black"
-                android:textSize="17sp"
+                android:textSize="@dimen/typography_title"
                 android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/favourite_delete_image_button"
-                android:layout_width="@dimen/std_icon_size"
-                android:layout_height="@dimen/std_icon_size"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="5dp"
+                android:layout_centerVertical="true"
                 android:src="@drawable/ic_delete"
                 android:tint="@color/dark_grey"
                 android:background="@drawable/on_fav_select" />

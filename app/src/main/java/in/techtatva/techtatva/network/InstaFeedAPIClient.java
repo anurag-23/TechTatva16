@@ -1,6 +1,6 @@
 package in.techtatva.techtatva.network;
 
-import in.techtatva.techtatva.models.Instagram.InstagramFeed;
+import in.techtatva.techtatva.models.instagram.InstagramFeed;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

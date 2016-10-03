@@ -13,16 +13,16 @@ import java.util.List;
 public class EventsListModel {
     @SerializedName("data")
     @Expose
-    private List<EventModel> events;
+    private List<EventDetailsModel> events;
 
     public EventsListModel() {
     }
 
-    public List<EventModel> getEvents() {
+    public List<EventDetailsModel> getEvents() {
         return events;
     }
 
-    public void setEvents(List<EventModel> events) {
+    public void setEvents(List<EventDetailsModel> events) {
         this.events = events;
     }
 }

@@ -8,73 +8,23 @@ import io.realm.RealmObject;
 /**
  * Created by Naman on 6/3/2016.
  */
-public class EventModel extends RealmObject {
+public class EventModel {
 
-    @SerializedName("id")
-    @Expose
-    private String id;
-
-    @SerializedName("event_name")
-    @Expose
     private String eventName;
-
-    @SerializedName("event_id")
-    @Expose
     private String eventId;
-
-    @SerializedName("description")
-    @Expose
     private String description;
-
-    @SerializedName("event_max_team_number")
-    @Expose
     private String eventMaxTeamNumber;
-
-    @SerializedName("cat_name")
-    @Expose
     private String catName;
-
-    @SerializedName("cat_id")
-    @Expose
     private String catId;
-
-    @SerializedName("venue")
-    @Expose
     private String venue;
-
-    @SerializedName("start_time")
-    @Expose
     private String startTime;
-
-    @SerializedName("end_time")
-    @Expose
     private String endTime;
-
-    @SerializedName("day")
-    @Expose
     private String day;
-
-    @SerializedName("date")
-    @Expose
     private String date;
-
-    @SerializedName("contact_name")
-    @Expose
     private String contactName;
-
-    @SerializedName("contact_number")
-    @Expose
     private String contactNumber;
 
     public EventModel() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getContactNumber() {

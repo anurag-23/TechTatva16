@@ -21,7 +21,7 @@
         <item name="tabSelectedTextColor">@color/white</item>
     </style>
     <style name="DaysTabTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">@dimen/typography_title</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/color_primary_light</item>

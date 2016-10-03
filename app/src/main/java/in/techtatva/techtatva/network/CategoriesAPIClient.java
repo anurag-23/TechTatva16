@@ -1,6 +1,6 @@
 package in.techtatva.techtatva.network;
 
-import in.techtatva.techtatva.models.categories.CategoriesModel;
+import in.techtatva.techtatva.models.categories.CategoriesListModel;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
@@ -25,8 +25,8 @@ public class CategoriesAPIClient {
     }
 
     public interface APIInterface {
-        @GET("bins/17y41")
-        Call <CategoriesModel> getCategories();
+        @GET("bins/1c06o")
+        Call <CategoriesListModel> getCategories();
 
     }
 }

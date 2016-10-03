@@ -39,12 +39,13 @@
         android:gravity="center_horizontal"
         android:textColor="@color/white"
         android:fontFamily="sans-serif-condensed"
-        android:textSize="20sp"/>
+        android:textSize="18sp"/>
 
 </LinearLayout>
 
 
    <LinearLayout
+       android:id="@+id/no_connection_swipe_down"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:layout_alignParentBottom="true"

@@ -15,16 +15,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.techtatva.techtatva.R;
+import in.techtatva.techtatva.activities.ResultActivity;
 import in.techtatva.techtatva.adapters.QualifiedTeamsAdapter;
+import in.techtatva.techtatva.models.results.ResultModel;
 
 
 public class ResultDetailsDialogFragment extends DialogFragment {
 
+    private List<ResultModel> eventResult;
+
     public ResultDetailsDialogFragment() {
     }
 
-    public static ResultDetailsDialogFragment newInstance() {
+    public static ResultDetailsDialogFragment newInstance(List<ResultModel> eventResult) {
         ResultDetailsDialogFragment fragment = new ResultDetailsDialogFragment();
+        fragment.setEventResult(eventResult);
         return fragment;
     }
 
@@ -38,7 +43,7 @@ public class ResultDetailsDialogFragment extends DialogFragment {
         eventName.setText(getArguments().getString("Event"));
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.qualified_teams_recycler_view);
-        QualifiedTeamsAdapter adapter = new QualifiedTeamsAdapter(getList());
+        QualifiedTeamsAdapter adapter = new QualifiedTeamsAdapter(eventResult);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
 
@@ -51,23 +56,12 @@ public class ResultDetailsDialogFragment extends DialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         // Get field from view
 
     }
-    public List<Integer> getList() {
-        int[] teamIDs = {201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220, 221,222,223,224};
 
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < teamIDs.length; i++) {
-            int teamID;
-            teamID=teamIDs[i];
-
-            list.add(teamID);
-        }
-
-        return list;
-
+    public void setEventResult(List<ResultModel> eventResult){
+        this.eventResult = eventResult;
     }
 
 }
