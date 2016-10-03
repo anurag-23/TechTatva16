@@ -19,7 +19,7 @@
         android:gravity="start|center_vertical"
         android:textColor="@color/black"
         tools:text="Location"
-        android:textSize="15sp"/>
+        android:textSize="@dimen/typography_body"/>
 
     <TextView
         android:id="@+id/event_time_text_view"
@@ -37,7 +37,7 @@
         android:gravity="start|center_vertical"
         android:textColor="@color/black"
         tools:text="Timings"
-        android:textSize="15sp"/>
+        android:textSize="@dimen/typography_body"/>
     <TextView
         android:id="@+id/event_date_text_view"
         android:layout_width="match_parent"
@@ -54,7 +54,7 @@
         android:gravity="start|center_vertical"
         android:textColor="@color/black"
         tools:text="Date"
-        android:textSize="15sp"/>
+        android:textSize="@dimen/typography_body"/>
 
     <TextView
         android:id="@+id/event_participants_text_view"
@@ -72,7 +72,7 @@
         android:gravity="start|center_vertical"
         android:textColor="@color/black"
         tools:text="No. of participants"
-        android:textSize="15sp"/>
+        android:textSize="@dimen/typography_body"/>
 
     <TextView
         android:id="@+id/event_contact_text_view"
@@ -91,8 +91,6 @@
         android:textColor="@color/black"
         tools:text="Contact"
         android:singleLine="true"
-        android:textSize="15sp"/>
-
-
+        android:textSize="@dimen/typography_body"/>
 
 </RelativeLayout>

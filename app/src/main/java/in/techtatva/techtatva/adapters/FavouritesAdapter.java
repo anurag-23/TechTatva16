@@ -24,6 +24,7 @@ import java.util.Map;
 import chipset.potato.Potato;
 import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.models.FavouritesModel;
+import in.techtatva.techtatva.resources.IconCollection;
 import io.realm.Realm;
 import io.realm.Sort;
 
@@ -75,6 +76,10 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
         }
 
         holder.favouriteName.setText(favourite.getEventName());
+
+        IconCollection icons = new IconCollection();
+        holder.favouriteLogo.setImageResource(icons.getIconResource(context, favourite.getCatName()));
+
         holder.favouriteVenue.setText(favourite.getVenue());
         holder.favouriteTime.setText(favourite.getStartTime() + " to " + favourite.getEndTime());
         holder.favouriteDate.setText(favourite.getDate());

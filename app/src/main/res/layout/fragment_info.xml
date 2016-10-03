@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:text="@string/category_tag"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="@dimen/typography_body"
             android:textStyle="bold"
             android:fontFamily="sans-serif-condensed"
             android:layout_marginRight="5dp"
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             tools:text="CategoryName"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="@dimen/typography_body"
             android:fontFamily="sans-serif-condensed" />
 
     </LinearLayout>
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         tools:text="Info"
         android:textColor="@color/black"
-        android:textSize="15sp"
+        android:textSize="@dimen/typography_body"
         android:fontFamily="sans-serif-condensed"/>
 
 

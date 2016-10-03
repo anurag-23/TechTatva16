@@ -10,21 +10,17 @@ import io.realm.RealmObject;
  */
 public class CategoryModel extends RealmObject{
 
-    @SerializedName("categoryName")
+    @SerializedName("cid")
+    @Expose
+    private String categoryID;
+
+    @SerializedName("cname")
     @Expose
     private String categoryName;
 
-    @SerializedName("description")
+    @SerializedName("cdesc")
     @Expose
     private String categoryDescription;
-
-    @SerializedName("categoryType")
-    @Expose
-    private String categoryType;
-
-    @SerializedName("categoryID")
-    @Expose
-    private String categoryID;
 
     public CategoryModel(){
 
@@ -43,15 +39,6 @@ public class CategoryModel extends RealmObject{
 
     public void setCategoryDescription(String categoryDescription) {
         this.categoryDescription = categoryDescription;
-    }
-
-
-    public String getCategoryType() {
-        return categoryType;
-    }
-
-    public void setCategoryType(String categoryType) {
-        this.categoryType = categoryType;
     }
 
     public String getCategoryID() {

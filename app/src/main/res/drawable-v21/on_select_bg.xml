@@ -6,6 +6,6 @@
 
     <item
         android:id="@+id/mask"
-        android:drawable="@color/white"/>
+        android:drawable="@color/background_holo_light"/>
 
     </ripple>

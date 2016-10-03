@@ -1,11 +1,16 @@
 package in.techtatva.techtatva.activities;
 
 import android.content.Context;
+import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -19,7 +24,7 @@ import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.adapters.ResultAdapter;
 import in.techtatva.techtatva.models.results.ResultModel;
 import in.techtatva.techtatva.models.results.ResultsListModel;
-import in.techtatva.techtatva.network.ResultsAPIClient;
+import in.techtatva.techtatva.network.APIClient;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import retrofit2.Call;
@@ -36,6 +41,7 @@ public class ResultActivity extends AppCompatActivity {
     private ResultAdapter resultAdapter;
     private Toolbar toolbar;
     private Context context;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private List<EventRound> eventRounds;
     private final String LOAD_RESULTS = "load";
     private final String UPDATE_RESULTS = "update";
@@ -53,13 +59,27 @@ public class ResultActivity extends AppCompatActivity {
         resultsRecyclerView = (RecyclerView)findViewById(R.id.result_recycler_view);
         noConnectionLayout = findViewById(R.id.result_no_connection_layout);
         progressDialog = findViewById(R.id.result_progress_dialog);
+        swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.result_swipe_refresh);
+
+        if (swipeRefreshLayout!=null)
+            swipeRefreshLayout.setColorSchemeResources(R.color.color_primary);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (Potato.potate(context).Utils().isInternetConnected()) {
+                    noConnectionLayout.setVisibility(View.GONE);
+                    resultsRecyclerView.setVisibility(View.VISIBLE);
+                    loadResults(UPDATE_RESULTS);
+                }
+            }
+        });
 
         context = this;
         resultsDatabase = Realm.getDefaultInstance();
         RealmResults<ResultModel> results = resultsDatabase.where(ResultModel.class).findAll();
 
         eventRounds = new ArrayList<>();
-        resultAdapter = new ResultAdapter(getSupportFragmentManager(),eventRounds);
+        resultAdapter = new ResultAdapter(getSupportFragmentManager(),eventRounds, this);
         resultsRecyclerView.setAdapter(resultAdapter);
         resultsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -133,6 +153,7 @@ public class ResultActivity extends AppCompatActivity {
                 }
                 EventRound round = new EventRound();
                 round.eventName = result.getEventName()+" (Round "+result.getRound()+")";
+                round.catName = result.getCatName();
                 round.result.add(result);
                 eventRounds.add(round);
             }
@@ -149,7 +170,7 @@ public class ResultActivity extends AppCompatActivity {
             progressDialog.setVisibility(View.VISIBLE);
         }
 
-        Call<ResultsListModel> call = ResultsAPIClient.getInterface().getResults();
+        Call<ResultsListModel> call = APIClient.getInterface().getResults();
 
         call.enqueue(new Callback<ResultsListModel>() {
             @Override
@@ -166,6 +187,10 @@ public class ResultActivity extends AppCompatActivity {
                     resultsRecyclerView.setVisibility(View.VISIBLE);
                     toolbar.setVisibility(View.VISIBLE);
                 }
+
+                if (swipeRefreshLayout.isRefreshing())
+                    swipeRefreshLayout.setRefreshing(false);
+
                 displayResults();
             }
 
@@ -173,16 +198,22 @@ public class ResultActivity extends AppCompatActivity {
             public void onFailure(Call<ResultsListModel> call, Throwable t) {
                 if (operation.equals(LOAD_RESULTS)){
                     progressDialog.setVisibility(View.GONE);
+                    resultsRecyclerView.setVisibility(View.GONE);
                     noConnectionLayout.setVisibility(View.VISIBLE);
                     toolbar.setVisibility(View.GONE);
+                    Log.d("Reached", "here");
                 }
 
+
+                if (swipeRefreshLayout.isRefreshing())
+                    swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
 
     public class EventRound{
         public String eventName;
+        public String catName;
         public List<ResultModel> result;
 
         EventRound(){
@@ -191,4 +222,33 @@ public class ResultActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_result, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch(item.getItemId()){
+            case R.id.menu_refresh:{
+                if (Potato.potate(context).Utils().isInternetConnected()) {
+                    noConnectionLayout.setVisibility(View.GONE);
+                    resultsRecyclerView.setVisibility(View.VISIBLE);
+                    Snackbar.make(resultsRecyclerView, "Refreshing data...", Snackbar.LENGTH_LONG).show();
+                    loadResults(UPDATE_RESULTS);
+                }
+                break;
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        resultsDatabase.close();
+    }
 }

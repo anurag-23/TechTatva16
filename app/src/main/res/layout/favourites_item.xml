@@ -47,7 +47,7 @@
                 android:textAllCaps="true"
                 tools:text="Event Name"
                 android:textColor="@color/black"
-                android:textSize="17sp"
+                android:textSize="@dimen/typography_title"
                 android:textStyle="bold" />
 
             <ImageButton

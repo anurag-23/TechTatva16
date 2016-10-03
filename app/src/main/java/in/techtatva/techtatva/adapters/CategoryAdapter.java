@@ -20,6 +20,7 @@ import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.activities.SelectedCategoryActivity;
 import in.techtatva.techtatva.fragments.CategoryInfoDialogFragment;
 import in.techtatva.techtatva.models.categories.CategoryModel;
+import in.techtatva.techtatva.resources.IconCollection;
 
 /**
  * Created by AYUSH on 14-06-2016.
@@ -52,6 +53,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public void onBindViewHolder(CategoryAdapter.ViewHolder holder, int position) {
         CategoryModel category = categories.get(position);
         holder.categoryName.setText(category.getCategoryName());
+
+        IconCollection icons = new IconCollection();
+        holder.categoryLogo.setImageResource(icons.getIconResource(context, category.getCategoryName()));
+
         holder.categoryDescription = category.getCategoryDescription();
     }
 

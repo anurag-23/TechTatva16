@@ -62,13 +62,6 @@
             android:label="@string/title_activity_selected_category"
             android:launchMode="singleTop"
             android:parentActivityName=".activities.CategoriesActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
         </activity>
         <activity
             android:name=".activities.TrendingActivity"

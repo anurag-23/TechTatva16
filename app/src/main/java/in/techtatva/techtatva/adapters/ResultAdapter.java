@@ -1,5 +1,6 @@
 package in.techtatva.techtatva.adapters;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -17,6 +18,7 @@ import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.activities.ResultActivity;
 import in.techtatva.techtatva.fragments.ResultDetailsDialogFragment;
 import in.techtatva.techtatva.models.results.ResultModel;
+import in.techtatva.techtatva.resources.IconCollection;
 
 /**
  * Created by Naman on 6/9/2016.
@@ -25,10 +27,12 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
 
     private List<ResultActivity.EventRound> eventRounds;
     private FragmentManager fm;
+    private Context context;
 
-    public ResultAdapter( FragmentManager fm, List<ResultActivity.EventRound> eventRounds){
+    public ResultAdapter( FragmentManager fm, List<ResultActivity.EventRound> eventRounds, Context context){
         this.eventRounds = eventRounds;
         this.fm=fm;
+        this.context = context;
     }
 
     @Override
@@ -42,6 +46,9 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
     public void onBindViewHolder(ResultAdapter.ViewHolder holder, int position) {
         ResultActivity.EventRound eventRound = eventRounds.get(position);
         holder.resultName.setText(eventRound.eventName);
+
+        IconCollection icons = new IconCollection();
+        holder.resultLogo.setImageResource(icons.getIconResource(context, eventRound.catName));
     }
 
     @Override

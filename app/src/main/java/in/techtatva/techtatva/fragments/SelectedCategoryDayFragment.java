@@ -3,18 +3,23 @@ package in.techtatva.techtatva.fragments;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.adapters.EventCardAdapter;
+import in.techtatva.techtatva.models.events.EventDetailsModel;
 import in.techtatva.techtatva.models.events.EventModel;
+import in.techtatva.techtatva.models.events.ScheduleModel;
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 public class SelectedCategoryDayFragment extends android.support.v4.app.Fragment {
 
@@ -38,13 +43,34 @@ public class SelectedCategoryDayFragment extends android.support.v4.app.Fragment
         categoryDayRecyclerView = (RecyclerView)rootView.findViewById(R.id.category_day_recycler_view);
         noEventsLayout = (LinearLayout)rootView.findViewById(R.id.no_events_layout);
 
-        RealmResults<EventModel> categoryDayResults = categoryDatabase.where(EventModel.class).equalTo("day", String.valueOf(getArguments().getString("title").charAt(4))).equalTo("catId", getArguments().getString("category")).findAll();
-
+        RealmResults<ScheduleModel> categoryDayResults = categoryDatabase.where(ScheduleModel.class).equalTo("day", String.valueOf(getArguments().getString("title").charAt(4))).equalTo("catID", getArguments().getString("categoryID")).findAllSorted("startTime", Sort.ASCENDING, "eventName", Sort.ASCENDING);
+        List<EventModel> categoryDayList = new ArrayList<>();
         if (!categoryDayResults.isEmpty()){
 
-            List<EventModel>  categoryDayList = categoryDatabase.copyFromRealm(categoryDayResults);
+            for (ScheduleModel schedule : categoryDatabase.copyFromRealm(categoryDayResults)){
+                EventDetailsModel eventDetail = categoryDatabase.where(EventDetailsModel.class).equalTo("eventID", schedule.getEventID()).findFirst();
 
-            EventCardAdapter adapter = new EventCardAdapter(getActivity(), categoryDayRecyclerView, categoryDayList, getChildFragmentManager(), categoryDatabase);
+                if (eventDetail!=null){
+                    EventModel event = new EventModel();
+                    event.setEventName(eventDetail.getEventName() + " (Round " + schedule.getRound() + ")");
+                    event.setEventId(eventDetail.getEventID());
+                    event.setDescription(eventDetail.getDescription());
+                    event.setEventMaxTeamNumber(eventDetail.getMaxTeamSize());
+                    event.setCatName(eventDetail.getCatName());
+                    event.setCatId(eventDetail.getCatID());
+                    event.setContactName(eventDetail.getContactName());
+                    event.setContactNumber(eventDetail.getContactNo());
+                    event.setVenue(schedule.getVenue());
+                    event.setDay(schedule.getDay());
+                    event.setDate(schedule.getDate());
+                    event.setStartTime(schedule.getStartTime());
+                    event.setEndTime(schedule.getEndTime());
+                    categoryDayList.add(event);
+                }
+
+            }
+
+            EventCardAdapter adapter = new EventCardAdapter(getActivity(), categoryDayRecyclerView, categoryDayList, categoryDayList, getChildFragmentManager(), categoryDatabase);
             categoryDayRecyclerView.setAdapter(adapter);
             categoryDayRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

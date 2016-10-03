@@ -43,7 +43,7 @@
             android:layout_marginStart="@dimen/activity_vertical_margin"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:textSize="17sp" />
+            android:textSize="@dimen/typography_title" />
 
     </RelativeLayout>
 

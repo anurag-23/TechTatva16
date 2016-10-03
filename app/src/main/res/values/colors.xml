@@ -17,5 +17,6 @@
     <color name="brown">#CD7F32</color>
     <color name="silver">#BFBFBF</color>
     <color name="gold">#E87E04</color>
+    <color name="background_holo_light">#fff3f3f3</color>
 
 </resources>

@@ -1,10 +1,7 @@
 package in.techtatva.techtatva.adapters;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +10,9 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
-
 import in.techtatva.techtatva.R;
-import in.techtatva.techtatva.models.Instagram.InstaFeedModel;
-import in.techtatva.techtatva.models.Instagram.InstagramFeed;
+import in.techtatva.techtatva.models.instagram.InstaFeedModel;
+import in.techtatva.techtatva.models.instagram.InstagramFeed;
 
 /**
  * Created by anurag on 8/6/16.

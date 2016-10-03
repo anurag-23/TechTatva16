@@ -1,15 +1,11 @@
 package in.techtatva.techtatva.activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -19,9 +15,9 @@ import java.util.List;
 import chipset.potato.Potato;
 import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.adapters.CategoryAdapter;
-import in.techtatva.techtatva.fragments.DrawerFragment;
-import in.techtatva.techtatva.models.categories.CategoriesModel;
+import in.techtatva.techtatva.models.categories.CategoriesListModel;
 import in.techtatva.techtatva.models.categories.CategoryModel;
+import in.techtatva.techtatva.network.APIClient;
 import in.techtatva.techtatva.network.CategoriesAPIClient;
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -97,11 +93,11 @@ public class CategoriesActivity extends AppCompatActivity {
             toolbar.setVisibility(View.VISIBLE);
         }
 
-        Call<CategoriesModel> call = CategoriesAPIClient.getInterface().getCategories();
+        Call<CategoriesListModel> call = APIClient.getInterface().getCategories();
 
-        call.enqueue(new Callback<CategoriesModel>() {
+        call.enqueue(new Callback<CategoriesListModel>() {
             @Override
-            public void onResponse(Call<CategoriesModel> call, Response<CategoriesModel> response) {
+            public void onResponse(Call<CategoriesListModel> call, Response<CategoriesListModel> response) {
 
                 if (operation.equals(LOAD_CATEGORIES)) {
                     progressDialog.setVisibility(View.GONE);
@@ -126,7 +122,7 @@ public class CategoriesActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<CategoriesModel> call, Throwable t) {
+            public void onFailure(Call<CategoriesListModel> call, Throwable t) {
 
                 if (operation.equals(LOAD_CATEGORIES)) {
                     progressDialog.setVisibility(View.GONE);

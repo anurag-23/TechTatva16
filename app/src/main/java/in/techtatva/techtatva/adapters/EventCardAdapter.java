@@ -31,6 +31,7 @@ import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.models.FavouritesModel;
 import in.techtatva.techtatva.models.events.EventModel;
 import in.techtatva.techtatva.receivers.NotificationReceiver;
+import in.techtatva.techtatva.resources.IconCollection;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -54,12 +55,11 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
     private final int CREATE_NOTIFICATION = 0;
     private final int CANCEL_NOTIFICATION = 1;
 
-    public EventCardAdapter(Context context, RecyclerView recyclerView, List<EventModel> events,FragmentManager fm, Realm eventsDatabase){
+    public EventCardAdapter(Context context, RecyclerView recyclerView, List<EventModel> events, List<EventModel> allEvents, FragmentManager fm, Realm eventsDatabase){
         eventsRecyclerView = recyclerView;
         this.context = context;
         this.events = events;
-        allEvents = new ArrayList<>();
-        allEvents.addAll(this.events);
+        this.allEvents = allEvents;
         this.fm = fm;
         this.eventsDatabase = eventsDatabase;
 
@@ -75,7 +75,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
 
-        View view= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.event_item,viewGroup,false);
+        View view= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.event_item, viewGroup, false);
         return new ViewHolder(view);
     }
 
@@ -95,12 +95,15 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
             viewHolder.favoriteButton.setTag("Deselected");
         }
 
-        if(isExpanded.get(event.getEventName()))
+        if(isExpanded.containsKey(event.getEventName()) && isExpanded.get(event.getEventName()))
             viewHolder.linearLayout.setVisibility(View.VISIBLE);
-        else if(!isExpanded.get(event.getEventName()))
+        else if(isExpanded.containsKey(event.getEventName()) && !isExpanded.get(event.getEventName()))
             viewHolder.linearLayout.setVisibility(View.GONE);
 
         viewHolder.eventName.setText(event.getEventName());
+
+        IconCollection icons = new IconCollection();
+        viewHolder.eventLogo.setImageResource(icons.getIconResource(context, event.getCatName()));
 
         if (adaptersMap.get(event.getEventName())==null) {
             EventFragmentPagerAdapter adapter = new EventFragmentPagerAdapter(fm, event.getVenue(), event.getStartTime(), event.getEndTime(), event.getDate(), event.getEventMaxTeamNumber(), event.getContactNumber(), event.getContactName(), event.getCatName(), event.getDescription());
@@ -125,14 +128,19 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
 
     public void filterData(String query){
         events.clear();
+        Log.d("Submit query here", query);
 
         if(query.length()==0)
             events.addAll(allEvents);
 
         else
-            for (EventModel event : allEvents)
-                if (event.getEventName().toLowerCase().contains(query.toLowerCase()))
+            for (EventModel event : allEvents) {
+                Log.d("Query: "+query, "Event Name: "+event.getEventName());
+                if (event.getEventName().toLowerCase().contains(query.toLowerCase())) {
                     events.add(event);
+                    Log.d(event.getEventName(),"added");
+                }
+            }
 
         notifyDataSetChanged();
     }
@@ -142,7 +150,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
         if(operation == ADD_FAVOURITE) {
             FavouritesModel favourite = new FavouritesModel();
 
-            favourite.setId(event.getId());
+            favourite.setId(event.getEventId());
             favourite.setCatID(event.getCatId());
             favourite.setEventName(event.getEventName());
             favourite.setVenue(event.getVenue());
@@ -177,11 +185,11 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
         intent.putExtra("eventName", event.getEventName());
         intent.putExtra("startTime", event.getStartTime());
         intent.putExtra("eventVenue", event.getVenue());
-        intent.putExtra("eventID", event.getId());
+        intent.putExtra("eventID", event.getEventId());
 
         AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(context, Integer.parseInt(event.getId()), intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        PendingIntent pendingIntent2 = PendingIntent.getBroadcast(context, Integer.parseInt(event.getCatId()+event.getId()), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(context, Integer.parseInt(event.getEventId()), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent2 = PendingIntent.getBroadcast(context, Integer.parseInt(event.getCatId()+event.getEventId()), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (operation==CREATE_NOTIFICATION){
             StringBuilder dateStringBuilder = new StringBuilder();

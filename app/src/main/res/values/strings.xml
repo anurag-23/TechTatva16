@@ -59,7 +59,7 @@
     <string name="qualified_teams">Qualified Teams</string>
 
     <string name="title_activity_category">Categories</string>
-    <string name="error">An error occured while connecting to the server.\n\nPlease check your connection or try again later.</string>
+    <string name="error">An error occured while connecting to the server.\nPlease check your connection or try again later.</string>
     <string name="oops">Oops!</string>
     <string name="swipe_reload">Swipe Down to Reload</string>
     <string name="fetching_data">Fetching Data...\nPlease Wait</string>
@@ -87,4 +87,5 @@
     <string name="number_1">#1</string>
     <string name="number_2">#2</string>
     <string name="number_3">#3</string>
+    <string name="refresh">Refresh</string>
 </resources>

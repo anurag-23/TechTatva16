@@ -15,7 +15,7 @@
         tools:text="Category Name"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="@dimen/typography_title"
         android:textAllCaps="true"
         android:fontFamily="sans-serif-condensed"/>
 
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         tools:text="Description"
         android:fontFamily="sans-serif-condensed"
-        android:textSize="16sp"/>
+        android:textSize="15sp"/>
 
 
 </LinearLayout>

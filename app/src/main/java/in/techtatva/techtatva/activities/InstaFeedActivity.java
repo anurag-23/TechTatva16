@@ -13,7 +13,7 @@ import android.view.ViewConfiguration;
 import chipset.potato.Potato;
 import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.adapters.InstaFeedAdapter;
-import in.techtatva.techtatva.models.Instagram.InstagramFeed;
+import in.techtatva.techtatva.models.instagram.InstagramFeed;
 import in.techtatva.techtatva.network.InstaFeedAPIClient;
 import retrofit2.Call;
 import retrofit2.Callback;
