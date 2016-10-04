@@ -175,5 +175,11 @@ public class CategoriesActivity extends AppCompatActivity {
 
         return super.onTouchEvent(event);
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
 
 }
