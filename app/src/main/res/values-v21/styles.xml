@@ -5,7 +5,6 @@
         <item name="android:colorPrimary">@color/color_primary</item>
         <item name="android:colorPrimaryDark">@color/color_primary_dark</item>
         <item name="android:navigationBarColor">@color/color_primary_dark</item>
-
     </style>
 
     <style name="AppBarTheme" parent = "ThemeOverlay.AppCompat.Dark">
@@ -15,6 +14,5 @@
         <item name="android:colorControlHighlight">@color/color_highlight</item>
 
     </style>
-
 
 </resources>

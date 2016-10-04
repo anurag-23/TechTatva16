@@ -1,5 +1,6 @@
 package in.techtatva.techtatva.activities;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -92,12 +93,14 @@ public class MainActivity extends AppCompatActivity {
             case R.id.category_view:{
                 Intent intent = new Intent (this, CategoriesActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
             }
 
             case R.id.trending:{
-                Intent intent = new Intent (this, TrendingActivity.class);
+                Intent intent = new Intent (MainActivity.this, TrendingActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
             }
         }
