@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 import in.techtatva.techtatva.R;
+import in.techtatva.techtatva.activities.EasterEggActivity;
 import in.techtatva.techtatva.models.FavouritesModel;
 import in.techtatva.techtatva.models.events.EventModel;
 import in.techtatva.techtatva.receivers.NotificationReceiver;
@@ -127,6 +128,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
     }
 
     public void filterData(String query){
+
         events.clear();
         Log.d("Submit query here", query);
 
@@ -208,7 +210,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
             }
 
             int eventDate = Integer.parseInt(dateStringBuilder.toString());
-            int eventHour = Integer.parseInt(hourStringBuilder.toString()) - 12;
+            int eventHour = Integer.parseInt(hourStringBuilder.toString());
             int eventMinute = Integer.parseInt(minuteStringBuilder.toString());
 
             Log.d("Date: ", dateStringBuilder.toString());

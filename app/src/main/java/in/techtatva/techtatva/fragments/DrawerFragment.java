@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +22,7 @@ import in.techtatva.techtatva.models.DrawerModel;
 public class DrawerFragment extends Fragment {
 
     private ActionBarDrawerToggle mDrawerToggle;
+    private DrawerLayout mDrawerLayout;
 
     public DrawerFragment() {
 
@@ -32,7 +34,7 @@ public class DrawerFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_drawer, container, false);
 
         RecyclerView drawerRecyclerView = (RecyclerView) rootView.findViewById(R.id.drawer_recycler_view);
-        DrawerAdapter adapter = new DrawerAdapter(getActivity(), getDrawerList());
+        DrawerAdapter adapter = new DrawerAdapter(getActivity(), getDrawerList(), mDrawerLayout);
         drawerRecyclerView.setAdapter(adapter);
         drawerRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -63,6 +65,7 @@ public class DrawerFragment extends Fragment {
 
     public void setUp(DrawerLayout mDrawerLayout, Toolbar toolbar) {
 
+        this.mDrawerLayout = mDrawerLayout;
         mDrawerToggle = new ActionBarDrawerToggle(getActivity(), mDrawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
 
             @Override

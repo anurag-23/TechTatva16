@@ -88,4 +88,9 @@
     <string name="number_2">#2</string>
     <string name="number_3">#3</string>
     <string name="refresh">Refresh</string>
+    <string name="lugm">Linux Users\' Group\nManipal</string>
+    <string name="github_lug">github.com/LUGM</string>
+    <string name="fb_lug">fb.com/LUGManipal</string>
+    <string name="swipe_down">Swipe down</string>
+    <string name="to_return">To return</string>
 </resources>

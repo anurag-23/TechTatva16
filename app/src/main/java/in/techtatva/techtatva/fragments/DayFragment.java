@@ -3,6 +3,7 @@ package in.techtatva.techtatva.fragments;
 import android.app.SearchManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
@@ -23,6 +24,7 @@ import java.util.List;
 
 import chipset.potato.Potato;
 import in.techtatva.techtatva.R;
+import in.techtatva.techtatva.activities.EasterEggActivity;
 import in.techtatva.techtatva.activities.MainActivity;
 import in.techtatva.techtatva.adapters.EventCardAdapter;
 import in.techtatva.techtatva.models.events.EventDetailsModel;
@@ -230,8 +232,8 @@ public class DayFragment extends Fragment{
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_day, menu);
 
-        MenuItem searchItem = menu.findItem(R.id.search);
-        android.support.v7.widget.SearchView search = (android.support.v7.widget.SearchView) MenuItemCompat.getActionView(searchItem);
+        final MenuItem searchItem = menu.findItem(R.id.search);
+        final android.support.v7.widget.SearchView search = (android.support.v7.widget.SearchView) MenuItemCompat.getActionView(searchItem);
 
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
 
@@ -262,7 +264,12 @@ public class DayFragment extends Fragment{
 
             @Override
             public boolean onQueryTextChange(String query) {
-                if (adapter != null)
+                if (query.equalsIgnoreCase("harambe")){
+                    Intent intent = new Intent(getActivity(), EasterEggActivity.class);
+                    startActivity(intent);
+                    searchItem.collapseActionView();
+                }
+                else if (adapter != null)
                     adapter.filterData(query);
                 return false;
             }

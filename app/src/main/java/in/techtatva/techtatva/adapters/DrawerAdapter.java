@@ -1,8 +1,11 @@
 package in.techtatva.techtatva.adapters;
 
 import android.app.Activity;
-import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+
 import android.content.Intent;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +19,6 @@ import java.util.List;
 import in.techtatva.techtatva.activities.FavouritesActivity;
 import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.activities.AboutUsActivity;
-import in.techtatva.techtatva.activities.CategoriesActivity;
 import in.techtatva.techtatva.activities.InstaFeedActivity;
 import in.techtatva.techtatva.activities.ResultActivity;
 import in.techtatva.techtatva.models.DrawerModel;
@@ -26,12 +28,14 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerView
 
     private LayoutInflater inflater;
     private List<DrawerModel> list = new ArrayList<>();
-    private Context context;
+    private Activity activity;
+    private DrawerLayout mDrawerLayout;
 
-    public DrawerAdapter(Context context, List<DrawerModel> list) {
-        this.context = context;
-        inflater = LayoutInflater.from(context);
+    public DrawerAdapter(Activity activity, List<DrawerModel> list, DrawerLayout mDrawerLayout) {
+        this.activity = activity;
+        inflater = LayoutInflater.from(activity);
         this.list = list;
+        this.mDrawerLayout = mDrawerLayout;
     }
 
     @Override
@@ -75,25 +79,31 @@ public class DrawerAdapter extends RecyclerView.Adapter<DrawerAdapter.DrawerView
 
         @Override
         public void onClick(View v) {
+            mDrawerLayout.closeDrawers();
 
             if (drawerItemName.getText().equals("Results")){
-                Intent intent = new Intent(context, ResultActivity.class);
-                context.startActivity(intent);
+                Intent intent = new Intent(activity, ResultActivity.class);
+                activity.startActivity(intent);
+                activity.overridePendingTransition(R.anim.zoomin, R.anim.hold);
+                
             }
 
             if (drawerItemName.getText().equals("InstaFeed")){
-                Intent intent = new Intent(context, InstaFeedActivity.class);
-                context.startActivity(intent);
+                Intent intent = new Intent(activity, InstaFeedActivity.class);
+                activity.startActivity(intent);
+                activity.overridePendingTransition(R.anim.zoomin, R.anim.hold);
             }
 
             if (drawerItemName.getText().equals("About Us")){
-                Intent intent = new Intent(context, AboutUsActivity.class);
-                context.startActivity(intent);
+                Intent intent = new Intent(activity, AboutUsActivity.class);
+                activity.startActivity(intent);
+                activity.overridePendingTransition(R.anim.zoomin, R.anim.hold);
             }
 
             if (drawerItemName.getText().equals("Favourites")){
-                Intent intent = new Intent(context, FavouritesActivity.class);
-                context.startActivity(intent);
+                Intent intent = new Intent(activity, FavouritesActivity.class);
+                activity.startActivity(intent);
+                activity.overridePendingTransition(R.anim.zoomin, R.anim.hold);
             }
         }
     }

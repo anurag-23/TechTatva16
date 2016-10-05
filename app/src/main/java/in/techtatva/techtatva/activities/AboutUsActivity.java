@@ -14,11 +14,11 @@ import in.techtatva.techtatva.R;
 
 public class AboutUsActivity extends AppCompatActivity {
 
-    final String fb_url = "https://www.facebook.com/MITtechtatva";
-    final String twitter_url = "https://www.twitter.com/MITtechtatva";
-    final String insta_url = "https://www.instagram.com/MITtechtatva";
-    final String youtube_url = "https://www.youtube.com/TechTatva";
-    final String gplus_url = "https://plus.google.com/+TechTatva";
+    final String FB_URL = "https://www.facebook.com/MITtechtatva";
+    final String TWITTER_URL = "https://www.twitter.com/MITtechtatva";
+    final String INSTA_URL = "https://www.instagram.com/MITtechtatva";
+    final String YOUTUBE_URL = "https://www.youtube.com/TechTatva";
+    final String GPLUS_URL = "https://plus.google.com/+TechTatva";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,31 +35,31 @@ public class AboutUsActivity extends AppCompatActivity {
         findViewById(R.id.twitter_image).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Potato.potate(context).Intents().browserIntent(twitter_url);
+                Potato.potate(context).Intents().browserIntent(TWITTER_URL);
             }
         });
         findViewById(R.id.fb_image).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Potato.potate(context).Intents().browserIntent(fb_url);
+                Potato.potate(context).Intents().browserIntent(FB_URL);
             }
         });
         findViewById(R.id.youtube_image).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Potato.potate(context).Intents().browserIntent(youtube_url);
+                Potato.potate(context).Intents().browserIntent(YOUTUBE_URL);
             }
         });
         findViewById(R.id.insta_image).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Potato.potate(context).Intents().browserIntent(insta_url);
+                Potato.potate(context).Intents().browserIntent(INSTA_URL);
             }
         });
         findViewById(R.id.gplus_image).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Potato.potate(context).Intents().browserIntent(gplus_url);
+                Potato.potate(context).Intents().browserIntent(GPLUS_URL);
             }
         });
 
