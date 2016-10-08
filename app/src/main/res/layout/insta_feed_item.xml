@@ -22,10 +22,11 @@
         android:orientation="horizontal"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:background="@color/white"
-        android:elevation="5dp">
+        android:gravity="center_vertical"
+        android:elevation="3dp">
 
         <ImageView
             android:id="@+id/insta_feed_dp_image_view"
@@ -38,9 +39,9 @@
             android:layout_height="wrap_content"
             tools:text="username"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="12dp"
-            android:layout_marginStart="12dp"
             android:textSize="16sp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:fontFamily="sans-serif-condensed"
             android:textColor="@color/black"
             android:textStyle="bold"/>
@@ -66,6 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="username Description"
+            android:textSize="14sp"
             android:textColor="@color/black"
             android:fontFamily="sans-serif-condensed"/>
 
@@ -73,6 +75,7 @@
             android:id="@+id/insta_feed_likes_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="14sp"
             tools:text="0 likes"
             android:layout_marginTop="10dp"
             android:drawableLeft="@drawable/ic_insta_likes"
@@ -90,6 +93,7 @@
             android:drawableLeft="@drawable/ic_insta_comments"
             android:drawableStart="@drawable/ic_insta_comments"
             android:drawablePadding="5dp"
+            android:textSize="14sp"
             android:fontFamily="sans-serif-condensed"
             android:textColor="@color/dark_grey"/>
 

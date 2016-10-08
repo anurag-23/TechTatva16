@@ -90,6 +90,12 @@ public class FavouritesActivity extends AppCompatActivity {
 
         switch(item.getItemId()){
 
+            case android.R.id.home:{
+                finish();
+                overridePendingTransition(R.anim.hold, R.anim.animation_fade_out);
+                break;
+            }
+
             case R.id.delete_all:{
 
                 if (!favouritesDatabase.where(FavouritesModel.class).findAll().isEmpty()) {

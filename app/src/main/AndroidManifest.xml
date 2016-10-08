@@ -71,10 +71,13 @@
         </activity>
         <activity
             android:name=".activities.EasterEggActivity"
-            android:label="@string/title_activity_trending"
+            android:label="@string/title_activity_easter_egg"
             android:theme="@style/EasterEggTheme"
             android:parentActivityName=".activities.MainActivity">
         </activity>
+        <activity android:name=".activities.DevelopersActivity"
+            android:label="@string/title_activity_developers"
+            android:parentActivityName=".activities.MainActivity"/>
         <receiver
             android:name=".receivers.NotificationReceiver" android:exported="false"
             android:enabled="true" android:label="@string/notification_receiver">

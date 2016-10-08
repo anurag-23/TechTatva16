@@ -19,7 +19,6 @@ import in.techtatva.techtatva.adapters.CategoryAdapter;
 import in.techtatva.techtatva.models.categories.CategoriesListModel;
 import in.techtatva.techtatva.models.categories.CategoryModel;
 import in.techtatva.techtatva.network.APIClient;
-import in.techtatva.techtatva.network.CategoriesAPIClient;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import retrofit2.Call;

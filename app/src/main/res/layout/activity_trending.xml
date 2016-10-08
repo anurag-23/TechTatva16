@@ -3,7 +3,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-android:background="@drawable/background_design"
+android:background="@color/grey_bg"
 android:orientation="vertical">
 
     <include layout="@layout/app_bar"/>
@@ -27,7 +27,7 @@ android:orientation="vertical">
                 android:id="@+id/trending_1_image_view"
                 android:layout_width="54dp"
                 android:layout_height="54dp"
-                android:src="@drawable/acumen" />
+                android:src="@drawable/tt_acumen" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -91,7 +91,7 @@ android:orientation="vertical">
                 android:id="@+id/trending_2_image_view"
                 android:layout_width="54dp"
                 android:layout_height="54dp"
-                android:src="@drawable/acumen" />
+                android:src="@drawable/tt_aero" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -155,7 +155,7 @@ android:orientation="vertical">
                 android:id="@+id/trending_3_image_view"
                 android:layout_width="54dp"
                 android:layout_height="54dp"
-                android:src="@drawable/acumen" />
+                android:src="@drawable/tt_alacrity" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

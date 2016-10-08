@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
 import chipset.potato.Potato;
@@ -65,4 +66,15 @@ public class AboutUsActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case android.R.id.home:{
+                finish();
+                overridePendingTransition(R.anim.hold, R.anim.animation_fade_out);
+                break;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

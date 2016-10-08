@@ -31,12 +31,13 @@
 
     </LinearLayout>
 
-    <fragment android:id="@+id/main_navigation_drawer"
-        android:layout_width="@dimen/navigation_drawer_width"
+    <android.support.design.widget.NavigationView
+        android:id="@+id/main_navigation_drawer"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:name="in.techtatva.techtatva.fragments.DrawerFragment"
-        tools:layout="@layout/fragment_drawer" />
+        app:headerLayout="@layout/header_navigation"
+        app:menu="@menu/menu_navigation" />
 
 
 </android.support.v4.widget.DrawerLayout>
