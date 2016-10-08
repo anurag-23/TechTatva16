@@ -110,20 +110,14 @@
                 android:background="@drawable/on_fav_select"/>
 
             <ImageView
-                android:id="@+id/youtube_image"
+                android:id="@+id/snapchat_image"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_weight="1"
-                android:src="@drawable/ic_youtube"
+                android:src="@drawable/ic_snapchat"
                 android:background="@drawable/on_fav_select"/>
 
-            <ImageView
-                android:id="@+id/gplus_image"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_weight="1"
-                android:src="@drawable/ic_gplus"
-                android:background="@drawable/on_fav_select"/>
+
         </LinearLayout>
 
 
