@@ -1,6 +1,7 @@
 package in.techtatva.techtatva.fragments;
 
 
+import android.content.DialogInterface;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
@@ -9,27 +10,27 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import in.techtatva.techtatva.R;
-import in.techtatva.techtatva.activities.ResultActivity;
 import in.techtatva.techtatva.adapters.QualifiedTeamsAdapter;
 import in.techtatva.techtatva.models.results.ResultModel;
 
 
 public class ResultDetailsDialogFragment extends DialogFragment {
 
+    private static ImageView plusImageView;
     private List<ResultModel> eventResult;
 
     public ResultDetailsDialogFragment() {
     }
 
-    public static ResultDetailsDialogFragment newInstance(List<ResultModel> eventResult) {
+    public static ResultDetailsDialogFragment newInstance(List<ResultModel> eventResult, ImageView plus) {
         ResultDetailsDialogFragment fragment = new ResultDetailsDialogFragment();
         fragment.setEventResult(eventResult);
+        plusImageView = plus;
         return fragment;
     }
 
@@ -50,6 +51,15 @@ public class ResultDetailsDialogFragment extends DialogFragment {
         return view;
 
 
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+
+        if (plusImageView!=null){
+            plusImageView.setImageResource(R.drawable.ic_plus);
+        }
     }
 
     @Override

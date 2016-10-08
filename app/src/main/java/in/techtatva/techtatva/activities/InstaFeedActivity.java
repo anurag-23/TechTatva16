@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.widget.Toast;
 
 import chipset.potato.Potato;
 import in.techtatva.techtatva.R;
@@ -72,6 +73,9 @@ public class InstaFeedActivity extends AppCompatActivity {
                                 noConnectionLayout.setVisibility(View.GONE);
                                 toolbar.setVisibility(View.VISIBLE);
                                 loadFeed();
+                            }
+                            else{
+                                Toast.makeText(InstaFeedActivity.this, "Check internet connection!", Toast.LENGTH_SHORT).show();
                             }
                         break;
                     }

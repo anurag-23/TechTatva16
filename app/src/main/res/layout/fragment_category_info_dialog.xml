@@ -16,7 +16,6 @@
         android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="@dimen/typography_title"
-        android:textAllCaps="true"
         android:fontFamily="sans-serif-condensed"/>
 
     <View

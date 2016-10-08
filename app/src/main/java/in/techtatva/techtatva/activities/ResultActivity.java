@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class ResultActivity extends AppCompatActivity {
     private View noConnectionLayout;
     private View progressDialog;
     private ResultAdapter resultAdapter;
+    private LinearLayout noResultsLayout;
     private Toolbar toolbar;
     private Context context;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -60,6 +62,7 @@ public class ResultActivity extends AppCompatActivity {
         noConnectionLayout = findViewById(R.id.result_no_connection_layout);
         progressDialog = findViewById(R.id.result_progress_dialog);
         swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.result_swipe_refresh);
+        noResultsLayout = (LinearLayout)findViewById(R.id.no_results_layout);
 
         if (swipeRefreshLayout!=null)
             swipeRefreshLayout.setColorSchemeResources(R.color.color_primary);
@@ -111,6 +114,9 @@ public class ResultActivity extends AppCompatActivity {
                                 resultsRecyclerView.setVisibility(View.VISIBLE);
                                 loadResults(LOAD_RESULTS);
                             }
+                            else{
+                                Toast.makeText(ResultActivity.this, "Check internet connection!", Toast.LENGTH_SHORT).show();
+                            }
                         break;
                     }
                 }
@@ -138,29 +144,37 @@ public class ResultActivity extends AppCompatActivity {
         RealmResults<ResultModel> results = resultsDatabase.where(ResultModel.class).findAllSorted("eventName");
 
         List<ResultModel> resultsList = resultsDatabase.copyFromRealm(results);
-        eventRounds.clear();
 
-        for (ResultModel result :resultsList){
-            arrange:
-            {
-                if (!eventRounds.isEmpty()){
-                    for (EventRound round : eventRounds) {
-                        if (round.eventName.equals(result.getEventName() + " (Round " + result.getRound().toUpperCase() + ")")) {
-                            round.result.add(result);
-                            break arrange;
-                        }
-                    }
-                }
-                EventRound round = new EventRound();
-                round.eventName = result.getEventName()+" (Round "+result.getRound()+")";
-                round.catName = result.getCatName();
-                round.result.add(result);
-                eventRounds.add(round);
-            }
-
+        if (resultsList.isEmpty()){
+            noResultsLayout.setVisibility(View.VISIBLE);
         }
 
-        resultAdapter.notifyDataSetChanged();
+        else {
+            noResultsLayout.setVisibility(View.GONE);
+            eventRounds.clear();
+
+            for (ResultModel result : resultsList) {
+                arrange:
+                {
+                    if (!eventRounds.isEmpty()) {
+                        for (EventRound round : eventRounds) {
+                            if (round.eventName.equals(result.getEventName() + " (Round " + result.getRound().toUpperCase() + ")")) {
+                                round.result.add(result);
+                                break arrange;
+                            }
+                        }
+                    }
+                    EventRound round = new EventRound();
+                    round.eventName = result.getEventName() + " (Round " + result.getRound() + ")";
+                    round.catName = result.getCatName();
+                    round.result.add(result);
+                    eventRounds.add(round);
+                }
+
+            }
+
+            resultAdapter.notifyDataSetChanged();
+        }
     }
 
     public void loadResults(final String operation){

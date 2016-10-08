@@ -78,6 +78,13 @@
         <activity android:name=".activities.DevelopersActivity"
             android:label="@string/title_activity_developers"
             android:parentActivityName=".activities.MainActivity"/>
+        <activity android:name=".activities.OnlineEventsActivity"
+            android:label="@string/title_activity_online_events"
+            android:parentActivityName=".activities.MainActivity"/>
+
+        <activity android:name=".activities.RegisterActivity"
+            android:label="@string/title_activity_register"
+            android:parentActivityName=".activities.MainActivity"/>
         <receiver
             android:name=".receivers.NotificationReceiver" android:exported="false"
             android:enabled="true" android:label="@string/notification_receiver">

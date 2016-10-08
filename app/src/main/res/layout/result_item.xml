@@ -23,14 +23,15 @@
         android:paddingRight="10dp"
         android:gravity="center_vertical">
 
-
         <ImageView
+            android:layout_weight="0"
             android:id="@+id/result_logo_image_view"
             android:layout_width="@dimen/std_icon_size"
             android:layout_height="@dimen/std_icon_size"
-            android:src="@drawable/acumen" />
+            android:src="@drawable/acumen"/>
 
         <TextView
+            android:layout_weight="1"
             android:id="@+id/result_name_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,10 +39,19 @@
             android:layout_marginStart="@dimen/activity_vertical_margin"
             android:fontFamily="sans-serif-condensed"
             tools:text="Result Name"
-            android:textAllCaps="true"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="@dimen/typography_title" />
+
+        <ImageView
+            android:layout_weight="0"
+            android:id="@+id/result_plus_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_plus"
+            android:alpha="0.54"
+            android:layout_marginRight="6dp"
+            android:layout_marginEnd="6dp"/>
     </LinearLayout>
 
 

@@ -3,6 +3,7 @@
     android:layout_height="match_parent"
     android:background="@color/grey_bg"
     android:orientation="vertical"
+    android:animateLayoutChanges="true"
     tools:context="in.techtatva.techtatva.fragments.DayFragment">
 
     <android.support.v7.widget.RecyclerView

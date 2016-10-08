@@ -16,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,6 +102,9 @@ public class DayFragment extends Fragment{
                                 eventsRecyclerView.setVisibility(View.VISIBLE);
                                 loadEvents(LOAD_EVENTS);
                             }
+                            else{
+                                Toast.makeText(getActivity(), "Check internet connection!", Toast.LENGTH_SHORT).show();
+                            }
                         break;
                     }
                 }
@@ -115,15 +119,12 @@ public class DayFragment extends Fragment{
             displayData();
             loadEvents(UPDATE_EVENTS);
         }
-        else if(Potato.potate(getActivity()).Utils().isInternetConnected())
-        {
-            loadEvents(LOAD_EVENTS);
-        }
         else
         {
             eventsRecyclerView.setVisibility(View.GONE);
             noConnectionLayout.setVisibility(View.VISIBLE);
         }
+            //loadEvents(LOAD_EVENTS);
 
         return rootView;
     }
@@ -138,7 +139,11 @@ public class DayFragment extends Fragment{
 
                 if (eventDetail!=null) {
                     EventModel event = new EventModel();
-                    event.setEventName(eventDetail.getEventName() + " (Round " + schedule.getRound() + ")");
+                    if (schedule.getRound().equalsIgnoreCase("f"))
+                        event.setEventName(eventDetail.getEventName());
+                    else
+                        event.setEventName(eventDetail.getEventName() + " (Round " + schedule.getRound() + ")");
+
                     event.setEventId(eventDetail.getEventID());
                     event.setDescription(eventDetail.getDescription());
                     event.setEventMaxTeamNumber(eventDetail.getMaxTeamSize());

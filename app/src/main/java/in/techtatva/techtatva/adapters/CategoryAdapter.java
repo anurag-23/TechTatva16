@@ -1,15 +1,12 @@
 package in.techtatva.techtatva.adapters;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v4.app.DialogFragment;
-import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,7 +15,6 @@ import java.util.List;
 
 import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.activities.SelectedCategoryActivity;
-import in.techtatva.techtatva.fragments.CategoryInfoDialogFragment;
 import in.techtatva.techtatva.models.categories.CategoryModel;
 import in.techtatva.techtatva.resources.IconCollection;
 
@@ -29,12 +25,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     private FragmentManager fm;
     private List<CategoryModel> categories = new ArrayList<>();
-    private Context context;
+    private Activity activity;
 
-    public CategoryAdapter(FragmentManager fm, List<CategoryModel> categories, Context context){
+    public CategoryAdapter(FragmentManager fm, List<CategoryModel> categories, Activity activity){
         this.fm = fm;
         setCategories(categories);
-        this.context = context;
+        this.activity = activity;
     }
 
     private void setCategories(List<CategoryModel> categories){
@@ -55,7 +51,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         holder.categoryName.setText(category.getCategoryName());
 
         IconCollection icons = new IconCollection();
-        holder.categoryLogo.setImageResource(icons.getIconResource(context, category.getCategoryName()));
+        holder.categoryLogo.setImageResource(icons.getIconResource(activity, category.getCategoryName()));
 
         holder.categoryDescription = category.getCategoryDescription();
     }
@@ -87,11 +83,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         public void onClick(View view) {
 
             if (view.getId() == itemView.getId()){
-                Intent intent = new Intent(context, SelectedCategoryActivity.class);
+                Intent intent = new Intent(activity, SelectedCategoryActivity.class);
                 intent.putExtra("Category Name", categoryName.getText().toString());
                 intent.putExtra("Category ID", categories.get(getLayoutPosition()).getCategoryID());
                 intent.putExtra("Description", categoryDescription);
-                context.startActivity(intent);
+                activity.startActivity(intent);
+                activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
 
 

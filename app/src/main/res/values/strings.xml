@@ -91,7 +91,7 @@
     <string name="lugm">Linux Users\' Group\nManipal</string>
     <string name="github_lug">github.com/LUGM</string>
     <string name="fb_lug">fb.com/LUGManipal</string>
-    <string name="swipe_down">Swipe down</string>
+    <string name="swipe_down">Swipe Down to Return</string>
     <string name="to_return">To return</string>
     <string name="title_activity_easter_egg">Easter Egg</string>
     <string name="title_activity_developers">Developers</string>
@@ -112,4 +112,7 @@
     <string name="ui">UI</string>
     <string name="shubham_singhal">Shubham Singhal</string>
     <string name="ui_designer">UI Designer</string>
+    <string name="no_results">No results available.</string>
+    <string name="title_activity_online_events">Online Events</string>
+    <string name="title_activity_register">Register</string>
 </resources>

@@ -14,7 +14,6 @@ import android.view.View;
 import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.adapters.DayFragmentPagerAdapter;
 import in.techtatva.techtatva.fragments.CategoryInfoDialogFragment;
-import in.techtatva.techtatva.fragments.DayFragment;
 import in.techtatva.techtatva.fragments.SelectedCategoryDayFragment;
 import io.realm.Realm;
 
@@ -40,7 +39,9 @@ public class SelectedCategoryActivity extends AppCompatActivity {
 
         ViewPager daysViewPager = (ViewPager) findViewById(R.id.category_day_viewpager);
         daysViewPager.setAdapter(dayFragmentPagerAdapter);
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR1){
+        daysViewPager.setId(R.id.category_day_viewpager);
+
+	if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR1){
             daysViewPager.setId(View.generateViewId());
         }
 
@@ -59,18 +60,23 @@ public class SelectedCategoryActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        switch(item.getItemId()){
+            case R.id.category_info:{
+                DialogFragment fragment = CategoryInfoDialogFragment.newInstance();
+                fragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
 
-        if (id == R.id.category_info) {
-            DialogFragment fragment = CategoryInfoDialogFragment.newInstance();
-            fragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+                Bundle bundle = new Bundle();
+                bundle.putString("Category Name", getIntent().getStringExtra("Category Name"));
+                bundle.putString("Description", getIntent().getStringExtra("Description"));
 
-            Bundle bundle = new Bundle();
-            bundle.putString("Category Name", getIntent().getStringExtra("Category Name"));
-            bundle.putString("Description", getIntent().getStringExtra("Description"));
-
-            fragment.setArguments(bundle);
-            fragment.show(getSupportFragmentManager(), "fragment_category_info_dialog");
-            return true;
+                fragment.setArguments(bundle);
+                fragment.show(getSupportFragmentManager(), "fragment_category_info_dialog");
+                return true;
+            }
+            case android.R.id.home:{
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
         }
 
         return super.onOptionsItemSelected(item);
