@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -95,6 +96,25 @@ public class OnlineEventsActivity extends AppCompatActivity {
         WebViewClient mWebViewClient = new WebViewClient();
         EventsWebView.setWebViewClient(mWebViewClient);
         EventsWebView.loadUrl(ONLINE_EVENTS_URL);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case android.R.id.home:{
+                finish();
+                overridePendingTransition(R.anim.hold, R.anim.animation_fade_out);
+                break;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.hold, R.anim.animation_fade_out);
     }
 
 }
