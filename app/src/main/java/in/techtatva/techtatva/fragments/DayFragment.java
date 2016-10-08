@@ -131,7 +131,7 @@ public class DayFragment extends Fragment{
 
     void displayData() {
         eventsList.clear();
-        RealmResults<ScheduleModel> scheduleResults = eventsDatabase.where(ScheduleModel.class).equalTo("day", String.valueOf(getArguments().getString("title").charAt(4))).findAllSorted("startTime", Sort.ASCENDING, "eventName", Sort.ASCENDING);
+        RealmResults<ScheduleModel> scheduleResults = eventsDatabase.where(ScheduleModel.class).equalTo("day", String.valueOf(getArguments().getString("title").charAt(4))).findAllSorted("startTime", Sort.ASCENDING, "catName", Sort.ASCENDING);
 
         if(!scheduleResults.isEmpty()){
             for (ScheduleModel schedule : eventsDatabase.copyFromRealm(scheduleResults)) {
@@ -282,7 +282,7 @@ public class DayFragment extends Fragment{
     public void onResume() {
         super.onResume();
 
-        RealmResults<ScheduleModel> eventsResults = eventsDatabase.where(ScheduleModel.class).equalTo("day", String.valueOf(getArguments().getString("title").charAt(4))).findAllSorted("startTime", Sort.ASCENDING, "eventName", Sort.ASCENDING);
+        RealmResults<ScheduleModel> eventsResults = eventsDatabase.where(ScheduleModel.class).equalTo("day", String.valueOf(getArguments().getString("title").charAt(4))).findAll();
 
         if(!eventsResults.isEmpty() && !searching)
            displayData();

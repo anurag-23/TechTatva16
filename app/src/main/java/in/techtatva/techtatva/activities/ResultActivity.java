@@ -157,15 +157,24 @@ public class ResultActivity extends AppCompatActivity {
                 arrange:
                 {
                     if (!eventRounds.isEmpty()) {
-                        for (EventRound round : eventRounds) {
-                            if (round.eventName.equals(result.getEventName() + " (Round " + result.getRound().toUpperCase() + ")")) {
-                                round.result.add(result);
+                        for (int i=0; i<eventRounds.size(); i++) {
+                            String name;
+                            if (result.getRound().equalsIgnoreCase("f"))
+                                name = result.getEventName();
+                            else
+                                name = result.getEventName() + " (Round " + result.getRound().toUpperCase() + ")";
+
+                            if (eventRounds.get(i).eventName.equals(name)) {
+                                eventRounds.get(i).result.add(result);
                                 break arrange;
                             }
                         }
                     }
                     EventRound round = new EventRound();
-                    round.eventName = result.getEventName() + " (Round " + result.getRound() + ")";
+                    if (result.getRound().equalsIgnoreCase("f"))
+                        round.eventName = result.getEventName();
+                    else
+                        round.eventName = result.getEventName() + " (Round " + result.getRound() + ")";
                     round.catName = result.getCatName();
                     round.result.add(result);
                     eventRounds.add(round);
@@ -192,7 +201,7 @@ public class ResultActivity extends AppCompatActivity {
                 ResultsListModel resultsModel = response.body();
 
                 resultsDatabase.beginTransaction();
-                resultsDatabase.delete(ResultModel.class);
+                resultsDatabase.where(ResultModel.class).findAll().deleteAllFromRealm();
                 resultsDatabase.copyToRealm(resultsModel.getData());
                 resultsDatabase.commitTransaction();
 

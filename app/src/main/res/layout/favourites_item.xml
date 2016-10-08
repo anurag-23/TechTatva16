@@ -34,7 +34,7 @@
                 android:id="@+id/favourite_logo_image_view"
                 android:layout_width="@dimen/std_icon_size"
                 android:layout_height="@dimen/std_icon_size"
-                android:src="@drawable/acumen" />
+                android:src="@drawable/tt_acumen" />
 
             <TextView
                 android:layout_weight="1"
