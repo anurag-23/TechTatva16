@@ -2,8 +2,10 @@ package in.techtatva.techtatva.activities;
 
 import android.content.Intent;
 import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,7 +20,6 @@ import android.view.View;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import chipset.potato.utils.Utils;
 import in.techtatva.techtatva.adapters.DayFragmentPagerAdapter;
 import in.techtatva.techtatva.fragments.DayFragment;
 import in.techtatva.techtatva.R;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
+    private boolean trendingEnabled = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,48 +63,62 @@ public class MainActivity extends AppCompatActivity {
 
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            public boolean onNavigationItemSelected(@NonNull final MenuItem item) {
+
+
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        switch (item.getItemId()) {
+                            case R.id.drawer_menu_favourites: {
+                                Intent intent = new Intent(MainActivity.this, FavouritesActivity.class);
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.animation_fade_in, R.anim.hold);
+                                break;
+                            }
+                            case R.id.drawer_menu_online: {
+                                Intent intent=new Intent(MainActivity.this, OnlineEventsActivity.class);
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.animation_fade_in, R.anim.hold);
+                                break;
+                            }
+                            case R.id.drawer_menu_results: {
+                                Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.animation_fade_in, R.anim.hold);
+                                break;
+                            }
+                            case R.id.drawer_menu_register: {
+                                Intent intent=new Intent(MainActivity.this, RegisterActivity.class);
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.animation_fade_in, R.anim.hold);
+                                break;
+                            }
+                            case R.id.drawer_menu_insta: {
+                                Intent intent = new Intent(MainActivity.this, InstaFeedActivity.class);
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.animation_fade_in, R.anim.hold);
+                                break;
+                            }
+                            case R.id.drawer_menu_developers: {
+                                Intent intent = new Intent(MainActivity.this, DevelopersActivity.class);
+                                startActivity(intent);
+                                break;
+                            }
+                            case R.id.drawer_menu_about: {
+                                Intent intent = new Intent(MainActivity.this, AboutUsActivity.class);
+                                startActivity(intent);
+                                overridePendingTransition(R.anim.animation_fade_in, R.anim.hold);
+                                break;
+                            }
+
+                        }
+                    }
+                }, 200);
 
                 mDrawerLayout.closeDrawers();
 
-                switch (item.getItemId()) {
-                    case R.id.drawer_menu_favourites: {
-                        Intent intent = new Intent(MainActivity.this, FavouritesActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.animation_fade_in, R.anim.hold);
-                        break;
-                    }
-                    case R.id.drawer_menu_online: {
-                        break;
-                    }
-                    case R.id.drawer_menu_results: {
-                        Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.animation_fade_in, R.anim.hold);
-                        break;
-                    }
-                    case R.id.drawer_menu_register: {
-                        break;
-                    }
-                    case R.id.drawer_menu_insta: {
-                        Intent intent = new Intent(MainActivity.this, InstaFeedActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.animation_fade_in, R.anim.hold);
-                        break;
-                    }
-                    case R.id.drawer_menu_developers: {
-                        Intent intent = new Intent(MainActivity.this, DevelopersActivity.class);
-                        startActivity(intent);
-                        break;
-                    }
-                    case R.id.drawer_menu_about: {
-                        Intent intent = new Intent(MainActivity.this, AboutUsActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.animation_fade_in, R.anim.hold);
-                        break;
-                    }
-
-                }
                 return true;
             }
         });
@@ -109,13 +126,14 @@ public class MainActivity extends AppCompatActivity {
         DayFragmentPagerAdapter dayFragmentPagerAdapter = new DayFragmentPagerAdapter(getSupportFragmentManager());
         dayFragmentPagerAdapter.addFragment(new DayFragment(),getString(R.string.day_1), null);
         dayFragmentPagerAdapter.addFragment(new DayFragment(),getString(R.string.day_2), null);
-        dayFragmentPagerAdapter.addFragment(new DayFragment(), getString(R.string.day_3), null);
+        dayFragmentPagerAdapter.addFragment(new DayFragment(),getString(R.string.day_3), null);
         dayFragmentPagerAdapter.addFragment(new DayFragment(), getString(R.string.day_4), null);
 
         ViewPager daysViewPager = (ViewPager) findViewById(R.id.event_day_viewpager);
         daysViewPager.setAdapter(dayFragmentPagerAdapter);
+        daysViewPager.setId(R.id.event_day_viewpager);
 
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR1){
+	if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR1){
             daysViewPager.setId(View.generateViewId());
         }
 
@@ -128,18 +146,22 @@ public class MainActivity extends AppCompatActivity {
 
             case "12-10-2016":{
                 daysViewPager.setCurrentItem(0);
+                trendingEnabled = true;
                 break;
             }
             case "13-10-2016":{
                 daysViewPager.setCurrentItem(1);
+                trendingEnabled = true;
                 break;
             }
             case "14-10-2016":{
                 daysViewPager.setCurrentItem(2);
+                trendingEnabled = true;
                 break;
             }
             case "15-10-2016":{
                 daysViewPager.setCurrentItem(3);
+                trendingEnabled = true;
                 break;
             }
             default: daysViewPager.setCurrentItem(0);
@@ -170,9 +192,14 @@ public class MainActivity extends AppCompatActivity {
             }
 
             case R.id.trending:{
-                Intent intent = new Intent (MainActivity.this, TrendingActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                if (trendingEnabled) {
+                    Intent intent = new Intent(MainActivity.this, TrendingActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
+                else{
+                    Snackbar.make(mDrawerLayout, "Trending Categories - Coming Soon!", Snackbar.LENGTH_SHORT).show();
+                }
                 break;
             }
         }

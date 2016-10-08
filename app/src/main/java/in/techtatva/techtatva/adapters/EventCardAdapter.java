@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
-import android.os.SystemClock;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.TabLayout;
@@ -22,14 +21,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import in.techtatva.techtatva.R;
-import in.techtatva.techtatva.activities.EasterEggActivity;
 import in.techtatva.techtatva.models.FavouritesModel;
 import in.techtatva.techtatva.models.events.EventModel;
 import in.techtatva.techtatva.receivers.NotificationReceiver;
@@ -51,6 +48,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
     private Map<String, Boolean> isExpanded;
     private Realm eventsDatabase;
     private Context context;
+    private int id=0;
     private final int ADD_FAVOURITE = 0;
     private final int REMOVE_FAVOURITE = 1;
     private final int CREATE_NOTIFICATION = 0;
@@ -112,14 +110,16 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
             adaptersMap.put(event.getEventName(), adapter);
             viewHolder.eventFragmentPager.setAdapter(adapter);
             viewHolder.eventTabLayout.setupWithViewPager(viewHolder.eventFragmentPager);
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR1){
+            viewHolder.eventFragmentPager.setId(++id);
+			if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR1){
                 viewHolder.eventFragmentPager.setId(View.generateViewId());
             }
         }
         else {
             viewHolder.eventFragmentPager.setAdapter(adaptersMap.get(event.getEventName()));
             viewHolder.eventTabLayout.setupWithViewPager(viewHolder.eventFragmentPager);
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR1){
+            viewHolder.eventFragmentPager.setId(++id);
+			if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR1){
                 viewHolder.eventFragmentPager.setId(View.generateViewId());
             }
         }
@@ -258,6 +258,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
         EventFragmentCustomPager eventFragmentPager;
         TabLayout eventTabLayout;
         CardView eventCardView;
+        ImageView expandEvent;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -267,6 +268,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
             eventName = (TextView) itemView.findViewById(R.id.event_name_text_view);
             favoriteButton = (ImageButton) itemView.findViewById(R.id.favorite_image_button);
             linearLayout = (LinearLayout) itemView.findViewById(R.id.event_description_linear_layout);
+            expandEvent = (ImageView)itemView.findViewById(R.id.event_expand_image_view);
 
             eventFragmentPager = (EventFragmentCustomPager)itemView.findViewById(R.id.event_view_pager);
             eventTabLayout = (TabLayout)itemView.findViewById(R.id.events_tab_layout);
@@ -279,8 +281,9 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
         @Override
         public void onClick(View view) {
             if(view.getId()==eventCardView.getId()){
+                expandEvent.setRotation(expandEvent.getRotation()+180);
 
-                if(linearLayout.getVisibility()==View.VISIBLE){
+                if(linearLayout.getVisibility()==View.VISIBLE) {
                     linearLayout.setVisibility(View.GONE);
                     isExpanded.remove(eventName.getText().toString());
                     isExpanded.put(eventName.getText().toString(), false);

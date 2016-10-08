@@ -14,7 +14,8 @@ android:orientation="vertical">
         android:layout_height="wrap_content"
         app:cardElevation="1.5dp"
         android:layout_margin="4dp"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,10 +45,9 @@ android:orientation="vertical">
                     android:layout_gravity="center"
                     android:fontFamily="sans-serif-condensed"
                     android:text="Trending Category 1"
-                    android:textAllCaps="true"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/trending_1__text_view_2"
@@ -56,7 +56,7 @@ android:orientation="vertical">
                     android:fontFamily="sans-serif-condensed"
                     android:text="1000 people interested."
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -85,7 +85,8 @@ android:orientation="vertical">
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@color/white"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/trending_2_image_view"
@@ -108,10 +109,9 @@ android:orientation="vertical">
                     android:layout_gravity="center"
                     android:fontFamily="sans-serif-condensed"
                     android:text="Trending Category 2"
-                    android:textAllCaps="true"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/trending_2__text_view_2"
@@ -120,7 +120,7 @@ android:orientation="vertical">
                     android:fontFamily="sans-serif-condensed"
                     android:text="1000 people interested."
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -149,7 +149,8 @@ android:orientation="vertical">
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@color/white"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/trending_3_image_view"
@@ -172,10 +173,9 @@ android:orientation="vertical">
                     android:layout_gravity="center"
                     android:fontFamily="sans-serif-condensed"
                     android:text="Trending Category 3"
-                    android:textAllCaps="true"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:textSize="20sp" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/trending_3__text_view_2"
@@ -184,7 +184,7 @@ android:orientation="vertical">
                     android:fontFamily="sans-serif-condensed"
                     android:text="1000 people interested."
                     android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 

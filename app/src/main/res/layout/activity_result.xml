@@ -6,7 +6,6 @@
     android:background="@color/grey_bg"
     tools:context="in.techtatva.techtatva.activities.ResultActivity">
 
-
         <include layout="@layout/app_bar" />
 
         <include layout="@layout/custom_progress_dialog"
@@ -17,7 +16,26 @@
             android:id="@+id/result_no_connection_layout"
             android:visibility="gone"/>
 
-        <android.support.v4.widget.SwipeRefreshLayout
+    <LinearLayout
+        android:id="@+id/no_results_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grey_bg"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="17sp"
+            android:text="@string/no_results"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/dark_grey"/>
+
+    </LinearLayout>
+
+
+    <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/result_swipe_refresh"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

@@ -3,7 +3,6 @@ package in.techtatva.techtatva.fragments;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +51,11 @@ public class SelectedCategoryDayFragment extends android.support.v4.app.Fragment
 
                 if (eventDetail!=null){
                     EventModel event = new EventModel();
-                    event.setEventName(eventDetail.getEventName() + " (Round " + schedule.getRound() + ")");
+                    if (schedule.getRound().equalsIgnoreCase("f"))
+                        event.setEventName(eventDetail.getEventName());
+                    else
+                        event.setEventName(eventDetail.getEventName() + " (Round " + schedule.getRound() + ")");;
+
                     event.setEventId(eventDetail.getEventID());
                     event.setDescription(eventDetail.getDescription());
                     event.setEventMaxTeamNumber(eventDetail.getMaxTeamSize());

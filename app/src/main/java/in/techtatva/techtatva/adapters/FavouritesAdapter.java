@@ -2,7 +2,6 @@ package in.techtatva.techtatva.adapters;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Typeface;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -127,6 +125,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
         TextView favouriteName, favouriteVenue, favouriteTime, favouriteDate, favouriteMaxParticipants, favouriteContact;
         ImageButton deleteButton;
         LinearLayout detailsLayout;
+        ImageView expandFavourite;
 
 
         public FavouritesViewHolder(View itemView) {
@@ -140,6 +139,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
             favouriteContact = (TextView)itemView.findViewById(R.id.favourite_contact_text_view);
             deleteButton = (ImageButton)itemView.findViewById(R.id.favourite_delete_image_button);
             detailsLayout = (LinearLayout)itemView.findViewById(R.id.favourite_description_linear_layout);
+            expandFavourite = (ImageView)itemView.findViewById(R.id.favourite_expand_image_view);
 
             itemView.setOnClickListener(this);
             deleteButton.setOnClickListener(this);
@@ -149,6 +149,7 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
 
         @Override
         public void onClick(final View v) {
+            expandFavourite.setRotation(expandFavourite.getRotation()+180);
 
             if (v.getId() == itemView.getId()){
 

@@ -9,6 +9,7 @@
     android:layout_marginLeft="4dp"
     android:layout_marginRight="4dp"
     android:layout_marginTop="4dp"
+    android:animateLayoutChanges="true"
     android:background="@color/background_holo_light">
 
     <LinearLayout
@@ -16,31 +17,30 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/on_select_bg"
         android:paddingTop="6dp"
         android:paddingBottom="6dp"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:paddingRight="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
         <ImageView
+            android:layout_weight="0"
             android:id="@+id/event_logo_image_view"
             android:layout_width="@dimen/std_icon_size"
             android:layout_height="@dimen/std_icon_size"
-            android:layout_centerVertical="true"
             android:src="@drawable/acumen" />
 
         <TextView
+            android:layout_weight="1"
             android:id="@+id/event_name_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/event_logo_image_view"
-            android:layout_toEndOf="@+id/event_logo_image_view"
             android:fontFamily="sans-serif-condensed"
-            android:layout_centerVertical="true"
-            android:textAllCaps="true"
             tools:text="Event Name"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:layout_marginStart="@dimen/activity_vertical_margin"
@@ -48,19 +48,27 @@
             android:textSize="@dimen/typography_title"
             android:textStyle="bold" />
 
+        <ImageView
+            android:layout_weight="0"
+            android:id="@+id/event_expand_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_expand"
+            android:alpha="0.54"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"/>
+
         <ImageButton
+            android:layout_weight="0"
             android:id="@+id/favorite_image_button"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
             android:src="@drawable/ic_fav"
             android:tint="@color/grey"
             android:background="@drawable/on_fav_select"
             android:tag="Deselected"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
         <LinearLayout
             android:id="@+id/event_description_linear_layout"

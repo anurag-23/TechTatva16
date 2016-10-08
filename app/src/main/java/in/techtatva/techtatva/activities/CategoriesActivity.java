@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -167,6 +168,9 @@ public class CategoriesActivity extends AppCompatActivity {
                     if (Potato.potate(this).Utils().isInternetConnected()){
                         noConnectionLayout.setVisibility(View.GONE);
                         loadCategories(LOAD_CATEGORIES);
+                    }
+                    else{
+                        Toast.makeText(CategoriesActivity.this, "Check internet connection!", Toast.LENGTH_SHORT).show();
                     }
 
                 break;

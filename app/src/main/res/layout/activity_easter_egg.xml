@@ -7,31 +7,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:gravity="center">
+
+        <ImageView
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:src="@drawable/harambe"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/swipe_down"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textAllCaps="true"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center_horizontal"/>
-
-        <ImageView
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:src="@drawable/harambe"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/to_return"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textAllCaps="true"
+            android:layout_marginTop="8dp"
             android:fontFamily="sans-serif-light"
             android:gravity="center_horizontal"/>
 

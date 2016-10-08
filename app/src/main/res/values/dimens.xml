@@ -3,7 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="navigation_drawer_width">280dp</dimen>
+    <dimen name="navigation_drawer_width">288dp</dimen>
 
     <dimen name="drawable_padding">32dp</dimen>
     <dimen name="item_text_size">14sp</dimen>

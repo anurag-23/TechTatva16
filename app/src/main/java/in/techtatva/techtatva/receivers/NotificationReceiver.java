@@ -1,6 +1,5 @@
 package in.techtatva.techtatva.receivers;
 
-import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -10,14 +9,8 @@ import android.content.Intent;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
-import java.util.Calendar;
-import java.util.List;
-
 import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.activities.SplashActivity;
-import in.techtatva.techtatva.models.FavouritesModel;
-import io.realm.Realm;
-import io.realm.RealmResults;
 
 /**
  * Created by anurag on 26/9/16.
@@ -46,7 +39,7 @@ public class NotificationReceiver extends BroadcastReceiver{
             Notification notify = new NotificationCompat.Builder(context)
                     .setContentTitle(NOTIFICATION_TITLE)
                     .setContentText(notificationText)
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setSmallIcon(R.drawable.tt_status_bar)
                     .setContentIntent(pendingIntent)
                     .setDefaults(NotificationCompat.DEFAULT_SOUND)
                     .addAction(new android.support.v4.app.NotificationCompat.Action(0, LAUNCH_APPLICATION, pendingIntent))

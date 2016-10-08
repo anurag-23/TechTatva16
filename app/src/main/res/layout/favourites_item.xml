@@ -8,6 +8,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     app:cardElevation="1.5dp"
+    android:animateLayoutChanges="true"
     android:layout_marginLeft="4dp"
     android:layout_marginRight="4dp"
     android:layout_marginTop="4dp"
@@ -18,50 +19,56 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/on_select_bg"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="6dp"
-            android:paddingBottom="6dp">
+            android:paddingBottom="6dp"
+            android:gravity="center_vertical">
 
             <ImageView
+                android:layout_weight="0"
                 android:id="@+id/favourite_logo_image_view"
                 android:layout_width="@dimen/std_icon_size"
                 android:layout_height="@dimen/std_icon_size"
-                android:layout_centerVertical="true"
                 android:src="@drawable/acumen" />
 
             <TextView
+                android:layout_weight="1"
                 android:id="@+id/favourite_name_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/favourite_logo_image_view"
-                android:layout_toEndOf="@+id/favourite_logo_image_view"
                 android:fontFamily="sans-serif-condensed"
-                android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/activity_vertical_margin"
                 android:layout_marginStart="@dimen/activity_vertical_margin"
-                android:textAllCaps="true"
                 tools:text="Event Name"
                 android:textColor="@color/black"
                 android:textSize="@dimen/typography_title"
                 android:textStyle="bold" />
 
+            <ImageView
+                android:layout_weight="0"
+                android:id="@+id/favourite_expand_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_expand"
+                android:alpha="0.54"
+                android:layout_marginRight="8dp"
+                android:layout_marginEnd="8dp"/>
+
             <ImageButton
+                android:layout_weight="0"
                 android:id="@+id/favourite_delete_image_button"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
                 android:src="@drawable/ic_delete"
-                android:tint="@color/dark_grey"
+                android:alpha="0.54"
                 android:background="@drawable/on_fav_select" />
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/favourite_description_linear_layout"
@@ -95,7 +102,7 @@
                     android:gravity="start|center_vertical"
                     android:textColor="@color/black"
                     tools:text="Location"
-                    android:textSize="15sp"/>
+                    android:textSize="14sp"/>
 
                 <TextView
                     android:id="@+id/favourite_time_text_view"

@@ -1,6 +1,8 @@
 package in.techtatva.techtatva.activities;
 
 import android.content.Context;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
@@ -20,12 +22,19 @@ public class EasterEggActivity extends AppCompatActivity {
     private float x1,x2,y1,y2;
     private final String LUG_FB = "https://www.facebook.com/LUGManipal";
     private final String LUG_GITHUB = "https://www.github.com/LUGM";
+    private MediaPlayer mMediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_easter_egg);
         setTheme(R.style.EasterEggTheme);
+
+        mMediaPlayer = new MediaPlayer();
+        mMediaPlayer = MediaPlayer.create(this, R.raw.audio_easter_egg);
+        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mMediaPlayer.setLooping(true);
+        mMediaPlayer.start();
 
         Vibrator v = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(3000);
@@ -80,5 +89,11 @@ public class EasterEggActivity extends AppCompatActivity {
         }
 
         return super.onTouchEvent(event);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mMediaPlayer.stop();
     }
 }

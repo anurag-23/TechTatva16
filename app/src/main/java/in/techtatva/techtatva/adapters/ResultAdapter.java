@@ -12,12 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
-import java.util.Map;
-
 import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.activities.ResultActivity;
 import in.techtatva.techtatva.fragments.ResultDetailsDialogFragment;
-import in.techtatva.techtatva.models.results.ResultModel;
 import in.techtatva.techtatva.resources.IconCollection;
 
 /**
@@ -60,12 +57,14 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
 
         ImageView resultLogo;
         TextView resultName;
+        ImageView resultPlus;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             resultLogo=(ImageView)itemView.findViewById(R.id.result_logo_image_view);
             resultName=(TextView)itemView.findViewById(R.id.result_name_text_view);
+            resultPlus = (ImageView)itemView.findViewById(R.id.result_plus_image_view);
             itemView.setOnClickListener(this);
         }
 
@@ -73,7 +72,9 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         @Override
         public void onClick(View view) {
             if(view.getId()==itemView.getId()){
-                DialogFragment fragment= ResultDetailsDialogFragment.newInstance(eventRounds.get(getLayoutPosition()).result);
+                resultPlus.setImageResource(R.drawable.ic_minus);
+
+                DialogFragment fragment= ResultDetailsDialogFragment.newInstance(eventRounds.get(getLayoutPosition()).result, resultPlus);
                 fragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
 
                 Bundle bundle = new Bundle();
