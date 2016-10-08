@@ -52,7 +52,7 @@ public class IconCollection {
             case "energia" : return energia;
             case "epsilon": return epsilon;
             case "featured event-paper presentation": return paper;
-            case "fuel rc": return fuelRC;
+            case "fuel rc 5": return fuelRC;
             case "gaming": return gaming;
             case "kraftwagen": return kraftwagen;
             case "the manipal conclave": return conclave;

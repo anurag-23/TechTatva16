@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.drawer_menu_developers: {
                                 Intent intent = new Intent(MainActivity.this, DevelopersActivity.class);
                                 startActivity(intent);
+                                overridePendingTransition(R.anim.animation_fade_in, R.anim.hold);
                                 break;
                             }
                             case R.id.drawer_menu_about: {
@@ -115,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
                         }
                     }
-                }, 200);
+                }, 300);
 
                 mDrawerLayout.closeDrawers();
 

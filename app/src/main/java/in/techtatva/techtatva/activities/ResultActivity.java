@@ -270,4 +270,11 @@ public class ResultActivity extends AppCompatActivity {
         super.onDestroy();
         resultsDatabase.close();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.hold, R.anim.animation_fade_out);
+    }
 }
