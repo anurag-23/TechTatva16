@@ -115,4 +115,6 @@
     <string name="no_results">No results available.</string>
     <string name="title_activity_online_events">Online Events</string>
     <string name="title_activity_register">Register</string>
+    <string name="event_details">Event Details</string>
+    <string name="info">Info</string>
 </resources>

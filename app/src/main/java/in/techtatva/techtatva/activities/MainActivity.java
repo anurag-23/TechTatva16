@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
                         }
                     }
-                }, 300);
+                }, 280);
 
                 mDrawerLayout.closeDrawers();
 
