@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -18,7 +19,6 @@ import in.techtatva.techtatva.adapters.CategoryAdapter;
 import in.techtatva.techtatva.models.categories.CategoriesListModel;
 import in.techtatva.techtatva.models.categories.CategoryModel;
 import in.techtatva.techtatva.network.APIClient;
-import in.techtatva.techtatva.network.CategoriesAPIClient;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import retrofit2.Call;
@@ -175,11 +175,16 @@ public class CategoriesActivity extends AppCompatActivity {
 
         return super.onTouchEvent(event);
     }
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case android.R.id.home:{
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                break;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

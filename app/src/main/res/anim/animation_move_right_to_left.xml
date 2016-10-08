@@ -4,7 +4,7 @@
     android:interpolator="@android:anim/linear_interpolator">
 
     <translate
-        android:duration="500"
+        android:duration="@android:integer/config_mediumAnimTime"
         android:fromXDelta="500%p"
         android:toXDelta="0%p" />
 

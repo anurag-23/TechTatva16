@@ -1,5 +1,6 @@
 package in.techtatva.techtatva.activities;
 
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -22,10 +23,15 @@ public class TrendingActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-    }
+    public boolean onOptionsItemSelected(MenuItem item) {
 
+        switch(item.getItemId()){
+            case android.R.id.home:{
+                finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                break;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

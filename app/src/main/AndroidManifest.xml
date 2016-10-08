@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:name=".applications.TechTatva16"
@@ -68,17 +69,34 @@
             android:label="@string/title_activity_trending"
             android:parentActivityName=".activities.MainActivity">
         </activity>
+        <activity
+            android:name=".activities.EasterEggActivity"
+            android:label="@string/title_activity_easter_egg"
+            android:theme="@style/EasterEggTheme"
+            android:parentActivityName=".activities.MainActivity">
+        </activity>
+        <activity android:name=".activities.DevelopersActivity"
+            android:label="@string/title_activity_developers"
+            android:parentActivityName=".activities.MainActivity"/>
         <receiver
             android:name=".receivers.NotificationReceiver" android:exported="false"
             android:enabled="true" android:label="@string/notification_receiver">
         </receiver>
         <receiver android:name=".receivers.BootReceiver" android:exported="false"
-            android:enabled="true" android:label="@string/boot_receiver"
-            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            android:enabled="true" android:label="@string/boot_receiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.EXTERNAL_APPLICATIONS_AVAILABLE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="android.intent.category.DEFAULT"/>
+                <action android:name="android.intent.action.REBOOT"/>
+            </intent-filter>
+
+
         </receiver>
     </application>
 

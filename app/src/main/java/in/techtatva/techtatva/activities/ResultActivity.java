@@ -145,7 +145,7 @@ public class ResultActivity extends AppCompatActivity {
             {
                 if (!eventRounds.isEmpty()){
                     for (EventRound round : eventRounds) {
-                        if (round.eventName.equals(result.getEventName() + " (Round " + result.getRound() + ")")) {
+                        if (round.eventName.equals(result.getEventName() + " (Round " + result.getRound().toUpperCase() + ")")) {
                             round.result.add(result);
                             break arrange;
                         }
@@ -239,6 +239,11 @@ public class ResultActivity extends AppCompatActivity {
                     Snackbar.make(resultsRecyclerView, "Refreshing data...", Snackbar.LENGTH_LONG).show();
                     loadResults(UPDATE_RESULTS);
                 }
+                break;
+            }
+            case android.R.id.home:{
+                finish();
+                overridePendingTransition(R.anim.hold, R.anim.animation_fade_out);
                 break;
             }
         }

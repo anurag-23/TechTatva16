@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class DayFragmentPagerAdapter extends FragmentPagerAdapter {
 
-   private final List<Fragment> mFragmentList = new ArrayList<>();
+    private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
 
     public DayFragmentPagerAdapter(FragmentManager fm) {
@@ -31,6 +31,7 @@ public class DayFragmentPagerAdapter extends FragmentPagerAdapter {
         return mFragmentList.size();
     }
 
+
     public void addFragment(Fragment fragment, String title, String category) {
         Bundle bundle= new Bundle();
         bundle.putString("title",title);
@@ -43,5 +44,10 @@ public class DayFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         return mFragmentTitleList.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 }

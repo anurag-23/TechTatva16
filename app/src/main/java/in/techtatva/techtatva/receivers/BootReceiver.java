@@ -21,9 +21,10 @@ public class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        Log.d("Inside", "Reboot receiver");
+
         if (intent.getAction().equalsIgnoreCase(Intent.ACTION_BOOT_COMPLETED)){
 
-            Log.d("Inside", "Reboot receiver");
             Realm realm = Realm.getDefaultInstance();
             RealmResults<FavouritesModel> favouritesResults = realm.where(FavouritesModel.class).findAll();
 

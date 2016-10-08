@@ -7,6 +7,12 @@
         <item name="android:navigationBarColor">@color/color_primary_dark</item>
     </style>
 
+    <style name="EasterEggTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/dark_grey</item>
+        <item name="android:colorPrimaryDark">@color/black</item>
+        <item name="android:navigationBarColor">@color/black</item>
+    </style>
+
     <style name="AppBarTheme" parent = "ThemeOverlay.AppCompat.Dark">
 
         <item name="android:textColorSecondary">@color/white</item>

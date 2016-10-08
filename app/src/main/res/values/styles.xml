@@ -3,6 +3,9 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
 
+    <style name="EasterEggTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    </style>
+
     <style name="AppBarTheme" parent = "ThemeOverlay.AppCompat.Dark">
 
         <item name="android:textColorSecondary">@color/white</item>

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1061975199829",
+    "firebase_url": "https://techtatva16-c7d3f.firebaseio.com",
+    "project_id": "techtatva16-c7d3f",
+    "storage_bucket": "techtatva16-c7d3f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061975199829:android:41de04ce5b8e2ccd",
+        "android_client_info": {
+          "package_name": "in.techtatva.techtatva"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1061975199829-1rglt3ufsdp1v1apbjiqccm5dklkp1js.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9_C2zKVzWLyp8HRKbxKQPEsWXP5a1zu0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
