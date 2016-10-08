@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.SystemClock;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -50,7 +51,6 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
     private Map<String, Boolean> isExpanded;
     private Realm eventsDatabase;
     private Context context;
-    private int id=0;
     private final int ADD_FAVOURITE = 0;
     private final int REMOVE_FAVOURITE = 1;
     private final int CREATE_NOTIFICATION = 0;
@@ -112,12 +112,16 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
             adaptersMap.put(event.getEventName(), adapter);
             viewHolder.eventFragmentPager.setAdapter(adapter);
             viewHolder.eventTabLayout.setupWithViewPager(viewHolder.eventFragmentPager);
-            viewHolder.eventFragmentPager.setId(++id);
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR1){
+                viewHolder.eventFragmentPager.setId(View.generateViewId());
+            }
         }
         else {
             viewHolder.eventFragmentPager.setAdapter(adaptersMap.get(event.getEventName()));
             viewHolder.eventTabLayout.setupWithViewPager(viewHolder.eventFragmentPager);
-            viewHolder.eventFragmentPager.setId(++id);
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR1){
+                viewHolder.eventFragmentPager.setId(View.generateViewId());
+            }
         }
 
     }

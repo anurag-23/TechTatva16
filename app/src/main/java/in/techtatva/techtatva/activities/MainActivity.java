@@ -1,6 +1,7 @@
 package in.techtatva.techtatva.activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -17,6 +18,7 @@ import android.view.View;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import chipset.potato.utils.Utils;
 import in.techtatva.techtatva.adapters.DayFragmentPagerAdapter;
 import in.techtatva.techtatva.fragments.DayFragment;
 import in.techtatva.techtatva.R;
@@ -107,12 +109,15 @@ public class MainActivity extends AppCompatActivity {
         DayFragmentPagerAdapter dayFragmentPagerAdapter = new DayFragmentPagerAdapter(getSupportFragmentManager());
         dayFragmentPagerAdapter.addFragment(new DayFragment(),getString(R.string.day_1), null);
         dayFragmentPagerAdapter.addFragment(new DayFragment(),getString(R.string.day_2), null);
-        dayFragmentPagerAdapter.addFragment(new DayFragment(),getString(R.string.day_3), null);
+        dayFragmentPagerAdapter.addFragment(new DayFragment(), getString(R.string.day_3), null);
         dayFragmentPagerAdapter.addFragment(new DayFragment(), getString(R.string.day_4), null);
 
         ViewPager daysViewPager = (ViewPager) findViewById(R.id.event_day_viewpager);
         daysViewPager.setAdapter(dayFragmentPagerAdapter);
-        daysViewPager.setId(R.id.event_day_viewpager);
+
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR1){
+            daysViewPager.setId(View.generateViewId());
+        }
 
         Calendar c = Calendar.getInstance();
 

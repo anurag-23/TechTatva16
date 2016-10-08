@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.View;
 
 import chipset.potato.Potato;
 import in.techtatva.techtatva.R;
+import in.techtatva.techtatva.fragments.SnapchatFragment;
 
 public class AboutUsActivity extends AppCompatActivity {
 
@@ -55,9 +57,9 @@ public class AboutUsActivity extends AppCompatActivity {
         findViewById(R.id.snapchat_image).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(context)
-                        .setMessage("@mittt16")
-                        .create().show();
+                DialogFragment fragment =new SnapchatFragment();
+                fragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+                fragment.show(getSupportFragmentManager(),"fragment_snapchat");
             }
         });
 

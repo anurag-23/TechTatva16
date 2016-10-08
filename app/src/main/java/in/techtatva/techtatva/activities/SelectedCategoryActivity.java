@@ -1,5 +1,6 @@
 package in.techtatva.techtatva.activities;
 
+import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
@@ -8,6 +9,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
 import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.adapters.DayFragmentPagerAdapter;
 import in.techtatva.techtatva.fragments.CategoryInfoDialogFragment;
@@ -37,7 +40,9 @@ public class SelectedCategoryActivity extends AppCompatActivity {
 
         ViewPager daysViewPager = (ViewPager) findViewById(R.id.category_day_viewpager);
         daysViewPager.setAdapter(dayFragmentPagerAdapter);
-        daysViewPager.setId(R.id.category_day_viewpager);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR1){
+            daysViewPager.setId(View.generateViewId());
+        }
 
         TabLayout daysTabLayout = (TabLayout)findViewById(R.id.category_tab_layout);
         daysTabLayout.setupWithViewPager(daysViewPager);
