@@ -68,7 +68,6 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
     private final int REMOVE_FAVOURITE = 1;
     private final int CREATE_NOTIFICATION = 0;
     private final int CANCEL_NOTIFICATION = 1;
-    private final int CALL_PERMISSION = 1;
     private float x1,x2,y1,y2;
 
     public EventCardAdapter(Activity activity, RecyclerView recyclerView, List<EventModel> events, List<EventModel> allEvents, FragmentManager fm, Realm eventsDatabase){
@@ -82,7 +81,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
         isExpanded = new HashMap<>();
 
         for (int i=0; i<events.size(); i++) {
-            isExpanded.put(events.get(i).getEventName(), false);
+            isExpanded.put(this.events.get(i).getEventName(), false);
         }
     }
 
@@ -109,10 +108,19 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
             viewHolder.favoriteButton.setTag("Deselected");
         }
 
-        if(isExpanded.containsKey(event.getEventName()) && isExpanded.get(event.getEventName()))
+        if(isExpanded.containsKey(event.getEventName()) && isExpanded.get(event.getEventName())) {
             viewHolder.linearLayout.setVisibility(View.VISIBLE);
-        else if(isExpanded.containsKey(event.getEventName()) && !isExpanded.get(event.getEventName()))
+            viewHolder.expandEvent.setRotation(180);
+        }
+        else if(isExpanded.containsKey(event.getEventName()) && !isExpanded.get(event.getEventName())){
             viewHolder.linearLayout.setVisibility(View.GONE);
+            viewHolder.expandEvent.setRotation(0);
+        }
+        else{
+            isExpanded.put(event.getEventName(), false);
+            viewHolder.linearLayout.setVisibility(View.GONE);
+            viewHolder.expandEvent.setRotation(0);
+        }
 
         viewHolder.eventName.setText(event.getEventName());
 
@@ -159,9 +167,8 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
 
         else
             for (EventModel event : allEvents) {
-                if (event.getEventName().toLowerCase().contains(query.toLowerCase())) {
+                if (event.getEventName().toLowerCase().contains(query.toLowerCase()) || event.getCatName().toLowerCase().contains(query.toLowerCase()) || (event.getHashtag1()!=null && event.getHashtag1().equalsIgnoreCase(query)) || (event.getHashtag2()!=null && event.getHashtag2().equalsIgnoreCase(query))) {
                     events.add(event);
-                    Log.d(event.getEventName(),"added");
                 }
             }
 
@@ -364,17 +371,18 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
             }
 
             if(view.getId()==eventCardView.getId()){
-                expandEvent.setRotation(expandEvent.getRotation() + 180);
 
                 if(linearLayout.getVisibility()==View.VISIBLE) {
                     linearLayout.setVisibility(View.GONE);
                     isExpanded.remove(eventName.getText().toString());
                     isExpanded.put(eventName.getText().toString(), false);
+                    expandEvent.setRotation(0);
                 }
                 else if(linearLayout.getVisibility()==View.GONE){
                     linearLayout.setVisibility(View.VISIBLE);
                     isExpanded.remove(eventName.getText().toString());
                     isExpanded.put(eventName.getText().toString(), true);
+                    expandEvent.setRotation(180);
 
                     eventsRecyclerView.post(new Runnable() {
                         @Override

@@ -156,6 +156,8 @@ public class DayFragment extends Fragment{
                     event.setDate(schedule.getDate());
                     event.setStartTime(schedule.getStartTime());
                     event.setEndTime(schedule.getEndTime());
+                    event.setHashtag1(eventDetail.getHs1());
+                    event.setHashtag2(eventDetail.getHs2());
                     eventsList.add(event);
                 }
             }
