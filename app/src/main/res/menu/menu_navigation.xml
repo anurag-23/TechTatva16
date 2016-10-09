@@ -23,12 +23,6 @@
             app:showAsAction="always"/>
 
         <item
-            android:id="@+id/drawer_menu_register"
-            android:title="@string/drawer_register"
-            android:icon="@drawable/drawer_register"
-            app:showAsAction="always" />
-
-        <item
             android:id="@+id/drawer_menu_insta"
             android:title="@string/drawer_insta"
             android:icon="@drawable/drawer_instagram"

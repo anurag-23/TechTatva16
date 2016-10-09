@@ -1,15 +1,18 @@
 package in.techtatva.techtatva.adapters;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
@@ -37,7 +40,9 @@ import java.util.List;
 import java.util.Map;
 
 import chipset.potato.Potato;
+import in.techtatva.techtatva.Manifest;
 import in.techtatva.techtatva.R;
+import in.techtatva.techtatva.activities.MainActivity;
 import in.techtatva.techtatva.models.FavouritesModel;
 import in.techtatva.techtatva.models.events.EventModel;
 import in.techtatva.techtatva.receivers.NotificationReceiver;
@@ -57,17 +62,18 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
     private RecyclerView eventsRecyclerView;
     private Map<String, Boolean> isExpanded;
     private Realm eventsDatabase;
-    private Context context;
+    private Activity activity;
     private int id=0;
     private final int ADD_FAVOURITE = 0;
     private final int REMOVE_FAVOURITE = 1;
     private final int CREATE_NOTIFICATION = 0;
     private final int CANCEL_NOTIFICATION = 1;
+    private final int CALL_PERMISSION = 1;
     private float x1,x2,y1,y2;
 
-    public EventCardAdapter(Context context, RecyclerView recyclerView, List<EventModel> events, List<EventModel> allEvents, FragmentManager fm, Realm eventsDatabase){
+    public EventCardAdapter(Activity activity, RecyclerView recyclerView, List<EventModel> events, List<EventModel> allEvents, FragmentManager fm, Realm eventsDatabase){
         eventsRecyclerView = recyclerView;
-        this.context = context;
+        this.activity = activity;
         this.events = events;
         this.allEvents = allEvents;
         this.fm = fm;
@@ -111,7 +117,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
         viewHolder.eventName.setText(event.getEventName());
 
         IconCollection icons = new IconCollection();
-        viewHolder.eventLogo.setImageResource(icons.getIconResource(context, event.getCatName()));
+        viewHolder.eventLogo.setImageResource(icons.getIconResource(activity, event.getCatName()));
 
         String[] details = new String[5];
         details[0] = "Venue: "+event.getVenue();
@@ -147,14 +153,12 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
     public void filterData(String query){
 
         events.clear();
-        Log.d("Submit query here", query);
 
         if(query.length()==0)
             events.addAll(allEvents);
 
         else
             for (EventModel event : allEvents) {
-                Log.d("Query: "+query, "Event Name: "+event.getEventName());
                 if (event.getEventName().toLowerCase().contains(query.toLowerCase())) {
                     events.add(event);
                     Log.d(event.getEventName(),"added");
@@ -200,15 +204,15 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
     }
 
     public void editNotification(EventModel event, int operation){
-        Intent intent = new Intent(context, NotificationReceiver.class);
+        Intent intent = new Intent(activity, NotificationReceiver.class);
         intent.putExtra("eventName", event.getEventName());
         intent.putExtra("startTime", event.getStartTime());
         intent.putExtra("eventVenue", event.getVenue());
         intent.putExtra("eventID", event.getEventId());
 
-        AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(context, Integer.parseInt(event.getEventId()), intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        PendingIntent pendingIntent2 = PendingIntent.getBroadcast(context, Integer.parseInt(event.getCatId()+event.getEventId()), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager)activity.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(activity, Integer.parseInt(event.getEventId()), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent2 = PendingIntent.getBroadcast(activity, Integer.parseInt(event.getCatId()+event.getEventId()), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (operation==CREATE_NOTIFICATION){
             StringBuilder dateStringBuilder = new StringBuilder();
@@ -325,37 +329,42 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
             
             if (view.getId() == detailsTitleLayout.getId()){
                 detailsLayout.setVisibility(View.VISIBLE);
-                detailsTitle.setTextColor(ContextCompat.getColor(context, R.color.color_primary));
+                detailsTitle.setTextColor(ContextCompat.getColor(activity, R.color.color_primary));
                 infoLayout.setVisibility(View.GONE);
-                infoTitle.setTextColor(ContextCompat.getColor(context, R.color.dark_grey));
+                infoTitle.setTextColor(ContextCompat.getColor(activity, R.color.dark_grey));
                 detailsUnderline.setVisibility(View.VISIBLE);
                 infoUnderline.setVisibility(View.GONE);
             }
 
             if (view.getId() == infoTitleLayout.getId()){
                 detailsLayout.setVisibility(View.GONE);
-                detailsTitle.setTextColor(ContextCompat.getColor(context, R.color.dark_grey));
+                detailsTitle.setTextColor(ContextCompat.getColor(activity, R.color.dark_grey));
                 infoLayout.setVisibility(View.VISIBLE);
-                infoTitle.setTextColor(ContextCompat.getColor(context, R.color.color_primary));
+                infoTitle.setTextColor(ContextCompat.getColor(activity, R.color.color_primary));
                 detailsUnderline.setVisibility(View.GONE);
                 infoUnderline.setVisibility(View.VISIBLE);
             }
             
             if (view.getId() == contact.getId()){
-                new AlertDialog.Builder(context)
-                        .setMessage("Call " + events.get(getLayoutPosition()).getContactName() + "?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Potato.potate(context).Intents().callIntent("+91" + events.get(getLayoutPosition()).getContactNumber());
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, null)
-                        .create().show();
+
+                if (ContextCompat.checkSelfPermission(activity,
+                        android.Manifest.permission.CALL_PHONE)
+                        == PackageManager.PERMISSION_GRANTED && !events.get(getLayoutPosition()).getContactNumber().isEmpty()) {
+                    new AlertDialog.Builder(activity)
+                            .setMessage("Call " + events.get(getLayoutPosition()).getContactName() + "?")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Potato.potate(activity).Intents().callIntent("+91" + events.get(getLayoutPosition()).getContactNumber());
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, null)
+                            .create().show();
+                }
             }
 
             if(view.getId()==eventCardView.getId()){
-                expandEvent.setRotation(expandEvent.getRotation()+180);
+                expandEvent.setRotation(expandEvent.getRotation() + 180);
 
                 if(linearLayout.getVisibility()==View.VISIBLE) {
                     linearLayout.setVisibility(View.GONE);
@@ -405,6 +414,5 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
 
         }
     }
-
 
 }

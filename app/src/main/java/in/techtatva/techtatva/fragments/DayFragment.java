@@ -293,4 +293,6 @@ public class DayFragment extends Fragment{
         super.onDestroy();
         eventsDatabase.close();
     }
+
+
 }

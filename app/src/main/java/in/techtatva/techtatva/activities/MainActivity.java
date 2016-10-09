@@ -1,18 +1,24 @@
 package in.techtatva.techtatva.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.widget.DrawerLayout;
+import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
     private boolean trendingEnabled = false;
+    private int CALL_PERMISSION = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull final MenuItem item) {
 
 
-
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -78,19 +84,13 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             }
                             case R.id.drawer_menu_online: {
-                                Intent intent=new Intent(MainActivity.this, OnlineEventsActivity.class);
+                                Intent intent = new Intent(MainActivity.this, OnlineEventsActivity.class);
                                 startActivity(intent);
                                 overridePendingTransition(R.anim.animation_fade_in, R.anim.hold);
                                 break;
                             }
                             case R.id.drawer_menu_results: {
                                 Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-                                startActivity(intent);
-                                overridePendingTransition(R.anim.animation_fade_in, R.anim.hold);
-                                break;
-                            }
-                            case R.id.drawer_menu_register: {
-                                Intent intent=new Intent(MainActivity.this, RegisterActivity.class);
                                 startActivity(intent);
                                 overridePendingTransition(R.anim.animation_fade_in, R.anim.hold);
                                 break;
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
                         }
                     }
-                }, 280);
+                }, 270);
 
                 mDrawerLayout.closeDrawers();
 
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
         ViewPager daysViewPager = (ViewPager) findViewById(R.id.event_day_viewpager);
         daysViewPager.setAdapter(dayFragmentPagerAdapter);
-        daysViewPager.setId(R.id.event_day_viewpager);
+        daysViewPager.setOffscreenPageLimit(4);
 
 	if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR1){
             daysViewPager.setId(View.generateViewId());
@@ -171,6 +171,19 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout daysTabLayout = (TabLayout)findViewById(R.id.events_tab_layout);
         daysTabLayout.setupWithViewPager(daysViewPager);
+
+        if (ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.CALL_PHONE}, CALL_PERMISSION);
+                }
+            }, 200);
+
+        }
 
     }
 
