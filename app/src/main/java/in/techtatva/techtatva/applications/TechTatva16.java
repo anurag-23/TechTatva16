@@ -1,8 +1,6 @@
 package in.techtatva.techtatva.applications;
 
 import android.app.Application;
-import android.content.Context;
-import android.support.multidex.MultiDex;
 
 import com.crashlytics.android.Crashlytics;
 
@@ -23,11 +21,6 @@ public class TechTatva16 extends Application {
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(this).build();
         Realm.setDefaultConfiguration(realmConfiguration);
 
-    }
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        MultiDex.install(this);
     }
 
 }
