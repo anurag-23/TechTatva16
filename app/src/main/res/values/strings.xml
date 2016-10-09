@@ -59,13 +59,13 @@
     <string name="qualified_teams">Qualified Teams</string>
 
     <string name="title_activity_category">Categories</string>
-    <string name="error">An error occured while connecting to the server.\nPlease check your connection or try again later.</string>
+    <string name="error">An error occurred while connecting to the server.\nPlease check your connection or try again later.</string>
     <string name="oops">Oops!</string>
     <string name="swipe_reload">Swipe Down to Reload</string>
     <string name="fetching_data">Fetching Data...\nPlease Wait</string>
     <string name="category_tag">Category:</string>
     <string name="title_activity_about_us">About TechTatva</string>
-    <string name="about_us">TechTatva is the annual, student run, National Level Technical Fest of Manipal Institute of Technology, Manipal. It is one of the largest technical fests of the South Zone of the country, witnessing participation from various prestigious institutes from across the nation. TechTatva comprises of a plethora of events, ranging across the various branches of engineering.\n\nFrugal Innovation - Do More with Less, the theme for this year seeks to extend the mindset of Jugaad, derived from the common Indian experience of innovating frugal, homespun, and simple solutions to the myriad problems that beset everyday life. This October 7th to 10th, TechTatva\'16 aims to bear witness to a revamped Jugaadu methodology.</string>
+    <string name="about_us">TechTatva is the annual, student run, National Level Technical Fest of Manipal Institute of Technology, Manipal. It is one of the largest technical fests of the South Zone of the country, witnessing participation from various prestigious institutes from across the nation. TechTatva comprises of a plethora of events, ranging across the various branches of engineering.\n\nThe world has indeed reached many pinnacles, through its power of innovation. But what is the driving force behind all of this? Curiosity is the quality that forms the foundation of all the other milestones of innovation. The insatiable thirst for knowledge gives rise to a never ending chain of questions, which further lead to imagination, thinking, experimentation and implementation. This year, we celebrate the spirit that lies at the heart of every innovation. We bring to you, TechTatva’16- ‘Passionately Curious’, from October 12th to 15th.</string>
     <string name="title_activity_favourites">Favourites</string>
     <string name="no_favourites">No favourites found.</string>
     <string name="search">Search</string>
