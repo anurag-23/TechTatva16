@@ -151,6 +151,13 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
 
         viewHolder.categoryName.setText(event.getCatName());
         viewHolder.description.setText(event.getDescription());
+
+        viewHolder.detailsLayout.setVisibility(View.VISIBLE);
+        viewHolder.detailsTitle.setTextColor(ContextCompat.getColor(activity, R.color.color_primary));
+        viewHolder.infoLayout.setVisibility(View.GONE);
+        viewHolder.infoTitle.setTextColor(ContextCompat.getColor(activity, R.color.dark_grey));
+        viewHolder.detailsUnderline.setVisibility(View.VISIBLE);
+        viewHolder.infoUnderline.setVisibility(View.GONE);
     }
 
     @Override
@@ -409,13 +416,13 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
                     favoriteButton.setColorFilter(Color.parseColor("#f1c40f"));
                     favoriteButton.setTag("Selected");
                     addOrRemoveFavourites(events.get(getLayoutPosition()), ADD_FAVOURITE);
-                    Snackbar.make(view, eventName.getText().toString().toUpperCase() + " added to favourites!", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(view, eventName.getText().toString() + " added to favourites!", Snackbar.LENGTH_SHORT).show();
                 }
                 else if(favoriteButton.getTag().toString().equals("Selected")) {
                     favoriteButton.setColorFilter(Color.parseColor("#cccccc"));
                     favoriteButton.setTag("Deselected");
                     addOrRemoveFavourites(events.get(getLayoutPosition()), REMOVE_FAVOURITE);
-                    Snackbar.make(view, eventName.getText().toString().toUpperCase() + " removed from favourites!", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(view, eventName.getText().toString() + " removed from favourites!", Snackbar.LENGTH_SHORT).show();
                 }
 
             }

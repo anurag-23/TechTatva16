@@ -169,12 +169,12 @@ public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.Fa
             if (v.getId() == deleteButton.getId()){
 
                 new AlertDialog.Builder(context)
-                        .setMessage("Remove " + favouriteName.getText().toString().toUpperCase() + " from favourites?")
+                        .setMessage("Remove " + favouriteName.getText().toString() + " from favourites?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 deleteFavourite(favouritesList.get(getLayoutPosition()));
-                                Snackbar.make(v, favouriteName.getText().toString().toUpperCase() + " removed from favourites!", Snackbar.LENGTH_SHORT).show();
+                                Snackbar.make(v, favouriteName.getText().toString() + " removed from favourites!", Snackbar.LENGTH_SHORT).show();
                             }
                         })
                         .setNegativeButton(android.R.string.no, null)

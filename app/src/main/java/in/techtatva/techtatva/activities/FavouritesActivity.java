@@ -13,12 +13,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.adapters.FavouritesAdapter;
 import in.techtatva.techtatva.models.FavouritesModel;
+import in.techtatva.techtatva.models.events.EventModel;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.Sort;
@@ -65,6 +72,50 @@ public class FavouritesActivity extends AppCompatActivity {
     void displayData(){
 
         favouritesList = favouritesDatabase.copyFromRealm(favouritesResults);
+
+        Collections.sort(favouritesList, new Comparator<FavouritesModel>() {
+            @Override
+            public int compare(FavouritesModel o1, FavouritesModel o2) {
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa");
+
+                if (Integer.parseInt(o1.getDay()) > Integer.parseInt(o2.getDay())) return 1;
+                else if (Integer.parseInt(o1.getDay()) < Integer.parseInt(o2.getDay())) return -1;
+                else {
+                    try {
+                        Date d1 = sdf.parse(o1.getStartTime());
+                        Date d2 = sdf.parse(o2.getStartTime());
+
+                        Calendar c1 = Calendar.getInstance();
+                        c1.setTime(d1);
+                        Calendar c2 = Calendar.getInstance();
+                        c2.setTime(d2);
+
+                        long diff = c1.getTimeInMillis() - c2.getTimeInMillis();
+
+                        if (diff > 0) return 1;
+                        else if (diff < 0) return -1;
+                        else {
+                            int catDiff = o1.getCatName().compareTo(o2.getCatName());
+
+                            if (catDiff > 0) return 1;
+                            else if (catDiff < 0) return -1;
+                            else {
+                                int eventDiff = o1.getEventName().compareTo(o2.getEventName());
+
+                                if (eventDiff > 0) return 1;
+                                else if (eventDiff < 0) return -1;
+                                else return 0;
+                            }
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                return 0;
+            }
+        });
+        
         adapter = new FavouritesAdapter(favouritesList, this, favouritesDatabase, favouritesRecyclerView, noFavouritesLayout);
         favouritesRecyclerView.setAdapter(adapter);
         favouritesRecyclerView.setLayoutManager(new LinearLayoutManager(this));

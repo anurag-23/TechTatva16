@@ -18,7 +18,14 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import chipset.potato.Potato;
@@ -162,6 +169,44 @@ public class DayFragment extends Fragment{
                 }
             }
         }
+        Collections.sort(eventsList, new Comparator<EventModel>() {
+            @Override
+            public int compare(EventModel o1, EventModel o2) {
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa");
+
+                try {
+                    Date d1 = sdf.parse(o1.getStartTime());
+                    Date d2 = sdf.parse(o2.getStartTime());
+
+                    Calendar c1 = Calendar.getInstance();
+                    c1.setTime(d1);
+                    Calendar c2 = Calendar.getInstance();
+                    c2.setTime(d2);
+
+                    long diff = c1.getTimeInMillis() - c2.getTimeInMillis();
+
+                    if (diff>0) return 1;
+                    else if (diff<0) return -1;
+                    else{
+                        int catDiff = o1.getCatName().compareTo(o2.getCatName());
+
+                        if (catDiff>0) return 1;
+                        else if (catDiff<0) return -1;
+                        else {
+                            int eventDiff = o1.getEventName().compareTo(o2.getEventName());
+
+                            if (eventDiff>0) return 1;
+                            else if (eventDiff<0) return -1;
+                            else return 0;
+                        }
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                return 0;
+            }
+        });
+
         allEventsList.clear();
         allEventsList.addAll(eventsList);
         adapter.notifyDataSetChanged();
