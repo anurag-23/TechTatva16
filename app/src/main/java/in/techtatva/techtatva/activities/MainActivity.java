@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
-    private boolean trendingEnabled = false;
+    private boolean trendingEnabled = true;
     private int CALL_PERMISSION = 1;
 
     @Override

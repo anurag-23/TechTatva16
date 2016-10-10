@@ -14,6 +14,12 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
+
 import chipset.potato.Potato;
 import in.techtatva.techtatva.R;
 
@@ -24,7 +30,9 @@ public class OnlineEventsActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private Context context;
     private View noConnectionLayout;
-    private final String ONLINE_EVENTS_URL = "https://onlineevents.techtatva.in/";
+  //  private  String ONLINE_EVENTS_URL = "https://onlineevents.techtatva.in/";
+    private String ONLINE_EVENTS_URL="xxx";
+    private FirebaseRemoteConfig firebaseRemoteConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +45,31 @@ public class OnlineEventsActivity extends AppCompatActivity {
         WebSettings mWebSettings = EventsWebView.getSettings();
         mWebSettings.setJavaScriptEnabled(true);
         EventsWebView.setWebChromeClient(new WebChromeClient());
-
         toolbar = (Toolbar)findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null){
             getSupportActionBar().setTitle(R.string.title_activity_online_events);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        firebaseRemoteConfig=FirebaseRemoteConfig.getInstance();
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .build();
+        firebaseRemoteConfig.setConfigSettings(configSettings);
+
+        firebaseRemoteConfig.fetch()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            firebaseRemoteConfig.activateFetched();
+                           ONLINE_EVENTS_URL= "http://"+firebaseRemoteConfig.getString("onlineevents")+"/";
+                            loadWebView();
+
+                        } else {
+                        }
+                    }
+                });
 
         noConnectionLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -71,7 +97,7 @@ public class OnlineEventsActivity extends AppCompatActivity {
                             if (Potato.potate(context).Utils().isInternetConnected()) {
                                 noConnectionLayout.setVisibility(View.GONE);
                                 toolbar.setVisibility(View.VISIBLE);
-                                loadWebView();
+                               // loadWebView();
                             }
                             else{
                                 Toast.makeText(OnlineEventsActivity.this, "Check internet connection!", Toast.LENGTH_SHORT).show();
@@ -84,12 +110,12 @@ public class OnlineEventsActivity extends AppCompatActivity {
             }
         });
 
-        if (Potato.potate(this).Utils().isInternetConnected()) {
+       /* if (Potato.potate(this).Utils().isInternetConnected()) {
             loadWebView();
         } else {
             noConnectionLayout.setVisibility(View.VISIBLE);
             toolbar.setVisibility(View.GONE);
-        }
+        }  */
     }
 
     public void loadWebView(){
