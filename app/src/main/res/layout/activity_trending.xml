@@ -14,8 +14,7 @@ android:orientation="vertical">
         android:layout_height="wrap_content"
         app:cardElevation="1.5dp"
         android:layout_margin="4dp"
-        android:background="@color/white"
-        android:visibility="gone">
+        android:background="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,7 +41,6 @@ android:orientation="vertical">
                     android:id="@+id/trending_1__text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:fontFamily="sans-serif-condensed"
                     android:text="Trending Category 1"
                     android:textStyle="bold"
@@ -85,8 +83,7 @@ android:orientation="vertical">
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@color/white"
-            android:padding="10dp"
-            android:visibility="gone">
+            android:padding="10dp">
 
             <ImageView
                 android:id="@+id/trending_2_image_view"
@@ -149,8 +146,7 @@ android:orientation="vertical">
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:background="@color/white"
-            android:padding="10dp"
-            android:visibility="gone">
+            android:padding="10dp">
 
             <ImageView
                 android:id="@+id/trending_3_image_view"

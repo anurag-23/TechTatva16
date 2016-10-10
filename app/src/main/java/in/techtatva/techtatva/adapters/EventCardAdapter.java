@@ -491,6 +491,8 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
                     DialogFragment fragment = RatingDialogFragment.newInstance(view);
                     Bundle bundle = new Bundle();
                     bundle.putString("eventName", events.get(getLayoutPosition()).getEventName());
+                    bundle.putString("categoryName", events.get(getLayoutPosition()).getCatName());
+                    bundle.putString("categoryID", events.get(getLayoutPosition()).getCatId());
                     fragment.setArguments(bundle);
                     fragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
                     fragment.show(fm, "rating_fragment");
