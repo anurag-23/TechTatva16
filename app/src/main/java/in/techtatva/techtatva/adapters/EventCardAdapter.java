@@ -255,8 +255,15 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
             Calendar calendar1 = Calendar.getInstance();
             calendar1.set(Calendar.SECOND, 0);
             calendar1.set(Calendar.MINUTE, eventMinute);
-            calendar1.set(Calendar.HOUR, eventHour - 1);
-            calendar1.set(Calendar.AM_PM, Calendar.PM);
+
+            if (eventHour == 12){
+                calendar1.set(Calendar.HOUR, 11);
+                calendar1.set(Calendar.AM_PM, Calendar.AM);
+            }
+            else{
+                calendar1.set(Calendar.HOUR, eventHour-1);
+                calendar1.set(Calendar.AM_PM, Calendar.PM);
+            }
             calendar1.set(Calendar.MONTH, Calendar.OCTOBER);
             calendar1.set(Calendar.YEAR, 2016);
             calendar1.set(Calendar.DATE, eventDate);

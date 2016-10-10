@@ -9,5 +9,4 @@
     android:background="@color/color_primary"
     android:theme="@style/AppBarTheme"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-
     />
