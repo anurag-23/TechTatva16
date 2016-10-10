@@ -60,7 +60,7 @@ public class BootReceiver extends BroadcastReceiver {
                     }
 
                     int eventDate = Integer.parseInt(dateStringBuilder.toString());
-                    int eventHour = Integer.parseInt(hourStringBuilder.toString()) - 12;
+                    int eventHour = Integer.parseInt(hourStringBuilder.toString());
                     int eventMinute = Integer.parseInt(minuteStringBuilder.toString());
 
                     Log.d("Date: ", dateStringBuilder.toString());
@@ -70,8 +70,16 @@ public class BootReceiver extends BroadcastReceiver {
                     Calendar calendar1 = Calendar.getInstance();
                     calendar1.set(Calendar.SECOND, 0);
                     calendar1.set(Calendar.MINUTE, eventMinute);
-                    calendar1.set(Calendar.HOUR, eventHour - 1);
-                    calendar1.set(Calendar.AM_PM, Calendar.PM);
+
+                    if (eventHour == 12){
+                        calendar1.set(Calendar.HOUR, 11);
+                        calendar1.set(Calendar.AM_PM, Calendar.AM);
+                    }
+                    else{
+                        calendar1.set(Calendar.HOUR, eventHour-1);
+                        calendar1.set(Calendar.AM_PM, Calendar.PM);
+
+                    }
                     calendar1.set(Calendar.MONTH, Calendar.OCTOBER);
                     calendar1.set(Calendar.YEAR, 2016);
                     calendar1.set(Calendar.DATE, eventDate);
