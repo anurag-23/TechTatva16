@@ -14,7 +14,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/background_holo_light">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -151,6 +152,39 @@
             <include layout="@layout/content_info"
                 android:id="@+id/event_info_layout"
                 android:visibility="gone"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/divider_color"/>
+
+            <LinearLayout
+                android:id="@+id/rate_linear_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:tint="@color/gold"
+                    android:src="@drawable/ic_rate"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rate_event"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:background="@drawable/on_select_bg"
+                    android:padding="10dp"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
