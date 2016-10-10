@@ -13,6 +13,8 @@ import io.realm.RealmConfiguration;
  */
 public class TechTatva16 extends Application {
 
+    public static final String RATING_DATA = "rating";
+
     @Override
     public void onCreate() {
         super.onCreate();

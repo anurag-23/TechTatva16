@@ -117,4 +117,7 @@
     <string name="title_activity_register">Register</string>
     <string name="event_details">Event Details</string>
     <string name="info">Info</string>
+    <string name="rate">Rate</string>
+    <string name="cancel">Cancel</string>
+    <string name="rate_event">Rate Event</string>
 </resources>

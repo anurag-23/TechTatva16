@@ -6,13 +6,14 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.os.Build;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
@@ -24,25 +25,27 @@ import android.text.Spanned;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import chipset.potato.Potato;
-import in.techtatva.techtatva.Manifest;
 import in.techtatva.techtatva.R;
-import in.techtatva.techtatva.activities.MainActivity;
+import in.techtatva.techtatva.applications.TechTatva16;
+import in.techtatva.techtatva.fragments.RatingDialogFragment;
 import in.techtatva.techtatva.models.FavouritesModel;
 import in.techtatva.techtatva.models.events.EventModel;
 import in.techtatva.techtatva.receivers.NotificationReceiver;
@@ -141,7 +144,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
             detailsStringBuilder[i].setSpan(new android.text.style.StyleSpan(Typeface.BOLD), 0, details[i].indexOf(":"), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
 
-        detailsStringBuilder[4].setSpan(new UnderlineSpan(), details[4].indexOf(" ")+1, details[4].indexOf("(")-1, 0);
+        detailsStringBuilder[4].setSpan(new UnderlineSpan(), details[4].indexOf(" ") + 1, details[4].indexOf("(") - 1, 0);
 
         viewHolder.venue.setText(detailsStringBuilder[0]);
         viewHolder.time.setText(detailsStringBuilder[1]);
@@ -158,6 +161,49 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
         viewHolder.infoTitle.setTextColor(ContextCompat.getColor(activity, R.color.dark_grey));
         viewHolder.detailsUnderline.setVisibility(View.VISIBLE);
         viewHolder.infoUnderline.setVisibility(View.GONE);
+
+        Calendar systemCalendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        
+        Date date;
+        
+        try {
+            date = sdf.parse(event.getDate());
+
+            calendar.setTime(date);
+
+            StringBuilder hourStringBuilder = new StringBuilder();
+            StringBuilder minuteStringBuilder = new StringBuilder();
+
+            for (int i=0; event.getEndTime().charAt(i)!=':'; i++){
+                hourStringBuilder.append(event.getEndTime().charAt(i));
+            }
+            int endHour = event.getEndTime().indexOf(':')+1;
+            for (int i=endHour; i<endHour+2; i++){
+                minuteStringBuilder.append(event.getEndTime().charAt(i));
+            }
+
+            int eventEndHour = Integer.parseInt(hourStringBuilder.toString());
+            int eventMinute = Integer.parseInt(minuteStringBuilder.toString());
+
+            GregorianCalendar calendar1 = new GregorianCalendar(systemCalendar.get(Calendar.YEAR), systemCalendar.get(Calendar.MONTH), systemCalendar.get(Calendar.DATE), systemCalendar.get(Calendar.HOUR), systemCalendar.get(Calendar.MINUTE), systemCalendar.get(Calendar.SECOND));
+            GregorianCalendar calendar2 = new GregorianCalendar(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), eventEndHour, eventMinute, 0);
+
+            SharedPreferences sp = activity.getSharedPreferences(TechTatva16.RATING_DATA, Context.MODE_PRIVATE);
+
+            if ((calendar1.getTimeInMillis()>=calendar2.getTimeInMillis()) && sp.getFloat(event.getEventName(), -1)==-1){
+                viewHolder.rateLayout.setVisibility(View.VISIBLE);
+            }
+            else{
+                viewHolder.rateLayout.setVisibility(View.GONE);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+       
     }
 
     @Override
@@ -306,6 +352,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
         View detailsUnderline, infoUnderline;
         TextView detailsTitle, infoTitle;
         LinearLayout detailsTitleLayout, infoTitleLayout;
+        LinearLayout rateLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -337,12 +384,15 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
 
             detailsTitleLayout = (LinearLayout)itemView.findViewById(R.id.event_details_title_layout);
             infoTitleLayout = (LinearLayout)itemView.findViewById(R.id.event_info_title_layout);
+
+            rateLayout = (LinearLayout)itemView.findViewById(R.id.rate_linear_layout);
             
             itemView.setOnClickListener(this);
             favoriteButton.setOnClickListener(this);
             contact.setOnClickListener(this);
             detailsTitleLayout.setOnClickListener(this);
             infoTitleLayout.setOnClickListener(this);
+            rateLayout.setOnClickListener(this);
         }
 
         @Override
@@ -432,6 +482,22 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
                     Snackbar.make(view, eventName.getText().toString() + " removed from favourites!", Snackbar.LENGTH_SHORT).show();
                 }
 
+            }
+
+            if (view.getId() == rateLayout.getId()){
+                SharedPreferences sp = activity.getSharedPreferences(TechTatva16.RATING_DATA, Context.MODE_PRIVATE);
+
+                if (sp.getFloat(events.get(getLayoutPosition()).getEventName(),-1)==-1){
+                    DialogFragment fragment = RatingDialogFragment.newInstance(view);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("eventName", events.get(getLayoutPosition()).getEventName());
+                    fragment.setArguments(bundle);
+                    fragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+                    fragment.show(fm, "rating_fragment");
+                }
+                else{
+                    Snackbar.make(view, "Event already rated!", Snackbar.LENGTH_SHORT).show();
+                }
             }
 
         }
