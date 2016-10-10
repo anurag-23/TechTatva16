@@ -223,6 +223,7 @@ public class DayFragment extends Fragment{
 
         Call<EventsListModel> call1 = APIClient.getInterface().getEvents();
         Call<ScheduleListModel> call2 = APIClient.getInterface().getSchedule();
+
         call1.enqueue(new Callback<EventsListModel>() {
 
             @Override
@@ -231,6 +232,8 @@ public class DayFragment extends Fragment{
                     progressDialog.setVisibility(View.GONE);
                     eventsRecyclerView.setVisibility(View.VISIBLE);
                 }
+
+                if (eventsDatabase.isClosed()) eventsDatabase = Realm.getDefaultInstance();
 
                 eventsDatabase.beginTransaction();
                 //eventsDatabase.where(EventModel.class).equalTo("day", String.valueOf(getArguments().getString("title").charAt(4))).findAll().deleteAllFromRealm();
