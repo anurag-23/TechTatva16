@@ -74,6 +74,7 @@
             android:name=".activities.EasterEggActivity"
             android:label="@string/title_activity_easter_egg"
             android:theme="@style/EasterEggTheme"
+            android:screenOrientation="portrait"
             android:parentActivityName=".activities.MainActivity">
         </activity>
         <activity android:name=".activities.DevelopersActivity"

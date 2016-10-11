@@ -25,6 +25,7 @@ import android.view.View;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import in.techtatva.techtatva.adapters.DayFragmentPagerAdapter;
 import in.techtatva.techtatva.fragments.DayFragment;
@@ -34,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
 
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
-    private boolean trendingEnabled = true;
     private int CALL_PERMISSION = 1;
 
     @Override
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
                         }
                     }
-                }, 270);
+                }, 280);
 
                 mDrawerLayout.closeDrawers();
 
@@ -147,22 +147,18 @@ public class MainActivity extends AppCompatActivity {
 
             case "12-10-2016":{
                 daysViewPager.setCurrentItem(0);
-                trendingEnabled = true;
                 break;
             }
             case "13-10-2016":{
                 daysViewPager.setCurrentItem(1);
-                trendingEnabled = true;
                 break;
             }
             case "14-10-2016":{
                 daysViewPager.setCurrentItem(2);
-                trendingEnabled = true;
                 break;
             }
             case "15-10-2016":{
                 daysViewPager.setCurrentItem(3);
-                trendingEnabled = true;
                 break;
             }
             default: daysViewPager.setCurrentItem(0);
@@ -206,7 +202,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
             case R.id.trending:{
-                if (trendingEnabled) {
+                GregorianCalendar calendar1 = new GregorianCalendar(2016, 9, 12);
+                Calendar c = Calendar.getInstance();
+                GregorianCalendar calendar2 = new GregorianCalendar(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE));
+
+                if (calendar2.getTimeInMillis()>=calendar1.getTimeInMillis()) {
                     Intent intent = new Intent(MainActivity.this, TrendingActivity.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

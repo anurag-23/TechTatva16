@@ -8,191 +8,217 @@ android:orientation="vertical">
 
     <include layout="@layout/app_bar"/>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/trending_card_1"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardElevation="1.5dp"
-        android:layout_margin="4dp"
-        android:background="@color/white">
+        android:layout_height="wrap_content">
 
         <LinearLayout
+            android:id="@+id/trending_root_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/white"
-            android:padding="10dp">
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/trending_1_image_view"
-                android:layout_width="54dp"
-                android:layout_height="54dp"
-                android:src="@drawable/tt_acumen" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/activity_vertical_margin"
-                android:layout_marginStart="@dimen/activity_vertical_margin">
-
-                <TextView
-                    android:id="@+id/trending_1__text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text="Trending Category 1"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/trending_1__text_view_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text="1000 people interested."
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
-
-            <TextView
+            <android.support.v7.widget.CardView
+                android:id="@+id/trending_card_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/number_1"
-                android:gravity="end|right"
-                android:layout_gravity="center_vertical"
-                android:textSize="24sp"
-                android:fontFamily="sans-serif-condensed"/>
-        </LinearLayout>
+                app:cardElevation="1.5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:visibility="gone"
+                android:background="@color/white">
 
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/trending_card_2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardElevation="1.5dp"
-        android:layout_margin="4dp"
-        android:background="@color/white">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/white"
-            android:padding="10dp">
-
-            <ImageView
-                android:id="@+id/trending_2_image_view"
-                android:layout_width="54dp"
-                android:layout_height="54dp"
-                android:src="@drawable/tt_aero" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/activity_vertical_margin"
-                android:layout_marginStart="@dimen/activity_vertical_margin">
-
-                <TextView
-                    android:id="@+id/trending_2__text_view"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text="Trending Category 2"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    android:padding="10dp"
+                    android:gravity="center_vertical">
 
-                <TextView
-                    android:id="@+id/trending_2__text_view_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text="1000 people interested."
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    <ImageView
+                        android:layout_weight="0"
+                        android:id="@+id/trending_1_image_view"
+                        android:layout_width="54dp"
+                        android:layout_height="54dp"
+                        android:src="@drawable/tt_acumen" />
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="@dimen/activity_vertical_margin"
+                        android:layout_marginStart="@dimen/activity_vertical_margin">
 
-            <TextView
+                        <TextView
+                            android:id="@+id/trending_1_text_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="@string/acumen"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/trending_1_text_view_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/acumen_desc"
+                            android:fontFamily="sans-serif-condensed"
+                            android:layout_marginTop="8dp"
+                            android:textSize="14sp"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_weight="0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/number_1"
+                        android:gravity="end|right"
+                        android:textSize="24sp"
+                        android:fontFamily="sans-serif-condensed"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/trending_card_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/number_2"
-                android:gravity="end|right"
-                android:layout_gravity="center_vertical"
-                android:textSize="24sp"
-                android:fontFamily="sans-serif-condensed"/>
-        </LinearLayout>
+                app:cardElevation="1.5dp"
+                android:layout_margin="5dp"
+                android:visibility="gone"
+                android:background="@color/white">
 
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/trending_card_3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardElevation="1.5dp"
-        android:layout_margin="4dp"
-        android:background="@color/white">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/white"
-            android:padding="10dp">
-
-            <ImageView
-                android:id="@+id/trending_3_image_view"
-                android:layout_width="54dp"
-                android:layout_height="54dp"
-                android:src="@drawable/tt_alacrity" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/activity_vertical_margin"
-                android:layout_marginStart="@dimen/activity_vertical_margin">
-
-                <TextView
-                    android:id="@+id/trending_3__text_view"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text="Trending Category 3"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    android:padding="10dp"
+                    android:gravity="center_vertical">
 
-                <TextView
-                    android:id="@+id/trending_3__text_view_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text="1000 people interested."
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    <ImageView
+                        android:layout_weight="0"
+                        android:id="@+id/trending_2_image_view"
+                        android:layout_width="54dp"
+                        android:layout_height="54dp"
+                        android:src="@drawable/tt_aero" />
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="@dimen/activity_vertical_margin"
+                        android:layout_marginStart="@dimen/activity_vertical_margin">
 
-            <TextView
+                        <TextView
+                            android:id="@+id/trending_2_text_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="@string/airborne"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/trending_2_text_view_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/airborne_desc"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp"/>
+
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_weight="0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/number_2"
+                        android:gravity="end|right"
+                        android:textSize="24sp"
+                        android:fontFamily="sans-serif-condensed"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/trending_card_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/number_3"
-                android:gravity="end|right"
-                android:layout_gravity="center_vertical"
-                android:textSize="24sp"
-                android:fontFamily="sans-serif-condensed"/>
+                app:cardElevation="1.5dp"
+                android:layout_margin="5dp"
+                android:background="@color/white"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    android:padding="10dp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_weight="0"
+                        android:id="@+id/trending_3_image_view"
+                        android:layout_width="54dp"
+                        android:layout_height="54dp"
+                        android:src="@drawable/tt_alacrity" />
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="@dimen/activity_vertical_margin"
+                        android:layout_marginStart="@dimen/activity_vertical_margin">
+
+                        <TextView
+                            android:id="@+id/trending_3_text_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="@string/alacrity"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/trending_3_text_view_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/alacrity_text"
+                            android:fontFamily="sans-serif-condensed"
+                            android:textSize="14sp"
+                            android:layout_marginTop="8dp"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_weight="0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/number_3"
+                        android:gravity="end|right"
+                        android:textSize="24sp"
+                        android:fontFamily="sans-serif-condensed"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+    </ScrollView>
+
 </LinearLayout>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,7 +31,6 @@ public class OnlineEventsActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private Context context;
     private View noConnectionLayout;
-  //  private  String ONLINE_EVENTS_URL = "https://onlineevents.techtatva.in/";
     private String ONLINE_EVENTS_URL="xxx";
     private FirebaseRemoteConfig firebaseRemoteConfig;
 
@@ -56,20 +56,6 @@ public class OnlineEventsActivity extends AppCompatActivity {
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
                 .build();
         firebaseRemoteConfig.setConfigSettings(configSettings);
-
-        firebaseRemoteConfig.fetch()
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            firebaseRemoteConfig.activateFetched();
-                           ONLINE_EVENTS_URL= "http://"+firebaseRemoteConfig.getString("onlineevents")+"/";
-                            loadWebView();
-
-                        } else {
-                        }
-                    }
-                });
 
         noConnectionLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -97,7 +83,7 @@ public class OnlineEventsActivity extends AppCompatActivity {
                             if (Potato.potate(context).Utils().isInternetConnected()) {
                                 noConnectionLayout.setVisibility(View.GONE);
                                 toolbar.setVisibility(View.VISIBLE);
-                               // loadWebView();
+                                loadWebView();
                             }
                             else{
                                 Toast.makeText(OnlineEventsActivity.this, "Check internet connection!", Toast.LENGTH_SHORT).show();
@@ -110,18 +96,32 @@ public class OnlineEventsActivity extends AppCompatActivity {
             }
         });
 
-       /* if (Potato.potate(this).Utils().isInternetConnected()) {
+        if (Potato.potate(this).Utils().isInternetConnected()) {
             loadWebView();
         } else {
             noConnectionLayout.setVisibility(View.VISIBLE);
             toolbar.setVisibility(View.GONE);
-        }  */
+        }
     }
 
     public void loadWebView(){
-        WebViewClient mWebViewClient = new WebViewClient();
-        EventsWebView.setWebViewClient(mWebViewClient);
-        EventsWebView.loadUrl(ONLINE_EVENTS_URL);
+        firebaseRemoteConfig.fetch()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("URL", "fetched");
+                            firebaseRemoteConfig.activateFetched();
+                            ONLINE_EVENTS_URL = "http://" + firebaseRemoteConfig.getString("onlineevents") + "/";
+                                WebViewClient mWebViewClient = new WebViewClient();
+                                EventsWebView.setWebViewClient(mWebViewClient);
+                                EventsWebView.loadUrl(ONLINE_EVENTS_URL);
+                        } else {
+                            noConnectionLayout.setVisibility(View.VISIBLE);
+                            toolbar.setVisibility(View.GONE);
+                        }
+                    }
+                });
     }
 
     @Override

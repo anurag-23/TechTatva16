@@ -120,4 +120,12 @@
     <string name="rate">Rate</string>
     <string name="cancel">Cancel</string>
     <string name="rate_event">Rate Event</string>
+    <string name="acumen">Acumen</string>
+    <string name="average_rating">Average Rating:</string>
+    <string name="airborne">Airborne</string>
+    <string name="na">NA</string>
+    <string name="alacrity">Alacrity</string>
+    <string name="acumen_desc">Challenging scientific and reasoning abilities, Acumen is a category that puts to test the innovation and presence of mind of the participants whilst bringing out their whimsical creative and inventive side through events like Tech Race.</string>
+    <string name="airborne_desc">Airborne creates a platform to test your skills and knowledge in the field of Aerospace and Aeronautical Engineering through a series of competitions stretching from glider designing, incorporating new ideas to make rocket launcher, building flapping wing configuration aircrafts and many more astonishing stuff.</string>
+    <string name="alacrity_text">Alacrity, primarily focuses in the field of Electronics and Communication. \r\nThe category comprises of events like a treasure hunt by making your own antenna, creating patterns using lasers, lens and mirrors, making metal detectors, using microcontrollers which encourages students to innovate. Finally, to battle your wits in the online technical event.\r\n</string>
 </resources>

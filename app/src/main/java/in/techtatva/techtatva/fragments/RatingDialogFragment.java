@@ -19,13 +19,13 @@ import in.techtatva.techtatva.R;
 import in.techtatva.techtatva.applications.TechTatva16;
 import in.techtatva.techtatva.models.RatingsModel;
 import io.realm.Realm;
+import io.techery.properratingbar.ProperRatingBar;
 
 /**
  * Created by anurag on 10/10/16.
  */
 public class RatingDialogFragment extends DialogFragment {
 
-    private Realm ratedEventsDatabase;
     private static View clickedView;
 
     public RatingDialogFragment(){
@@ -43,34 +43,43 @@ public class RatingDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_rating_dialog, container, false);
 
-        TextView rateTextView = (TextView)view.findViewById(R.id.rate_button_text_view);
+        final TextView rateTextView = (TextView)view.findViewById(R.id.rate_button_text_view);
         TextView cancelTextView = (TextView)view.findViewById(R.id.cancel_button_text_view);
         TextView rateEventName = (TextView)view.findViewById(R.id.rate_event_name_text_view);
-        final RatingBar rating = (RatingBar)view.findViewById(R.id.rating_bar);
+        final ProperRatingBar rating = (ProperRatingBar)view.findViewById(R.id.rating_bar);
 
         final FirebaseDatabase database=FirebaseDatabase.getInstance();
         final DatabaseReference reference2= database.getReference();
+
         rateEventName.setText(getArguments().getString("eventName"));
+
         final String rateEventCategory=getArguments().getString("categoryName");
         final String rateEventCategoryID=getArguments().getString("categoryID");
 
         rateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = getActivity().getSharedPreferences(TechTatva16.RATING_DATA, Context.MODE_PRIVATE).edit();
-                editor.putFloat(getArguments().getString("eventName"), rating.getRating());
-                editor.apply();
+                if (rating.getRating()!=0) {
+                    SharedPreferences.Editor editor = getActivity().getSharedPreferences(TechTatva16.RATING_DATA, Context.MODE_PRIVATE).edit();
+                    editor.putInt(getArguments().getString("eventName"), rating.getRating());
+                    editor.apply();
 
-                RatingsModel ratingModel=new RatingsModel();
-                ratingModel.setCategoryID(rateEventCategoryID);
-                ratingModel.setCategoryName(rateEventCategory);
-                ratingModel.setRating(((int)rating.getRating())+"");
-                String x;
-                x=reference2.child(rateEventCategory).push().getKey();
-                reference2.child(rateEventCategory).child(x).setValue(ratingModel);
+                    RatingsModel ratingModel = new RatingsModel();
+                    ratingModel.setCategoryID(rateEventCategoryID);
+                    ratingModel.setCategoryName(rateEventCategory);
+                    ratingModel.setRating(rating.getRating() + "");
+                    String x;
+                    x = reference2.child(rateEventCategory).push().getKey();
+                    reference2.child(rateEventCategory).child(x).setValue(ratingModel);
 
-                dismiss();
-                Snackbar.make(clickedView, "Rating saved!", Snackbar.LENGTH_SHORT).show();
+                    dismiss();
+                    Snackbar.make(clickedView, "Rating saved!", Snackbar.LENGTH_SHORT).show();
+                    if (clickedView != null) clickedView.setVisibility(View.GONE);
+                }
+                else{
+                    dismiss();
+                    Snackbar.make(clickedView, "Rating cannot be zero!", Snackbar.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -80,7 +89,6 @@ public class RatingDialogFragment extends DialogFragment {
                 dismiss();
             }
         });
-
 
         return view;
     }

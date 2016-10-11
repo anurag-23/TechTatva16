@@ -193,7 +193,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
 
             SharedPreferences sp = activity.getSharedPreferences(TechTatva16.RATING_DATA, Context.MODE_PRIVATE);
 
-            if ((calendar1.getTimeInMillis()>=calendar2.getTimeInMillis()) && sp.getFloat(event.getEventName(), -1)==-1){
+            if ((calendar1.getTimeInMillis()>=calendar2.getTimeInMillis()) && sp.getInt(event.getEventName(), -1)==-1){
                 viewHolder.rateLayout.setVisibility(View.VISIBLE);
             }
             else{
@@ -487,7 +487,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
             if (view.getId() == rateLayout.getId()){
                 SharedPreferences sp = activity.getSharedPreferences(TechTatva16.RATING_DATA, Context.MODE_PRIVATE);
 
-                if (sp.getFloat(events.get(getLayoutPosition()).getEventName(),-1)==-1){
+                if (sp.getInt(events.get(getLayoutPosition()).getEventName(),-1)==-1){
                     DialogFragment fragment = RatingDialogFragment.newInstance(view);
                     Bundle bundle = new Bundle();
                     bundle.putString("eventName", events.get(getLayoutPosition()).getEventName());
