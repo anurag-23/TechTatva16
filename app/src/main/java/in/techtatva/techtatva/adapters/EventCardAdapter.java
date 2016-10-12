@@ -188,8 +188,8 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
             int eventEndHour = Integer.parseInt(hourStringBuilder.toString());
             int eventMinute = Integer.parseInt(minuteStringBuilder.toString());
 
-            GregorianCalendar calendar1 = new GregorianCalendar(systemCalendar.get(Calendar.YEAR), systemCalendar.get(Calendar.MONTH), systemCalendar.get(Calendar.DATE), systemCalendar.get(Calendar.HOUR), systemCalendar.get(Calendar.MINUTE), systemCalendar.get(Calendar.SECOND));
-            GregorianCalendar calendar2 = new GregorianCalendar(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), eventEndHour, eventMinute, 0);
+            GregorianCalendar calendar1 = new GregorianCalendar(systemCalendar.get(Calendar.YEAR), systemCalendar.get(Calendar.MONTH), systemCalendar.get(Calendar.DATE), systemCalendar.get(Calendar.HOUR_OF_DAY), systemCalendar.get(Calendar.MINUTE), systemCalendar.get(Calendar.SECOND));
+            GregorianCalendar calendar2 = new GregorianCalendar(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), eventEndHour+12, eventMinute, 0);
 
             SharedPreferences sp = activity.getSharedPreferences(TechTatva16.RATING_DATA, Context.MODE_PRIVATE);
 
@@ -203,7 +203,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.View
             e.printStackTrace();
         }
 
-       
+
     }
 
     @Override
